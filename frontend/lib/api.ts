@@ -1,27 +1,30 @@
-import type { CollectorHealth, RelationshipGraph, Signal, TrendCluster } from "@/lib/types";
+import type { CollectorState, OperationalTelemetry, RealtimeEvent } from "@/lib/types";
 
-export const API_BASE = process.env.NEXT_PUBLIC_SIGNALWATCH_API ?? "http://127.0.0.1:8000";
-export const WS_BASE = API_BASE.replace(/^http/, "ws");
+export const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL ??
+  process.env.NEXT_PUBLIC_SIGNALWATCH_API ??
+  "https://signalwatch-production-4416.up.railway.app";
 
-export async function fetchSignals(limit = 160): Promise<Signal[]> {
-  const response = await fetch(`${API_BASE}/signals?limit=${limit}`, { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error(`signal fetch failed: ${response.status}`);
-  }
-  return response.json();
+export const WS_BASE =
+  process.env.NEXT_PUBLIC_WS_URL ??
+  API_BASE.replace(/^https/, "wss").replace(/^http/, "ws");
+
+export async function fetchTelemetry(): Promise<OperationalTelemetry> {
+  return fetchJson(`${API_BASE}/api/telemetry`);
 }
 
-export async function fetchOperationalState(): Promise<{
-  health: CollectorHealth[];
-  clusters: TrendCluster[];
-  graph: RelationshipGraph;
-}> {
-  const [health, clusters, graph] = await Promise.all([
-    fetch(`${API_BASE}/collector-health`, { cache: "no-store" }).then((response) => response.json()),
-    fetch(`${API_BASE}/clusters`, { cache: "no-store" }).then((response) => response.json()),
-    fetch(`${API_BASE}/graph`, { cache: "no-store" }).then((response) => response.json())
-  ]);
-  return { health, clusters, graph };
+export async function fetchOperationalEvents(limit = 80): Promise<RealtimeEvent[]> {
+  return fetchJson(`${API_BASE}/api/signals?limit=${limit}`);
+}
+
+export async function fetchCollectors(): Promise<CollectorState[]> {
+  return fetchJson(`${API_BASE}/api/collectors`);
+}
+
+async function fetchJson<T>(url: string): Promise<T> {
+  const response = await fetch(url, { cache: "no-store" });
+  if (!response.ok) throw new Error(`signalwatch fetch failed: ${response.status}`);
+  return response.json();
 }
 
 export function sourceLabel(source: string) {
@@ -34,8 +37,15 @@ export function sourceLabel(source: string) {
       anthropic_blog: "Anthropic",
       deepmind_updates: "DeepMind",
       github_trending_ai: "GitHub",
-      huggingface_trending_models: "HuggingFace"
-    }[source] ?? source
+      huggingface_trending_models: "HuggingFace",
+      openai_policy_watcher: "OpenAI Policy",
+      anthropic_policy_watcher: "Anthropic Policy",
+      arxiv_capability_stream: "arXiv Capabilities",
+      github_agentic_runtime_index: "GitHub Runtime",
+      huggingface_model_velocity: "HF Velocity",
+      alignment_forum_discourse: "Alignment Forum",
+      lesswrong_alignment_discourse: "LessWrong"
+    }[source] ?? source.replaceAll("_", " ")
   );
 }
 
@@ -49,7 +59,14 @@ export function sourceCode(source: string) {
       anthropic_blog: "AN",
       deepmind_updates: "DM",
       github_trending_ai: "GH",
-      huggingface_trending_models: "HF"
+      huggingface_trending_models: "HF",
+      openai_policy_watcher: "OP",
+      anthropic_policy_watcher: "AP",
+      arxiv_capability_stream: "AX",
+      github_agentic_runtime_index: "GH",
+      huggingface_model_velocity: "HF",
+      alignment_forum_discourse: "AF",
+      lesswrong_alignment_discourse: "LW"
     }[source] ?? "SW"
   );
 }

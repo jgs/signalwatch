@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { ConnectionState } from "@/lib/types";
 
-export function Topbar({ connected, lastUpdate }: { connected: boolean; lastUpdate: string }) {
+export function Topbar({ connected, connectionState, lastUpdate }: { connected: boolean; connectionState: ConnectionState; lastUpdate: string }) {
   return (
     <header className="console-panel flex items-center justify-between gap-6 px-5 py-5">
       <div>
@@ -16,10 +17,16 @@ export function Topbar({ connected, lastUpdate }: { connected: boolean; lastUpda
           animate={{ boxShadow: connected ? ["0 0 0 0 rgba(137,227,173,.42)", "0 0 0 8px rgba(137,227,173,0)", "0 0 0 0 rgba(137,227,173,0)"] : "none" }}
           transition={{ duration: 2.4, repeat: Infinity }}
         />
-        <span>{connected ? "LIVE" : "SYNCING"}</span>
+        <span>{connectionLabel(connectionState)}</span>
         <span>last update {lastUpdate}</span>
       </div>
     </header>
   );
 }
 
+function connectionLabel(state: ConnectionState) {
+  if (state === "live") return "LIVE";
+  if (state === "reconnecting") return "RECONNECTING";
+  if (state === "offline") return "OFFLINE";
+  return "SYNCING";
+}

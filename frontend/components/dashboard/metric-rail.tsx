@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 
 export function MetricRail({
+  pulseKey,
   signalCount,
   sourceCount,
   alertCandidates,
@@ -18,6 +19,7 @@ export function MetricRail({
   normalizationPressure,
   collectorLatency
 }: {
+  pulseKey: number;
   signalCount: number;
   sourceCount: number;
   alertCandidates: number;
@@ -55,8 +57,13 @@ export function MetricRail({
         <motion.div
           key={label}
           initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.04 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            borderColor: pulseKey ? ["#1a2b21", "#2f4a39", "#1a2b21"] : "#1a2b21",
+            backgroundColor: pulseKey ? ["rgba(7,10,8,.85)", "rgba(8,18,12,.88)", "rgba(7,10,8,.85)"] : "rgba(7,10,8,.85)"
+          }}
+          transition={{ delay: index * 0.04, duration: 0.75 }}
           className="console-panel p-4 transition hover:border-[#2f4a39]"
         >
           <div className="terminal-label">{label}</div>

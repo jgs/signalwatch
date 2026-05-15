@@ -1,4 +1,15 @@
-export type Severity = "TRACE" | "WATCH" | "ALERT" | "CRITICAL";
+export type Severity = "TRACE" | "WATCH" | "ELEVATED" | "ALERT" | "CRITICAL";
+export type ConnectionState = "connecting" | "live" | "reconnecting" | "offline";
+export type EventKind =
+  | "signal.event"
+  | "telemetry.update"
+  | "collector.health"
+  | "source.latency"
+  | "semantic.cluster"
+  | "watcher.reconnect"
+  | "trend.spike"
+  | "alignment.alert"
+  | "system.heartbeat";
 
 export type Signal = {
   fingerprint: string;
@@ -15,7 +26,11 @@ export type Signal = {
 };
 
 export type RealtimeEvent = {
+  id?: string;
   type: string;
+  severity?: Severity;
+  source?: string;
+  message?: string;
   timestamp: string;
   payload: {
     category?: string;
@@ -48,6 +63,16 @@ export type CollectorHealth = {
   retry_count: number;
   failure_rate: number;
   message: string;
+};
+
+export type CollectorState = {
+  name: string;
+  status: "online" | "degraded" | "reconnecting" | "offline";
+  latency_ms: number;
+  reliability: number;
+  last_event_at: string;
+  reconnects: number;
+  indexed: number;
 };
 
 export type TrendCluster = {
@@ -85,13 +110,23 @@ export type RelationshipGraph = {
 };
 
 export type OperationalTelemetry = {
+  status?: "operational" | "degraded";
+  uptime_seconds?: number;
+  active_clients?: number;
+  events_emitted?: number;
   collector_uptime?: number;
   collector_latency_p50?: number;
+  latency_p50_ms?: number;
+  latency_p95_ms?: number;
   source_reliability?: number;
+  collector_reliability?: number;
   signal_velocity?: number;
   normalization_pressure?: number;
   semantic_cluster_count?: number;
   active_trend_count?: number;
+  trend_pressure?: number;
+  alignment_drift?: number;
+  heartbeat?: string;
   retry_count?: number;
   collected?: number;
   deduped?: number;

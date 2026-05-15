@@ -4,6 +4,7 @@ import type { ComponentType, ReactNode } from "react";
 import { Activity, Database, Radio, Route, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { sourceLabel } from "@/lib/api";
+import type { ConnectionState } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 const sources = [
@@ -25,6 +26,7 @@ type SidebarProps = {
   onTopicChange: (topic: string) => void;
   onSourceChange: (source: string) => void;
   connected: boolean;
+  connectionState: ConnectionState;
   signalCount: number;
   alertCandidates: number;
 };
@@ -37,10 +39,12 @@ export function OperationalSidebar({
   onTopicChange,
   onSourceChange,
   connected,
+  connectionState,
   signalCount,
   alertCandidates
 }: SidebarProps) {
   const topics = Object.entries(topicCounts).sort((a, b) => b[1] - a[1]).slice(0, 12);
+  const activeSources = Array.from(new Set([...sources, ...Object.keys(sourceCounts)]));
 
   return (
     <aside className="border-b border-signal-line bg-[#050806]/95 px-4 py-5 backdrop-blur lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:w-[286px] lg:border-b-0 lg:border-r">
@@ -51,7 +55,7 @@ export function OperationalSidebar({
 
       <SidebarSection icon={Radio} title="sources">
         <div className="space-y-1">
-          {sources.map((source) => {
+          {activeSources.map((source) => {
             const count = sourceCounts[source] ?? 0;
             const active = selectedSource === source;
             return (
@@ -97,7 +101,7 @@ export function OperationalSidebar({
       </SidebarSection>
 
       <SidebarSection icon={ShieldCheck} title="active watchers">
-        <Readout label="websocket" value={connected ? "live" : "reconnect"} live={connected} />
+        <Readout label="websocket" value={connectionState} live={connected} />
         <Readout label="watch score" value="0.72" />
         <Readout label="collector mesh" value="telemetry" />
       </SidebarSection>

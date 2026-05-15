@@ -19,6 +19,8 @@ export default function DashboardPage() {
     signals,
     events,
     connected,
+    connectionState,
+    pulseKey,
     sourceCounts,
     topicCounts,
     alertCandidates,
@@ -62,13 +64,15 @@ export default function DashboardPage() {
         onTopicChange={setSelectedTopic}
         onSourceChange={setSelectedSource}
         connected={connected}
+        connectionState={connectionState}
         signalCount={signals.length}
         alertCandidates={alertCandidates}
       />
 
       <div className="mx-auto max-w-[1500px] space-y-4 px-4 py-5 md:px-6 lg:py-6">
-        <Topbar connected={connected} lastUpdate={lastUpdate} />
+        <Topbar connected={connected} connectionState={connectionState} lastUpdate={lastUpdate} />
         <MetricRail
+          pulseKey={pulseKey}
           signalCount={filtered.length}
           sourceCount={Object.keys(sourceCounts).length}
           alertCandidates={alertCandidates}
