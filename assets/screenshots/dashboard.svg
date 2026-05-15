@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="860" viewBox="0 0 1440 860" role="img" aria-label="signalwatch Next.js operations console">
+  <rect width="1440" height="860" fill="#040605"/>
+  <rect x="0" y="0" width="286" height="860" fill="#050806"/>
+  <line x1="286" y1="0" x2="286" y2="860" stroke="#1a2b21"/>
+  <text x="30" y="54" fill="#d8ded9" font-family="Inter, Arial" font-size="22" font-weight="700">signalwatch</text>
+  <text x="30" y="84" fill="#7f8b83" font-family="Consolas, monospace" font-size="12">AI ECOSYSTEM OPS / LOCAL NODE</text>
+  <line x1="30" y1="114" x2="256" y2="114" stroke="#1a2b21"/>
+  <g font-family="Consolas, monospace" font-size="12">
+    <text x="30" y="154" fill="#536059">SOURCES</text>
+    <text x="48" y="184" fill="#7f8b83">arXiv</text><text x="226" y="184" fill="#d8ded9">050</text>
+    <text x="48" y="210" fill="#7f8b83">Alignment</text><text x="226" y="210" fill="#d8ded9">014</text>
+    <text x="48" y="236" fill="#7f8b83">OpenAI</text><text x="226" y="236" fill="#d8ded9">050</text>
+    <text x="48" y="262" fill="#7f8b83">HuggingFace</text><text x="226" y="262" fill="#d8ded9">022</text>
+    <text x="30" y="318" fill="#536059">TOPICS</text>
+  </g>
+  <g font-family="Consolas, monospace" font-size="11">
+    <rect x="30" y="336" width="62" height="24" fill="#050806" stroke="#1a2b21"/><text x="42" y="352" fill="#89e3ad">models</text>
+    <rect x="98" y="336" width="68" height="24" fill="#050806" stroke="#1a2b21"/><text x="110" y="352" fill="#7f8b83">agents</text>
+    <rect x="172" y="336" width="80" height="24" fill="#050806" stroke="#1a2b21"/><text x="184" y="352" fill="#7f8b83">alignment</text>
+    <rect x="30" y="368" width="84" height="24" fill="#050806" stroke="#1a2b21"/><text x="42" y="384" fill="#7f8b83">benchmarks</text>
+    <rect x="120" y="368" width="80" height="24" fill="#050806" stroke="#1a2b21"/><text x="132" y="384" fill="#7f8b83">research</text>
+  </g>
+  <g font-family="Consolas, monospace" font-size="12">
+    <text x="30" y="446" fill="#536059">SIGNAL ROUTING</text>
+    <text x="30" y="478" fill="#7f8b83">normalized</text><text x="212" y="478" fill="#d8ded9">159</text>
+    <text x="30" y="504" fill="#7f8b83">candidate alerts</text><text x="220" y="504" fill="#d8ded9">11</text>
+    <text x="30" y="530" fill="#7f8b83">websocket</text><text x="210" y="530" fill="#89e3ad">live</text>
+  </g>
+  <rect x="326" y="34" width="1074" height="140" fill="#070a08" stroke="#1a2b21"/>
+  <text x="354" y="70" fill="#89e3ad" font-family="Consolas, monospace" font-size="12">AI OBSERVABILITY / RESEARCH INTELLIGENCE</text>
+  <text x="354" y="118" fill="#d8ded9" font-family="Inter, Arial" font-size="27" font-weight="700">ecosystem signal console</text>
+  <text x="354" y="148" fill="#7f8b83" font-family="Inter, Arial" font-size="15">papers, releases, alignment discourse, model movement, and infrastructure drift</text>
+  <circle cx="1254" cy="98" r="5" fill="#89e3ad"/>
+  <text x="1270" y="102" fill="#7f8b83" font-family="Consolas, monospace" font-size="12">LIVE 10:45:37 UTC</text>
+  <g fill="#070a08" stroke="#1a2b21">
+    <rect x="326" y="194" width="250" height="112"/><rect x="594" y="194" width="250" height="112"/>
+    <rect x="862" y="194" width="250" height="112"/><rect x="1130" y="194" width="270" height="112"/>
+  </g>
+  <g font-family="Consolas, monospace">
+    <text x="350" y="232" fill="#7f8b83" font-size="12">LIVE SIGNALS</text><text x="350" y="270" fill="#d8ded9" font-size="28">100</text>
+    <text x="618" y="232" fill="#7f8b83" font-size="12">MONITORING SOURCES</text><text x="618" y="270" fill="#d8ded9" font-size="28">08</text>
+    <text x="886" y="232" fill="#7f8b83" font-size="12">ALERT CANDIDATES</text><text x="886" y="270" fill="#d8ded9" font-size="28">11</text>
+    <text x="1154" y="232" fill="#7f8b83" font-size="12">MAX IMPORTANCE</text><text x="1154" y="270" fill="#d8ded9" font-size="28">0.82</text>
+  </g>
+  <rect x="326" y="326" width="690" height="494" fill="#070a08" stroke="#1a2b21"/>
+  <text x="350" y="362" fill="#d8ded9" font-family="Inter, Arial" font-size="17" font-weight="700">signal feed</text>
+  <text x="880" y="362" fill="#7f8b83" font-family="Consolas, monospace" font-size="12">100 normalized artifacts</text>
+  <g fill="#050706" stroke="#1a2b21">
+    <rect x="350" y="386" width="642" height="134"/>
+    <rect x="350" y="538" width="642" height="134"/>
+    <rect x="350" y="690" width="642" height="104"/>
+  </g>
+  <g font-family="Inter, Arial">
+    <text x="374" y="422" fill="#89e3ad" font-family="Consolas, monospace" font-size="12">AX / arXiv</text>
+    <text x="880" y="422" fill="#9aa56f" font-family="Consolas, monospace" font-size="12">WATCH 0.82</text>
+    <text x="374" y="458" fill="#d8ded9" font-size="17" font-weight="700">LLM attack benchmark coverage audit</text>
+    <text x="374" y="488" fill="#aeb8b1" font-size="13">Normalized research artifact with topic tags, source priority, and score routing.</text>
+    <text x="374" y="574" fill="#89e3ad" font-family="Consolas, monospace" font-size="12">OA / OpenAI</text>
+    <text x="880" y="574" fill="#9aa56f" font-family="Consolas, monospace" font-size="12">TRACE 0.79</text>
+    <text x="374" y="610" fill="#d8ded9" font-size="17" font-weight="700">Agentic software development release normalized</text>
+  </g>
+  <rect x="1040" y="326" width="360" height="160" fill="#070a08" stroke="#1a2b21"/>
+  <text x="1064" y="362" fill="#d8ded9" font-family="Inter, Arial" font-size="17" font-weight="700">signal flow</text>
+  <polyline points="1064,438 1100,420 1140,412 1180,428 1220,426 1260,438 1300,430 1340,416 1376,436" fill="none" stroke="#89e3ad" stroke-width="2"/>
+  <rect x="1040" y="508" width="360" height="142" fill="#070a08" stroke="#1a2b21"/>
+  <text x="1064" y="544" fill="#d8ded9" font-family="Inter, Arial" font-size="17" font-weight="700">source pressure</text>
+  <rect x="1064" y="578" width="292" height="6" fill="#9aa56f"/><rect x="1064" y="610" width="210" height="6" fill="#6f8064"/>
+  <rect x="1040" y="672" width="360" height="148" fill="#070a08" stroke="#1a2b21"/>
+  <text x="1064" y="708" fill="#d8ded9" font-family="Inter, Arial" font-size="17" font-weight="700">event stream</text>
+  <text x="1064" y="742" fill="#89e3ad" font-family="Consolas, monospace" font-size="12">[10:45:31 UTC]</text>
+  <text x="1182" y="742" fill="#7f8b83" font-family="Consolas, monospace" font-size="12">collector mesh synced</text>
+  <text x="1064" y="770" fill="#89e3ad" font-family="Consolas, monospace" font-size="12">[10:45:36 UTC]</text>
+  <text x="1182" y="770" fill="#7f8b83" font-family="Consolas, monospace" font-size="12">trend cluster generated</text>
+</svg>
