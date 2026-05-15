@@ -1,13 +1,13 @@
 import type { CollectorState, OperationalTelemetry, RealtimeEvent } from "@/lib/types";
 
 export const API_BASE =
-  process.env.NEXT_PUBLIC_API_URL ??
-  process.env.NEXT_PUBLIC_SIGNALWATCH_API ??
-  "https://signalwatch-production-4416.up.railway.app";
+  normalizeHttpUrl(
+    process.env.NEXT_PUBLIC_API_URL ??
+      process.env.NEXT_PUBLIC_SIGNALWATCH_API ??
+      "https://signalwatch-production-4416.up.railway.app"
+  );
 
-export const WS_BASE =
-  process.env.NEXT_PUBLIC_WS_URL ??
-  API_BASE.replace(/^https/, "wss").replace(/^http/, "ws");
+export const WS_EVENTS_URL = normalizeWebsocketUrl(process.env.NEXT_PUBLIC_WS_URL);
 
 export async function fetchTelemetry(): Promise<OperationalTelemetry> {
   return fetchJson(`${API_BASE}/api/telemetry`);
@@ -19,6 +19,15 @@ export async function fetchOperationalEvents(limit = 80): Promise<RealtimeEvent[
 
 export async function fetchCollectors(): Promise<CollectorState[]> {
   return fetchJson(`${API_BASE}/api/collectors`);
+}
+
+function normalizeHttpUrl(url: string) {
+  return url.replace(/\/+$/, "");
+}
+
+function normalizeWebsocketUrl(url?: string) {
+  const base = (url?.trim() || API_BASE.replace(/^https/, "wss").replace(/^http/, "ws")).replace(/\/+$/, "");
+  return base.endsWith("/ws/events") ? base : `${base}/ws/events`;
 }
 
 async function fetchJson<T>(url: string): Promise<T> {

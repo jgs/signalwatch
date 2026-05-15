@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { fetchCollectors, fetchOperationalEvents, fetchTelemetry, sourceLabel, WS_BASE } from "@/lib/api";
+import { fetchCollectors, fetchOperationalEvents, fetchTelemetry, sourceLabel, WS_EVENTS_URL } from "@/lib/api";
 import type {
   CollectorHealth,
   CollectorState,
@@ -75,7 +75,7 @@ export function useSignalwatch() {
 
     const connect = () => {
       setConnectionState(reconnectAttempt.current > 0 ? "reconnecting" : "connecting");
-      const socket = new WebSocket(`${WS_BASE}/ws/events`);
+      const socket = new WebSocket(WS_EVENTS_URL);
       socketRef.current = socket;
 
       socket.onopen = () => {
