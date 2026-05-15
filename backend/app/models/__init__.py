@@ -1,8 +1,25 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
-from typing import Any
+from datetime import UTC, datetime
+from typing import Any, Literal
+from uuid import uuid4
+
+from pydantic import BaseModel, Field
+
+
+Severity = Literal["trace", "watch", "elevated", "alert", "critical"]
+EventKind = Literal[
+    "signal.event",
+    "telemetry.update",
+    "collector.health",
+    "source.latency",
+    "semantic.cluster",
+    "watcher.reconnect",
+    "trend.spike",
+    "alignment.alert",
+    "system.heartbeat",
+]
 
 
 @dataclass(slots=True)
@@ -12,7 +29,7 @@ class SignalItem:
     url: str
     summary: str = ""
     authors: list[str] = field(default_factory=list)
-    published_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    published_at: datetime = field(default_factory=lambda: datetime.now(UTC))
     raw: dict[str, Any] = field(default_factory=dict)
     topics: list[str] = field(default_factory=list)
     importance: float = 0.0
@@ -67,3 +84,38 @@ class CollectorHealth:
     retry_count: int = 0
     failure_rate: float = 0.0
     message: str = ""
+
+
+class OperationalEvent(BaseModel):
+    id: str = Field(default_factory=lambda: uuid4().hex)
+    type: EventKind
+    severity: Severity = "trace"
+    source: str
+    message: str
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    payload: dict[str, Any] = Field(default_factory=dict)
+
+
+class CollectorState(BaseModel):
+    name: str
+    status: Literal["online", "degraded", "reconnecting", "offline"]
+    latency_ms: float
+    reliability: float
+    last_event_at: datetime
+    reconnects: int = 0
+    indexed: int = 0
+
+
+class TelemetrySnapshot(BaseModel):
+    status: Literal["operational", "degraded"] = "operational"
+    uptime_seconds: float
+    active_clients: int
+    events_emitted: int
+    signal_velocity: float
+    latency_p50_ms: float
+    latency_p95_ms: float
+    collector_reliability: float
+    semantic_cluster_count: int
+    trend_pressure: float
+    alignment_drift: float
+    heartbeat: str
