@@ -189,4 +189,20 @@ LAB_DEMOS = [
         summary="Future computer vision experiments for pose, movement, and biomechanical signal extraction.",
         constraints=["No heavy inference included yet.", "Designed for future model plug-in."],
     ),
+    DemoDescriptor(
+        id="pose-stability-monitoring",
+        title="Pose Stability Monitoring",
+        status="architecture-ready",
+        category="biomechanical perception",
+        summary="Planned module for tracking pose confidence, joint stability, and frame-to-frame movement consistency.",
+        constraints=["No pose outputs are fabricated.", "Requires a connected pose estimation model."],
+    ),
+    DemoDescriptor(
+        id="detection-robustness-lab",
+        title="Detection Robustness Lab",
+        status="architecture-ready",
+        category="perception safety",
+        summary="Planned lab for comparing model behavior across blur, occlusion, lighting, crop, and compression conditions.",
+        constraints=["Requires real model outputs before reporting detection confidence.", "Browser transforms are available now."],
+    ),
 ]

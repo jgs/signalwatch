@@ -43,6 +43,12 @@ export default function SafetyPage() {
           </p>
         </header>
 
+        <section className="mb-5 grid gap-3 md:grid-cols-3">
+          <WhyPanel text="Autonomous systems become difficult to supervise when capability growth exceeds evaluation and interpretability progress." source="OpenAI / Anthropic frameworks" />
+          <WhyPanel text="AI may automate tasks before entire occupations, increasing transition pressure in some sectors." source="OECD / Stanford AI Index" />
+          <WhyPanel text="Vision systems can fail under degraded environmental conditions despite strong benchmark performance." source="conceptual perception safety" />
+        </section>
+
         <section className="grid gap-5 lg:grid-cols-[.9fr_1.1fr]">
           <Panel title="alignment" icon={Shield} meta={`${alignment.length} concepts`}>
             <div className="space-y-3">
@@ -108,6 +114,7 @@ export default function SafetyPage() {
 
         <section className="mt-5 console-panel p-5">
           <SectionTitle title="source registry" meta={`${sources.length} evidence objects`} />
+          <SourceGraph sources={sources} />
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             {sources.map((source) => (
               <a key={source.id} href={source.url} target="_blank" className="border border-[#101b15] bg-[#050806]/70 p-4 transition hover:border-[#2f4a39]">
@@ -165,8 +172,48 @@ function Evidence({ evidence, sources }: { evidence: Array<{ source_id: string; 
     <div className="mt-4 space-y-1 font-mono text-[0.62rem] uppercase text-signal-dim">
       {evidence.map((item) => {
         const source = sources.get(item.source_id);
-        return <div key={`${item.source_id}-${item.note}`}>source / {source?.publisher ?? item.source_id} / {item.note}</div>;
+        return (
+          <details key={`${item.source_id}-${item.note}`} className="border-l border-[#1a2b21] pl-2">
+            <summary className="cursor-pointer list-none text-signal-dim">source / {source?.publisher ?? item.source_id} / {source?.reliability ?? "registry"}</summary>
+            <div className="mt-1 text-signal-muted">{item.note}</div>
+            {source ? <a href={source.url} target="_blank" className="mt-1 block text-signal-olive">{source.title}</a> : null}
+          </details>
+        );
       })}
+    </div>
+  );
+}
+
+function WhyPanel({ text, source }: { text: string; source: string }) {
+  return (
+    <div className="console-panel p-4">
+      <div className="font-mono text-[0.62rem] uppercase text-signal-green/80">why this matters</div>
+      <p className="mt-3 text-sm leading-relaxed text-signal-muted">{text}</p>
+      <div className="mt-4 font-mono text-[0.6rem] uppercase text-signal-dim">trace / {source}</div>
+    </div>
+  );
+}
+
+function SourceGraph({ sources }: { sources: SafetySource[] }) {
+  if (!sources.length) return null;
+  return (
+    <div className="mt-5 h-40 overflow-hidden border border-[#101b15] bg-[#050806]/70">
+      <svg viewBox="0 0 720 160" className="h-full w-full">
+        <path d="M60 80H660" stroke="#1f3a2b" strokeWidth="1" strokeDasharray="4 10" />
+        {sources.map((source, index) => {
+          const x = 90 + index * 170;
+          const y = index % 2 ? 98 : 62;
+          return (
+            <g key={source.id}>
+              <line x1="360" y1="80" x2={x} y2={y} stroke="#203428" strokeWidth="1" />
+              <circle cx={x} cy={y} r="6" fill="#89e3ad" opacity="0.72" />
+              <text x={x + 12} y={y + 4} fill="#7f8b83" fontSize="10" fontFamily="Consolas, monospace">{source.publisher}</text>
+            </g>
+          );
+        })}
+        <circle cx="360" cy="80" r="8" fill="#9aa56f" opacity="0.78" />
+        <text x="374" y="84" fill="#aeb8b1" fontSize="10" fontFamily="Consolas, monospace">SAFETY REGISTRY</text>
+      </svg>
     </div>
   );
 }
