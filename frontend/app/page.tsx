@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ConsoleEntry } from "@/components/landing/console-entry";
+import { OrientationStrip } from "@/components/landing/orientation-strip";
 
 const words = ["Research.", "Alignment.", "Operational telemetry.", "Ecosystem drift."];
 
@@ -49,13 +50,17 @@ export default function LandingPage() {
           ))}
         </motion.div>
 
+        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55, duration: 0.7 }} className="mt-8">
+          <OrientationStrip />
+        </motion.div>
+
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7, duration: 0.7 }} className="mt-16">
           <ConsoleEntry />
         </motion.div>
 
-        <div className="absolute bottom-8 left-6 right-6 flex items-center justify-between border-t border-[#101b15] pt-4 font-mono text-[0.64rem] uppercase text-signal-dim md:left-6 md:right-6">
+        <div className="absolute bottom-8 left-6 right-6 flex flex-wrap items-center justify-between gap-3 border-t border-[#101b15] pt-4 font-mono text-[0.64rem] uppercase text-signal-dim md:left-6 md:right-6">
           <Link href="/safety" className="transition hover:text-signal-muted">safety layer</Link>
-          <Link href="/labs" className="transition hover:text-signal-muted">labs</Link>
+          <Link href="/labs/perception" className="transition hover:text-signal-muted">perception lab</Link>
           <Link href="/timeline" className="transition hover:text-signal-muted">timeline memory</Link>
           <Link href="/systems" className="hidden transition hover:text-signal-muted sm:inline">systems node</Link>
         </div>

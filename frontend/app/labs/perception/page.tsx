@@ -6,6 +6,7 @@ import { Camera, CircuitBoard, ScanEye, ShieldCheck, type LucideIcon } from "luc
 import { fetchCvStatus } from "@/lib/api";
 import { OperationalNote } from "@/components/labs/overlays/operational-note";
 import { RealDetectionLab } from "@/components/labs/perception/real-detection-lab";
+import { RealOnlyBoundary } from "@/components/labs/perception/real-only-boundary";
 import { PoseStabilityPanel } from "@/components/labs/pose/pose-stability-panel";
 import { SafetyCriticalContext } from "@/components/labs/robustness/safety-critical-context";
 
@@ -22,7 +23,7 @@ export default function SafetyCriticalPerceptionPage() {
       <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(rgba(137,227,173,.28)_1px,transparent_1px),linear-gradient(90deg,rgba(137,227,173,.18)_1px,transparent_1px)] [background-size:36px_36px]" />
       <section className="relative mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-12">
         <Nav />
-        <header className="py-16">
+        <header className="py-12 md:py-16">
           <div className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-signal-green/80">safety-critical perception</div>
           <h1 className="mt-9 max-w-5xl text-4xl font-semibold leading-tight text-[#eef4ef] md:text-6xl">
             Operational robustness layer
@@ -32,6 +33,9 @@ export default function SafetyCriticalPerceptionPage() {
           <p className="mt-8 max-w-3xl text-sm leading-relaxed text-signal-muted">
             Perception systems operating in real environments face uncertainty, degradation, occlusion, instability, and environmental variability that may not appear in benchmark conditions.
           </p>
+          <div className="mt-8">
+            <RealOnlyBoundary />
+          </div>
         </header>
 
         <section className="grid gap-5 xl:grid-cols-[1.45fr_.55fr]">
@@ -79,7 +83,7 @@ function Nav() {
   return (
     <nav className="flex items-center justify-between border-b border-[#101b15] pb-4 font-mono text-[0.68rem] uppercase text-signal-dim">
       <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">JGSOPS</Link>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center justify-end gap-4">
         <Link href="/console" className="transition hover:text-signal-text">console</Link>
         <Link href="/safety" className="transition hover:text-signal-text">safety</Link>
         <Link href="/labs" className="transition hover:text-signal-text">labs</Link>

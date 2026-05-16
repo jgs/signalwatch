@@ -35,7 +35,7 @@ export default function LabsPage() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_12%,rgba(71,108,81,0.10),transparent_30rem)]" />
       <section className="relative mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-12">
         <Nav />
-        <header className="py-16">
+        <header className="py-12 md:py-16">
           <div className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-signal-green/80">labs</div>
           <h1 className="mt-9 max-w-4xl text-4xl font-semibold leading-tight text-[#eef4ef] md:text-6xl">
             Perception systems,
@@ -152,7 +152,7 @@ function Nav() {
   return (
     <nav className="flex items-center justify-between border-b border-[#101b15] pb-4 font-mono text-[0.68rem] uppercase text-signal-dim">
       <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">JGSOPS</Link>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center justify-end gap-4">
         <Link href="/console" className="transition hover:text-signal-text">console</Link>
         <Link href="/safety" className="transition hover:text-signal-text">safety</Link>
         <Link href="/labs" className="text-signal-green/80 transition hover:text-signal-green">labs</Link>

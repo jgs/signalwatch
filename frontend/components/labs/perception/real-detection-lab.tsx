@@ -7,6 +7,7 @@ import { appendDetectionFrame, analyzeTemporalDetections, type DetectionFrame } 
 import { DegradationControls, type DegradationState } from "@/components/labs/degradation/degradation-controls";
 import { DegradationPresets, type DegradationPreset } from "@/components/labs/degradation/degradation-presets";
 import { useCocoSsd, type Detection } from "@/components/labs/inference/use-coco-ssd";
+import { CalibrationSamples } from "@/components/labs/perception/calibration-samples";
 import { ConfidenceRail } from "@/components/labs/telemetry/confidence-rail";
 import { ReplayTimeline } from "@/components/labs/replay/replay-timeline";
 import { TemporalTrace } from "@/components/labs/telemetry/temporal-trace";
@@ -35,6 +36,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
   const lastInferenceRef = useRef(0);
   const inFlightRef = useRef(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [sampleId, setSampleId] = useState<string | null>(null);
   const [mode, setMode] = useState<"upload" | "webcam">("upload");
   const [activePreset, setActivePreset] = useState<string>("default");
   const [webcamState, setWebcamState] = useState<WebcamState>("idle");
@@ -159,7 +161,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
   }, [mode, runInference, state, webcamState]);
 
   useEffect(() => () => {
-    if (imageUrl) URL.revokeObjectURL(imageUrl);
+    if (imageUrl?.startsWith("blob:")) URL.revokeObjectURL(imageUrl);
     stopWebcam();
   }, [imageUrl]);
 
@@ -167,11 +169,23 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
     if (!file) return;
     stopWebcam();
     setMode("upload");
-    if (imageUrl) URL.revokeObjectURL(imageUrl);
+    if (imageUrl?.startsWith("blob:")) URL.revokeObjectURL(imageUrl);
+    setSampleId(null);
     setBaselineDetections([]);
     setDetections([]);
     setFrames([]);
     setImageUrl(URL.createObjectURL(file));
+  }
+
+  function selectSample(url: string, id: string) {
+    stopWebcam();
+    setMode("upload");
+    if (imageUrl?.startsWith("blob:")) URL.revokeObjectURL(imageUrl);
+    setSampleId(id);
+    setBaselineDetections([]);
+    setDetections([]);
+    setFrames([]);
+    setImageUrl(url);
   }
 
   async function startWebcam() {
@@ -232,10 +246,10 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
   return (
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-[1fr_.9fr]">
-        <div className="relative min-h-72 overflow-hidden border border-[#101b15] bg-[#07100b]">
+        <div className="relative min-h-72 overflow-hidden border border-[#101b15] bg-[#07100b] md:min-h-[26rem]">
           <img ref={imageRef} src={imageUrl ?? ""} alt="" className="hidden" onLoad={() => void runInference()} />
           <video ref={videoRef} className="hidden" muted playsInline />
-          <canvas ref={canvasRef} className="h-full min-h-72 w-full object-contain" />
+          <canvas ref={canvasRef} className="h-full min-h-72 w-full object-contain md:min-h-[26rem]" />
           <canvas ref={baselineCanvasRef} className="hidden" />
           {!imageUrl && mode === "upload" ? (
             <div className="absolute inset-0 flex items-center justify-center px-8 text-center font-mono text-[0.72rem] uppercase text-signal-dim">
@@ -275,6 +289,9 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
             <input className="sr-only" type="file" accept="image/*" onChange={(event) => onImageUpload(event.target.files?.[0])} />
             upload image / real COCO-SSD inference
           </label>
+          <div className="border border-[#101b15] bg-[#050806]/70 p-3 font-mono text-[0.62rem] uppercase text-signal-dim">
+            sample route / {sampleId ?? "none"} / detections remain model-reported only
+          </div>
           <WebcamStatus state={webcamState} message={webcamMessage} />
           <ConfidenceRail label="input condition control" value={inputIntegrity / 100} />
           <ConfidenceRail label="mean detection confidence" value={confidence} unavailable={!detections.length} />
@@ -292,6 +309,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
           </button>
         </div>
       </div>
+      <CalibrationSamples onSelect={selectSample} />
       <DegradationPresets active={activePreset} onSelect={applyPreset} />
       <DegradationControls value={degradation} onChange={updateDegradation} />
       <TemporalTrace frames={frames} metrics={temporalMetrics} />
