@@ -150,18 +150,18 @@ LAB_DEMOS = [
     DemoDescriptor(
         id="cv-confidence",
         title="Computer Vision Confidence",
-        status="architecture-ready",
+        status="available",
         category="perception systems",
-        summary="Upload or camera-based perception module planned for confidence, uncertainty, and failure-case inspection. Model inference is not running in this environment.",
-        constraints=["No detections are fabricated.", "Results are shown only when a model is connected."],
+        summary="Browser-side COCO-SSD object detection for confidence, uncertainty, and failure-case inspection under degraded input conditions.",
+        constraints=["No detections are fabricated.", "Confidence is displayed only from real model outputs.", "Model assets load in the browser without backend GPU dependency."],
     ),
     DemoDescriptor(
         id="perception-failure-modes",
         title="Perception Failure Modes",
         status="available",
         category="computer vision robustness",
-        summary="Browser-side image transformations demonstrate how blur, low light, occlusion, compression, and cropping can degrade perception inputs.",
-        constraints=["Educational transformation demo.", "Does not claim model outputs without a running model."],
+        summary="Browser-side image transformations are applied before COCO-SSD inference to inspect blur, low light, occlusion, compression, and cropping effects.",
+        constraints=["Uses real transformed pixels as model input.", "Does not claim model outputs unless the browser model returns them."],
     ),
     DemoDescriptor(
         id="alignment-toy",
@@ -200,9 +200,9 @@ LAB_DEMOS = [
     DemoDescriptor(
         id="detection-robustness-lab",
         title="Detection Robustness Lab",
-        status="architecture-ready",
+        status="available",
         category="perception safety",
-        summary="Planned lab for comparing model behavior across blur, occlusion, lighting, crop, and compression conditions.",
-        constraints=["Requires real model outputs before reporting detection confidence.", "Browser transforms are available now."],
+        summary="Compares baseline and degraded model behavior across blur, occlusion, lighting, crop, and compression conditions.",
+        constraints=["Reports detection confidence only from COCO-SSD outputs.", "Baseline and degraded traces come from the same uploaded image."],
     ),
 ]

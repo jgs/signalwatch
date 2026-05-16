@@ -1,22 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
-import { Camera, FlaskConical, LineChart, SlidersHorizontal } from "lucide-react";
+import { Camera, FlaskConical, LineChart, Network, ScanEye, type LucideIcon } from "lucide-react";
 import { fetchCvStatus, fetchLabDemos } from "@/lib/api";
+import { OperationalNote } from "@/components/labs/overlays/operational-note";
+import { RealDetectionLab } from "@/components/labs/perception/real-detection-lab";
+import { PoseStabilityPanel } from "@/components/labs/pose/pose-stability-panel";
 import type { DemoDescriptor } from "@/lib/types";
 
 export default function LabsPage() {
   const [demos, setDemos] = useState<DemoDescriptor[]>([]);
   const [cvStatus, setCvStatus] = useState<{ status: string; message: string } | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [blur, setBlur] = useState(0);
-  const [brightness, setBrightness] = useState(100);
-  const [occlusion, setOcclusion] = useState(12);
-  const [noise, setNoise] = useState(8);
-  const [crop, setCrop] = useState(0);
-  const [motionBlur, setMotionBlur] = useState(0);
   const [proxy, setProxy] = useState(54);
   const [oversight, setOversight] = useState(55);
   const [capability, setCapability] = useState(58);
@@ -24,10 +20,6 @@ export default function LabsPage() {
   const [interpretability, setInterpretability] = useState(42);
   const [governance, setGovernance] = useState(46);
 
-  const inputIntegrity = useMemo(() => {
-    const degradation = blur * 7 + Math.max(0, 100 - brightness) * 0.55 + occlusion * 0.7 + noise * 0.45 + crop * 0.42 + motionBlur * 6;
-    return Math.max(3, Math.min(100, 100 - degradation));
-  }, [blur, brightness, occlusion, noise, crop, motionBlur]);
   const rewardGap = useMemo(() => Math.max(0, proxy - oversight), [proxy, oversight]);
   const oversightGap = useMemo(() => Math.max(0, capability - Math.round((evaluation + interpretability + governance) / 3)), [capability, evaluation, interpretability, governance]);
 
@@ -37,16 +29,6 @@ export default function LabsPage() {
       if (statusResult.status === "fulfilled") setCvStatus(statusResult.value);
     });
   }, []);
-
-  useEffect(() => () => {
-    if (imageUrl) URL.revokeObjectURL(imageUrl);
-  }, [imageUrl]);
-
-  function onImageUpload(file?: File) {
-    if (!file) return;
-    if (imageUrl) URL.revokeObjectURL(imageUrl);
-    setImageUrl(URL.createObjectURL(file));
-  }
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#030403] text-signal-text">
@@ -67,54 +49,13 @@ export default function LabsPage() {
           </p>
         </header>
 
-        <section className="grid gap-5 lg:grid-cols-[.95fr_1.05fr]">
-          <Panel title="computer vision confidence" icon={Camera} meta={cvStatus?.status ?? "checking"}>
-            <p className="text-sm leading-relaxed text-signal-muted">{cvStatus?.message ?? "Model not running in this environment."}</p>
-            <label className="mt-4 block border border-[#101b15] bg-[#050806]/70 p-4 font-mono text-[0.68rem] uppercase text-signal-dim transition hover:border-[#2f4a39]">
-              <input className="sr-only" type="file" accept="image/*" onChange={(event) => onImageUpload(event.target.files?.[0])} />
-              upload image / local preview only / no detections fabricated
-            </label>
-            <div className="mt-4 grid grid-cols-2 gap-3 font-mono text-[0.66rem] uppercase text-signal-dim">
-              <TraceBar label="input integrity" value={inputIntegrity / 100} />
-              <TraceBar label="model confidence" value={0} disabled />
-            </div>
+        <section className="grid gap-5 lg:grid-cols-[1.15fr_.85fr]">
+          <Panel title="real perception under degradation" icon={Camera} meta={cvStatus?.status ?? "browser model"}>
+            <RealDetectionLab cvMessage={cvStatus?.message} />
           </Panel>
 
-          <Panel title="perception under degradation" icon={SlidersHorizontal} meta="browser transform">
-            <div className="grid gap-4 md:grid-cols-[1fr_.9fr]">
-              <div className="relative h-64 overflow-hidden border border-[#101b15] bg-[#07100b]">
-                {imageUrl ? (
-                  <img
-                    src={imageUrl}
-                    alt="Uploaded local perception test"
-                    className="h-full w-full object-cover"
-                    style={{
-                      filter: `blur(${blur + motionBlur * 0.45}px) brightness(${brightness}%) contrast(${100 - noise * 0.2}%)`,
-                      transform: `scale(${1 + crop / 100}) translateX(${motionBlur}px)`,
-                    }}
-                  />
-                ) : (
-                  <div
-                    className="absolute inset-8 border border-signal-green/30 bg-[linear-gradient(135deg,rgba(137,227,173,.18),rgba(154,165,111,.08))]"
-                    style={{ filter: `blur(${blur}px) brightness(${brightness}%)`, transform: `scale(${1 + crop / 100})` }}
-                  />
-                )}
-                <div className="absolute inset-0 mix-blend-screen opacity-30" style={{ backgroundImage: `radial-gradient(circle, rgba(216,222,217,.35) 1px, transparent 1px)`, backgroundSize: `${Math.max(3, 18 - noise)}px ${Math.max(3, 18 - noise)}px`, opacity: noise / 100 }} />
-                <div className="absolute right-0 top-0 bg-[#030403]/82" style={{ width: `${occlusion}%`, height: `${occlusion * 1.6}%` }} />
-                <div className="absolute bottom-3 left-3 border border-[#1a2b21] bg-[#030403]/80 px-2 py-1 font-mono text-[0.6rem] uppercase text-signal-dim">
-                  input integrity {Math.round(inputIntegrity)}
-                </div>
-              </div>
-              <div className="space-y-4">
-                <Control label="blur" value={blur} setValue={setBlur} max={8} />
-                <Control label="low light" value={brightness} setValue={setBrightness} min={35} max={120} />
-                <Control label="occlusion" value={occlusion} setValue={setOcclusion} max={52} />
-                <Control label="compression/noise" value={noise} setValue={setNoise} max={80} />
-                <Control label="crop instability" value={crop} setValue={setCrop} max={38} />
-                <Control label="motion blur" value={motionBlur} setValue={setMotionBlur} max={8} />
-              </div>
-            </div>
-            <Why text="Perception systems can degrade under environmental uncertainty even when benchmark performance appears strong. This demo transforms input conditions only; it does not claim model detections." />
+          <Panel title="pose stability monitoring" icon={ScanEye} meta="architecture ready">
+            <PoseStabilityPanel />
           </Panel>
         </section>
 
@@ -141,7 +82,7 @@ export default function LabsPage() {
                 </div>
               </div>
             </div>
-            <Why text="Systems optimize what is measured, not necessarily what humans intended. This is a conceptual toy model, not real-world runtime data." />
+            <OperationalNote label="conceptual safety model" text="Systems optimize what is measured, not necessarily what humans intended. This is a conceptual toy model, not real-world runtime data." />
           </Panel>
 
           <Panel title="oversight gap visualization" icon={LineChart} meta="conceptual controls">
@@ -158,8 +99,24 @@ export default function LabsPage() {
               <Control label="interpretability" value={interpretability} setValue={setInterpretability} />
               <Control label="governance" value={governance} setValue={setGovernance} />
             </div>
-            <Why text="Autonomous systems become harder to supervise when capability growth exceeds evaluation, interpretability, and governance readiness. This panel is educational and parameter-driven." />
+            <OperationalNote label="why this matters" text="Autonomous systems become harder to supervise when capability growth exceeds evaluation, interpretability, and governance readiness. This panel is educational and parameter-driven." />
           </Panel>
+        </section>
+
+        <section className="mt-5 grid gap-5 lg:grid-cols-3">
+          {[
+            ["autonomous systems", "Small perception failures can propagate into larger system failures when agents act on degraded scene understanding."],
+            ["robotics", "Manipulation, navigation, and human interaction require stable perception under occlusion, low light, and motion."],
+            ["medical and industrial vision", "Safety-critical imaging systems need uncertainty reporting because input quality can shift outside training conditions."],
+          ].map(([label, text]) => (
+            <div key={label} className="console-panel p-5">
+              <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80">
+                <Network className="h-3.5 w-3.5" />
+                {label}
+              </div>
+              <p className="mt-4 text-sm leading-relaxed text-signal-muted">{text}</p>
+            </div>
+          ))}
         </section>
 
         <section className="mt-5 console-panel p-5">
@@ -192,13 +149,14 @@ function Nav() {
       <div className="flex items-center gap-4">
         <Link href="/console" className="transition hover:text-signal-text">console</Link>
         <Link href="/safety" className="transition hover:text-signal-text">safety</Link>
+        <Link href="/labs" className="text-signal-green/80 transition hover:text-signal-green">labs</Link>
         <Link href="/timeline" className="transition hover:text-signal-text">timeline</Link>
       </div>
     </nav>
   );
 }
 
-function Panel({ title, icon: Icon, meta, children }: { title: string; icon: typeof Camera; meta: string; children: React.ReactNode }) {
+function Panel({ title, icon: Icon, meta, children }: { title: string; icon: LucideIcon; meta: string; children: ReactNode }) {
   return (
     <section className="console-panel p-5">
       <div className="flex items-center justify-between border-b border-[#101b15] pb-3">
@@ -222,20 +180,6 @@ function Control({ label, value, setValue, min = 0, max = 100 }: { label: string
   );
 }
 
-function TraceBar({ label, value, disabled }: { label: string; value: number; disabled?: boolean }) {
-  return (
-    <div>
-      <div className="flex justify-between">
-        <span>{label}</span>
-        <span>{disabled ? "unavailable" : Math.round(value * 100)}</span>
-      </div>
-      <div className="mt-2 h-1.5 border border-[#122219] bg-[#07100b]">
-        <div className="h-full bg-signal-olive" style={{ width: disabled ? "0%" : `${Math.max(3, value * 100)}%` }} />
-      </div>
-    </div>
-  );
-}
-
 function Curve({ label, value, tone }: { label: string; value: number; tone: "green" | "olive" }) {
   return (
     <div className="font-mono text-[0.68rem] uppercase text-signal-dim">
@@ -245,8 +189,4 @@ function Curve({ label, value, tone }: { label: string; value: number; tone: "gr
       </div>
     </div>
   );
-}
-
-function Why({ text }: { text: string }) {
-  return <p className="mt-4 border-l border-[#24392c] bg-[#050806]/62 px-3 py-2 text-sm leading-relaxed text-signal-muted">{text}</p>;
 }

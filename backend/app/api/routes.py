@@ -61,8 +61,8 @@ async def alignment() -> list[dict]:
 @router.get("/labs/cv/status")
 async def cv_status() -> dict:
     return {
-        "status": "model_not_running",
-        "message": "Model not running in this environment.",
+        "status": "browser_model_available",
+        "message": "Backend GPU inference is not required. SIGNALWATCH Labs runs lightweight COCO-SSD inference in the browser when model assets load.",
         "can_run_browser_transforms": True,
     }
 
