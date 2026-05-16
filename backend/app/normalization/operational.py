@@ -2,8 +2,9 @@ from __future__ import annotations
 
 import re
 
-from app.models import EventKind, OperationalEvent, Severity, SignalItem
+from app.models import EventKind, OperationalEvent, SignalItem
 from app.signals.classifier import classify_signal
+from app.utils.text import concise_text, normalize_text
 
 
 def normalize_signal_item(item: SignalItem) -> OperationalEvent:
@@ -18,12 +19,12 @@ def normalize_signal_item(item: SignalItem) -> OperationalEvent:
             "signal_id": item.fingerprint,
             "source": item.source,
             "source_name": item.source,
-            "source_title": item.title,
+            "source_title": normalize_text(item.title),
             "source_url": item.url,
             "source_type": _source_type(classification.event_type, item),
             "published_at": item.published_at.isoformat(),
             "fetched_at": item.raw.get("fetched_at") if isinstance(item.raw, dict) else None,
-            "title": item.title,
+            "title": normalize_text(item.title),
             "summary_vector": _compact_summary(item.summary),
             "authors": item.authors[:4],
             "categories": _categories(item),
@@ -54,8 +55,8 @@ def _operational_message(event_type: EventKind, source: str) -> str:
 
 
 def _compact_summary(summary: str) -> str:
-    text = re.sub(r"\s+", " ", summary).strip()
-    return text[:420]
+    text = concise_text(summary, max_chars=320, max_sentences=2)
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def _categories(item: SignalItem) -> list[str]:

@@ -108,14 +108,17 @@ export function OperationalSidebar({
       </SidebarSection>
 
       <SidebarSection icon={Activity} title="topics">
-        <div className="flex flex-wrap gap-1.5">
-          <TopicPill active={!selectedTopic} onClick={() => onTopicChange("")}>all</TopicPill>
-          {topics.map(([topic, count]) => (
-            <TopicPill key={topic} active={selectedTopic === topic} onClick={() => onTopicChange(topic)}>
-              {topic}:{count}
-            </TopicPill>
-          ))}
-        </div>
+        <details className="font-mono text-[0.64rem] text-signal-dim">
+          <summary className="cursor-pointer list-none text-signal-muted">filter topics / {topics.length || 0}</summary>
+          <div className="mt-2 flex flex-wrap gap-1.5 opacity-80">
+            <TopicPill active={!selectedTopic} onClick={() => onTopicChange("")}>all</TopicPill>
+            {topics.map(([topic, count]) => (
+              <TopicPill key={topic} active={selectedTopic === topic} onClick={() => onTopicChange(topic)}>
+                {topic}:{count}
+              </TopicPill>
+            ))}
+          </div>
+        </details>
       </SidebarSection>
 
       <SidebarSection icon={ShieldCheck} title="global status">
@@ -155,7 +158,7 @@ function Readout({ label, value, live }: { label: string; value: string; live?: 
     <div className="flex items-center justify-between py-1 font-mono text-[0.72rem]">
       <span className="text-signal-muted">{label}</span>
       <span className="flex items-center gap-1.5 text-signal-text">
-        {live ? <motion.span className="h-1.5 w-1.5 rounded-full bg-signal-green" animate={{ opacity: [0.35, 1, 0.35] }} transition={{ duration: 2.4, repeat: Infinity }} /> : null}
+        {live ? <motion.span className="h-1.5 w-1.5 rounded-full bg-signal-green" animate={{ opacity: [0.28, 0.78, 0.28] }} transition={{ duration: 4.2, repeat: Infinity }} /> : null}
         {value}
       </span>
     </div>
@@ -167,7 +170,7 @@ function TopicPill({ active, children, onClick }: { active: boolean; children: R
     <button
       onClick={onClick}
       className={cn(
-        "border border-signal-line bg-[#050806] px-1.5 py-1 font-mono text-[0.64rem] text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text",
+        "border border-[#101b15] bg-[#050806] px-1.5 py-1 font-mono text-[0.6rem] text-signal-dim transition hover:border-[#2f4a39] hover:text-signal-text",
         active && "border-[#2f4a39] text-signal-green"
       )}
     >

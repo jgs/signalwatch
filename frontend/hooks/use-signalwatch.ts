@@ -215,7 +215,7 @@ function eventsToSignals(events: RealtimeEvent[]): Signal[] {
     .map((event) => {
       const importance = importanceFromEvent(event);
       const source = String(event.payload.source ?? event.source ?? "signalwatch-runtime");
-      const title = String(event.payload.source_title ?? event.payload.title ?? event.message ?? event.type);
+      const title = cleanText(String(event.payload.source_title ?? event.payload.title ?? event.message ?? event.type), 180);
       const url = String(event.payload.source_url ?? event.payload.url ?? "#");
       const topics = topicsFor(event);
       return {
@@ -355,15 +355,32 @@ function topicsFor(event: RealtimeEvent) {
 
 function summaryFor(event: RealtimeEvent) {
   if (typeof event.payload.summary_vector === "string" && event.payload.summary_vector.trim()) {
-    return event.payload.summary_vector;
+    return cleanText(event.payload.summary_vector);
   }
   if (typeof event.payload.summary === "string" && event.payload.summary.trim()) {
-    return event.payload.summary;
+    return cleanText(event.payload.summary);
   }
   if (typeof event.message === "string" && event.message.trim()) {
-    return event.message;
+    return cleanText(event.message);
   }
   return "Source item indexed without a summary.";
+}
+
+function cleanText(value: string, maxChars = 320) {
+  const stripped = value
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/https?:\/\/\S+/g, " ")
+    .replace(/\[[^\]]{0,80}\]\([^)]*\)/g, " ")
+    .replace(/\s+([,.;:!?])/g, "$1")
+    .replace(/([,.;:!?]){2,}/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
+  if (stripped.length <= maxChars) return stripped;
+  const clipped = stripped.slice(0, maxChars);
+  const boundary = clipped.lastIndexOf(" ");
+  return `${(boundary > 120 ? clipped.slice(0, boundary) : clipped).trim().replace(/[,:;.-]+$/, "")}.`;
 }
 
 function clusterName(event: RealtimeEvent, index: number) {

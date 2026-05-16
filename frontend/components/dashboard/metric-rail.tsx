@@ -42,7 +42,7 @@ export function MetricRail({
             boxShadow: pulseKey ? ["0 24px 90px rgba(0,0,0,.28)", "0 0 28px rgba(137,227,173,.055)", "0 24px 90px rgba(0,0,0,.28)"] : "0 24px 90px rgba(0,0,0,.28)"
           }}
           transition={{ delay: index * 0.025, duration: 0.9 }}
-          className="console-panel relative overflow-hidden p-4 transition hover:border-[#2f4a39]"
+          className="console-panel relative overflow-hidden p-3.5 transition hover:border-[#2f4a39]"
         >
           <motion.div
             className="absolute inset-x-0 top-0 h-px bg-signal-green/25"
@@ -51,7 +51,7 @@ export function MetricRail({
           />
           <div className="terminal-label">{item.label}</div>
           <AnimatedMetricValue value={item.value} format={item.format} />
-          <div className="mt-4 text-xs text-signal-dim">{item.foot}</div>
+          <div className="mt-3 text-[0.7rem] text-signal-dim">{item.foot}</div>
         </motion.div>
       ))}
     </div>
@@ -71,5 +71,5 @@ function AnimatedMetricValue({ value, format }: { value: number; format: (value:
     return controls.stop;
   }, [motionValue, value]);
 
-  return <motion.div className="mt-4 font-mono text-2xl font-semibold tabular-nums text-signal-text">{display}</motion.div>;
+  return <motion.div className="mt-3 font-mono text-xl font-semibold tabular-nums text-signal-text">{display}</motion.div>;
 }

@@ -17,12 +17,12 @@ export function ActivityStream({ events }: { events: RealtimeEvent[] }) {
   }, [events.length]);
 
   return (
-    <Panel className="overflow-hidden opacity-85">
+    <Panel className="overflow-hidden opacity-70">
       <details open>
         <summary className="cursor-pointer list-none">
           <PanelHeader title="background telemetry" meta={`${telemetryEvents.length} quiet frames`} />
         </summary>
-      <div ref={viewportRef} className="event-stream-mask max-h-[260px] space-y-1 overflow-y-auto pr-1">
+      <div ref={viewportRef} className="event-stream-mask max-h-[220px] space-y-1 overflow-y-auto pr-1">
         <AnimatePresence initial={false}>
           {telemetryEvents.slice(0, 18).map((event, index) => (
           <motion.div
@@ -30,24 +30,24 @@ export function ActivityStream({ events }: { events: RealtimeEvent[] }) {
             layout
             initial={{ opacity: 0, y: -4, filter: "blur(2px)" }}
             animate={{
-              opacity: Math.max(0.28, 1 - index * 0.028),
+              opacity: Math.max(0.2, 0.72 - index * 0.024),
               y: 0,
               filter: "blur(0px)",
-              backgroundColor: index === 0 ? ["rgba(7,16,11,.88)", "rgba(5,8,6,.72)"] : "rgba(5,8,6,.72)"
+              backgroundColor: index === 0 ? ["rgba(7,16,11,.58)", "rgba(5,8,6,.48)"] : "rgba(5,8,6,.42)"
             }}
             exit={{ opacity: 0, y: 5 }}
             transition={{ duration: 0.42, ease: "easeOut" }}
             className={cn(
-              "relative grid grid-cols-[5.9rem_4.2rem_1fr] gap-2 border-l py-1.5 pl-2.5 pr-2 font-mono text-[0.62rem] text-signal-dim",
+              "relative grid grid-cols-[5.7rem_3.8rem_1fr] gap-2 border-l py-1.5 pl-2.5 pr-2 font-mono text-[0.58rem] text-signal-dim",
               severityClass(event.payload.severity),
               event.type === "system.heartbeat" && "opacity-75"
             )}
           >
-            {index < 6 ? <span className="absolute left-0 top-0 h-full w-px bg-signal-green/20" /> : null}
+            {index < 4 ? <span className="absolute left-0 top-0 h-full w-px bg-signal-green/12" /> : null}
             <motion.span
-              className="whitespace-nowrap text-signal-green/90"
-              animate={event.type === "system.heartbeat" ? { opacity: [0.52, 0.95, 0.52] } : { opacity: index < 2 ? [0.78, 1, 0.78] : 0.78 }}
-              transition={{ duration: event.type === "system.heartbeat" ? 2.8 : 3.6, repeat: Infinity }}
+              className="whitespace-nowrap text-signal-green/60"
+              animate={event.type === "system.heartbeat" ? { opacity: [0.36, 0.68, 0.36] } : { opacity: index < 2 ? [0.46, 0.7, 0.46] : 0.5 }}
+              transition={{ duration: event.type === "system.heartbeat" ? 5.2 : 5.8, repeat: Infinity }}
             >
               [{timeOnly(event.timestamp).replace(" UTC", "")}]
             </motion.span>

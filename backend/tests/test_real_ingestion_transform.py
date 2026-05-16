@@ -25,6 +25,24 @@ def test_real_item_becomes_operational_signal() -> None:
     assert event.payload["pressure"] > 0.5
 
 
+def test_signal_summary_is_clean_and_concise() -> None:
+    item = SignalItem(
+        source="alignment_forum_discourse",
+        title="<b>Alignment Eval Update</b>",
+        url="https://www.alignmentforum.org/posts/test",
+        summary="<p>Alignment evaluation update with <a href='https://example.com'>inline links</a>.</p><p>Alignment evaluation update with inline links.</p><script>noise()</script>",
+        published_at=datetime.now(UTC),
+        fingerprint="clean-summary",
+    )
+
+    event = normalize_signal_item(item)
+
+    assert "<" not in event.payload["title"]
+    assert "<" not in event.payload["summary_vector"]
+    assert "script" not in event.payload["summary_vector"].lower()
+    assert len(event.payload["summary_vector"]) <= 340
+
+
 def test_aggregate_signal_requires_real_event_window() -> None:
     service = EcosystemIngestionService()
     first = normalize_signal_item(
