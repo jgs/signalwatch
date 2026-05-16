@@ -16,8 +16,8 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "signalwatch",
-  description: "AI ecosystem observability and research intelligence console"
+  title: "JGSOPS / SIGNALWATCH",
+  description: "Realtime observability systems for monitoring intelligent infrastructure"
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {

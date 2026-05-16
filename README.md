@@ -1,121 +1,240 @@
 <p align="center">
-  <img src="assets/demo/terminal-demo.svg" alt="signalwatch terminal demo" width="100%">
+  <img src="assets/screenshots/dashboard.svg" alt="SIGNALWATCH operational console preview" width="100%">
 </p>
 
-<h1 align="center">signalwatch</h1>
+<h1 align="center">SIGNALWATCH</h1>
 
 <p align="center">
-  AI ecosystem observability for research papers, alignment discourse, model releases, open-source movement, and emerging technical trends.
+  Realtime observability systems for monitoring intelligent infrastructure.
 </p>
 
 <p align="center">
   <img alt="Next.js" src="https://img.shields.io/badge/Next.js-15-111?style=flat-square&labelColor=050706&color=1a2f24">
-  <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-realtime_API-111?style=flat-square&labelColor=050706&color=1a2f24">
-  <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-storage-111?style=flat-square&labelColor=050706&color=1a2f24">
-  <img alt="WebSockets" src="https://img.shields.io/badge/WebSockets-live_ops-111?style=flat-square&labelColor=050706&color=1a2f24">
-  <img alt="MIT" src="https://img.shields.io/badge/license-MIT-111?style=flat-square&labelColor=050706&color=1a2f24">
+  <img alt="FastAPI" src="https://img.shields.io/badge/FastAPI-realtime-111?style=flat-square&labelColor=050706&color=1a2f24">
+  <img alt="WebSockets" src="https://img.shields.io/badge/WebSockets-events-111?style=flat-square&labelColor=050706&color=1a2f24">
+  <img alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-ready-111?style=flat-square&labelColor=050706&color=1a2f24">
+  <img alt="Railway" src="https://img.shields.io/badge/Railway-backend-111?style=flat-square&labelColor=050706&color=1a2f24">
+  <img alt="Vercel" src="https://img.shields.io/badge/Vercel-console-111?style=flat-square&labelColor=050706&color=1a2f24">
 </p>
 
-`signalwatch` is a full-stack AI ecosystem monitoring console. It watches research feeds, model releases, alignment/safety discussion, open-source infrastructure movement, and emerging technical trends, then normalizes those observations into a realtime operational intelligence surface.
+---
 
-This is not a news scraper or generic analytics template. The interface is intentionally dark, dense, terminal-inspired, and observability-oriented: an obscure internal console for tracking the movement of AI systems.
+## Overview
 
-## Console
+SIGNALWATCH is an AI ecosystem observability console.
 
-<p align="center">
-  <img src="assets/screenshots/dashboard.svg" alt="signalwatch dashboard screenshot" width="100%">
-</p>
+It monitors operational signals across research, alignment discourse, policy movement, model velocity, collector health, source latency, semantic clusters, and ecosystem drift. The system is designed to feel less like a static analytics dashboard and more like a quiet operations room: a realtime surface for watching intelligent infrastructure change over time.
+
+The production surface runs at `jgsops.dev`. The frontend is deployed on Vercel. The FastAPI realtime backend is deployed on Railway.
+
+## Operational Capabilities
+
+- Realtime operational event stream over WebSockets.
+- Live telemetry snapshot over REST.
+- Collector health and reconnect state simulation.
+- Source latency and reliability tracking.
+- Rolling signal feed derived from live backend frames.
+- Semantic topology graph generated from cluster and source relationships.
+- Trend pressure, alignment drift, and heartbeat telemetry.
+- Dark operational console UI with restrained motion and dense scanability.
+
+## Realtime Infrastructure
+
+The backend emits a continuous operational stream through:
+
+```text
+wss://signalwatch-production-4416.up.railway.app/ws/events
+```
+
+The frontend consumes the stream through a typed client hook with:
+
+- snapshot ingestion
+- rolling event buffer
+- automatic reconnect
+- connection state reporting
+- live metric synchronization
+- telemetry-driven UI pulse states
+
+The browser never appends route suffixes blindly. `NEXT_PUBLIC_WS_URL` may contain the full websocket endpoint.
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-    subgraph Frontend["frontend / Next.js 15"]
-        Console[AI operations console]
-        Hooks[Realtime hooks]
-        Charts[Recharts telemetry]
-        UI[shadcn-style components]
+    subgraph Console["Vercel / Next.js 15"]
+        Landing["JGSOPS entry layer"]
+        Surface["Operational console"]
+        Hook["Realtime event store"]
+        Topology["Semantic topology graph"]
     end
 
-    subgraph Backend["backend / FastAPI"]
-        API[REST API]
-        WS[WebSocket hub]
-        Scheduler[APScheduler]
-        Pipeline[normalize + rank + trends]
-        Alerts[alert engine]
+    subgraph Runtime["Railway / FastAPI"]
+        API["REST telemetry API"]
+        WS["WebSocket broadcast manager"]
+        Tasks["asyncio runtime loops"]
+        Sim["collector simulation mesh"]
+        State["rolling telemetry state"]
     end
 
-    subgraph Sources["AI ecosystem"]
-        Arxiv[arXiv]
-        Forums[Alignment Forum + LessWrong]
-        Labs[OpenAI + Anthropic + DeepMind]
-        OpenSource[GitHub + HuggingFace]
+    subgraph Storage["PostgreSQL-ready layer"]
+        ORM["SQLAlchemy async models"]
+        Events["operational_events"]
+        Collectors["collector_snapshots"]
     end
 
-    Sources --> Pipeline
-    Scheduler --> Pipeline
-    Pipeline --> Postgres[(PostgreSQL)]
-    Pipeline --> Alerts
-    Postgres --> API
-    API --> Hooks
-    WS --> Hooks
-    Hooks --> Console
-    Hooks --> Charts
+    Landing --> Surface
+    WS --> Hook
+    API --> Hook
+    Hook --> Surface
+    Hook --> Topology
+    Tasks --> Sim
+    Sim --> State
+    State --> API
+    State --> WS
+    State -. ready .-> ORM
+    ORM --> Events
+    ORM --> Collectors
 ```
 
-## Features
-
-- Async collectors for arXiv, Alignment Forum, LessWrong, OpenAI, Anthropic, DeepMind, GitHub trending AI repositories, and HuggingFace trending models.
-- Retry logic, per-host rate limiting, deduplication, topic tagging, importance scoring, keyword extraction, and trend detection.
-- PostgreSQL production storage with SQLite fallback for local development.
-- FastAPI API with `/signals`, `/collect`, `/feeds`, `/activity`, and `/ws`.
-- WebSocket event bus for collection completion, new signal batches, trend events, collector updates, and alert candidates.
-- Operational severity levels: `TRACE`, `WATCH`, `ALERT`, and `CRITICAL`.
-- Lightweight intelligence briefings for signals and trends, written in a compact observability tone.
-- Next.js 15 frontend with TypeScript, TailwindCSS, Framer Motion, Recharts, Lucide React, and shadcn-style local primitives.
-- Operational sidebar, live signal feed, severity-aware cards, terminal event stream, source pressure charts, topic volatility charts, trend acceleration, rolling throughput, and muted realtime animation.
-- Docker Compose stack with PostgreSQL, backend API, and frontend console.
-
-## Project Layout
+## Telemetry Pipeline
 
 ```text
-signalwatch/
-├── frontend/
-│   ├── app/
-│   ├── components/
-│   ├── hooks/
-│   ├── lib/
-│   ├── styles/
-│   └── public/
-├── backend/
-│   ├── app/
-│   │   ├── collectors/
-│   │   ├── parsers/
-│   │   ├── ranking/
-│   │   ├── alerts/
-│   │   ├── websocket/
-│   │   ├── api/
-│   │   ├── scheduler/
-│   │   ├── storage/
-│   │   └── utils/
-│   └── tests/
-├── docker/
-├── assets/
-├── docker-compose.yml
-├── README.md
-└── LICENSE
+collector loop
+  -> health snapshot
+  -> source latency frame
+  -> rolling reliability model
+  -> telemetry snapshot
+  -> REST response
+  -> websocket heartbeat
+  -> console metric rail
 ```
 
-## Quickstart
+Signals are intentionally operational, not editorial. A frame may describe a semantic cluster, alignment drift, collector reconnect, trend spike, latency elevation, or policy update indexing event.
+
+Example event classes:
+
+```text
+signal.event
+telemetry.update
+collector.health
+source.latency
+semantic.cluster
+watcher.reconnect
+trend.spike
+alignment.alert
+system.heartbeat
+```
+
+## WebSocket Streaming
+
+Clients connect to:
+
+```text
+/ws/events
+```
+
+The first frame is a recent history snapshot. Subsequent frames arrive every few seconds from the async runtime.
+
+```json
+{
+  "type": "alignment.alert",
+  "severity": "elevated",
+  "source": "alignment discourse monitor",
+  "message": "alignment drift increasing",
+  "payload": {
+    "latency_ms": 214.8,
+    "drift": 0.63,
+    "pressure": 0.72,
+    "confidence": 0.91
+  }
+}
+```
+
+The console treats this stream as the source of truth once connected.
+
+## Semantic Clustering
+
+The topology layer renders semantic clusters and source relationships as a calm systems graph:
+
+- cluster nodes
+- source nodes
+- thin animated edges
+- slow topology drift
+- hover inspection
+- no particles
+- no neon overload
+
+The intent is to convey a living correlation map without turning the interface into a visual effect.
+
+## Deployment Stack
+
+```text
+domain       jgsops.dev
+frontend     Vercel / Next.js 15 / TypeScript / Tailwind
+backend      Railway / FastAPI / uvicorn / asyncio
+realtime     WebSocket stream at /ws/events
+telemetry    REST API at /api/telemetry
+storage      PostgreSQL-ready SQLAlchemy async layer
+container    Docker
+```
+
+Production environment variables:
+
+```env
+NEXT_PUBLIC_API_URL=https://signalwatch-production-4416.up.railway.app
+NEXT_PUBLIC_WS_URL=wss://signalwatch-production-4416.up.railway.app/ws/events
+SIGNALWATCH_CORS_ORIGINS=https://jgsops.dev,https://www.jgsops.dev,http://localhost:3000,http://127.0.0.1:3000
+```
+
+## Visual System
+
+SIGNALWATCH uses a quiet mission-control aesthetic:
+
+- dark operational surfaces
+- thin borders
+- small typography
+- restrained green/olive/amber signal hierarchy
+- slow pulses on live telemetry
+- dense but readable event streams
+- minimal cinematic landing layer
+
+It avoids startup landing-page language, neon cyberpunk treatment, oversized marketing cards, and decorative effects that obscure the system state.
+
+## Visual Roadmap
+
+Recommended repository assets:
+
+```text
+assets/screenshots/landing.png          # first viewport JGSOPS entry layer
+assets/screenshots/console.png          # full operational console
+assets/screenshots/topology.png         # semantic topology graph close-up
+assets/demo/realtime-stream.gif         # websocket event stream receiving frames
+assets/demo/metric-pulse.gif            # telemetry cards updating live
+assets/diagrams/runtime-architecture.svg
+assets/diagrams/telemetry-pipeline.svg
+```
+
+Suggested GitHub README layout:
+
+```text
+[wide console screenshot]
+
+SIGNALWATCH
+Realtime observability systems for monitoring intelligent infrastructure.
+
+[architecture diagram]
+[realtime stream gif]
+[semantic topology close-up]
+```
+
+## Local Operation
 
 Backend:
 
 ```bash
 cd backend
-python -m venv .venv
-. .venv/bin/activate
 pip install -r requirements.txt
-uvicorn app.api.main:app --reload
+uvicorn app.main:app --reload
 ```
 
 Frontend:
@@ -126,70 +245,24 @@ npm install
 npm run dev
 ```
 
-Open:
-
-- Console: `http://localhost:3000`
-- API: `http://localhost:8000`
-- API docs: `http://localhost:8000/docs`
-- WebSocket: `ws://localhost:8000/ws`
-
-Trigger a collection run:
-
-```bash
-curl -X POST http://localhost:8000/collect
-```
-
 Docker:
 
 ```bash
 docker compose up --build
 ```
 
-## Configuration
+Local endpoints:
 
-```bash
-SIGNALWATCH_DATABASE_URL=postgresql://signalwatch:signalwatch@localhost:5432/signalwatch
-SIGNALWATCH_FRONTEND_ORIGIN=http://localhost:3000
-SIGNALWATCH_DISCORD_WEBHOOK_URL=
-SIGNALWATCH_REQUEST_TIMEOUT=20
-SIGNALWATCH_RATE_LIMIT_PER_HOST=1.0
-SIGNALWATCH_ALERT_THRESHOLD=0.72
-NEXT_PUBLIC_SIGNALWATCH_API=http://127.0.0.1:8000
+```text
+frontend     http://localhost:3000
+console      http://localhost:3000/console
+backend      http://localhost:8000
+telemetry    http://localhost:8000/api/telemetry
+websocket    ws://localhost:8000/ws/events
 ```
 
-For lightweight local backend-only development, use SQLite:
+## Design Principle
 
-```bash
-SIGNALWATCH_DATABASE_URL=sqlite:///./signalwatch.db
-```
+The interface should feel like a living AI ecosystem monitoring system quietly observing the evolution of intelligent infrastructure.
 
-## Realtime Contract
-
-The frontend connects to `/ws` and receives JSON events:
-
-```json
-{
-  "type": "collection.completed",
-  "timestamp": "2026-05-15T10:45:31Z",
-  "payload": {
-    "result": { "inserted": 42 },
-    "signals": []
-  }
-}
-```
-
-Trend events use `trend.detected`; initial websocket connections receive a `snapshot` event containing recent activity history.
-
-## Roadmap
-
-- Persist realtime activity history in PostgreSQL.
-- Add collector health telemetry and latency histograms.
-- Add embedding-backed topic clustering and trend baselines.
-- Build alert routing policies by feed, topic, source, and severity.
-- Add Prometheus metrics for ingestion volume, collector failure rate, and source drift.
-- Add authenticated saved feeds and researcher watchlists.
-- Add replayable daily intelligence summaries.
-
-## Design Principles
-
-Signalwatch should feel like infrastructure, not a landing page. The UI prioritizes operational density, calm motion, dark technical atmosphere, and fast scanability. The backend keeps the collection and ranking pipeline modular so new sources, scoring models, and alert sinks can be added without rewriting the console.
+The work is not to make signals louder. The work is to make movement legible.

@@ -1,105 +1,69 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { ActivityStream } from "@/components/dashboard/activity-stream";
-import { SignalCharts } from "@/components/dashboard/charts";
-import { CollectorHealth } from "@/components/dashboard/collector-health";
-import { IntelligenceSummaries } from "@/components/dashboard/intelligence-summaries";
-import { MetricRail } from "@/components/dashboard/metric-rail";
-import { OperationalSidebar } from "@/components/dashboard/operational-sidebar";
-import { RelationshipGraph } from "@/components/dashboard/relationship-graph";
-import { SignalFeed } from "@/components/dashboard/signal-feed";
-import { Topbar } from "@/components/dashboard/topbar";
-import { TrendClusters } from "@/components/dashboard/trend-clusters";
-import { useSignalwatch } from "@/hooks/use-signalwatch";
-import { timeOnly } from "@/lib/utils";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
-export default function DashboardPage() {
-  const {
-    signals,
-    events,
-    connected,
-    connectionState,
-    pulseKey,
-    sourceCounts,
-    topicCounts,
-    alertCandidates,
-    maxImportance,
-    signalsPerMinute,
-    trendVelocity,
-    websocketClients,
-    collectorHealth,
-    clusters,
-    graph,
-    activeAlerts,
-    semanticClusterCount,
-    retryCount,
-    collectorUptime,
-    sourceReliability,
-    normalizationPressure,
-    collectorLatency
-  } = useSignalwatch();
-  const [selectedTopic, setSelectedTopic] = useState("");
-  const [selectedSource, setSelectedSource] = useState("");
+const words = ["Research.", "Alignment.", "Operational telemetry.", "Ecosystem drift."];
 
-  const filtered = useMemo(
-    () =>
-      signals.filter((signal) => {
-        const topicMatch = selectedTopic ? signal.topics?.includes(selectedTopic) : true;
-        const sourceMatch = selectedSource ? signal.source === selectedSource : true;
-        return topicMatch && sourceMatch;
-      }),
-    [signals, selectedTopic, selectedSource]
-  );
-
-  const lastUpdate = filtered[0]?.published_at ? timeOnly(filtered[0].published_at) : "cold start";
-
+export default function LandingPage() {
   return (
-    <main className="min-h-screen lg:pl-[286px]">
-      <OperationalSidebar
-        sourceCounts={sourceCounts}
-        topicCounts={topicCounts}
-        selectedTopic={selectedTopic}
-        selectedSource={selectedSource}
-        onTopicChange={setSelectedTopic}
-        onSourceChange={setSelectedSource}
-        connected={connected}
-        connectionState={connectionState}
-        signalCount={signals.length}
-        alertCandidates={alertCandidates}
+    <main className="relative min-h-screen overflow-hidden bg-[#030403] text-signal-text">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(72,104,78,0.16),transparent_34rem)]" />
+      <div className="absolute inset-x-0 top-0 h-px bg-signal-green/20" />
+      <motion.div
+        className="absolute left-1/2 top-[18%] h-[42rem] w-[42rem] -translate-x-1/2 rounded-full border border-[#16251c]"
+        animate={{ opacity: [0.22, 0.38, 0.22], scale: [0.98, 1.01, 0.98] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute left-1/2 top-[28%] h-[24rem] w-[24rem] -translate-x-1/2 rounded-full border border-[#203428]"
+        animate={{ opacity: [0.18, 0.3, 0.18], scale: [1.02, 0.99, 1.02] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="mx-auto max-w-[1500px] space-y-4 px-4 py-5 md:px-6 lg:py-6">
-        <Topbar connected={connected} connectionState={connectionState} lastUpdate={lastUpdate} />
-        <MetricRail
-          pulseKey={pulseKey}
-          signalCount={filtered.length}
-          sourceCount={Object.keys(sourceCounts).length}
-          alertCandidates={alertCandidates}
-          maxImportance={maxImportance}
-          signalsPerMinute={signalsPerMinute}
-          trendVelocity={trendVelocity}
-          websocketClients={websocketClients}
-          semanticClusterCount={semanticClusterCount}
-          activeAlerts={activeAlerts}
-          retryCount={retryCount}
-          collectorUptime={collectorUptime}
-          sourceReliability={sourceReliability}
-          normalizationPressure={normalizationPressure}
-          collectorLatency={collectorLatency}
-        />
-        <div className="grid gap-5 xl:grid-cols-[1.75fr_1fr]">
-          <SignalFeed signals={filtered} />
-          <div className="space-y-4">
-            <ActivityStream events={events} />
-            <CollectorHealth health={collectorHealth} />
-            <TrendClusters clusters={clusters} />
-            <IntelligenceSummaries clusters={clusters} events={events} />
-            <RelationshipGraph graph={graph} />
-            <SignalCharts signals={filtered} sourceCounts={sourceCounts} topicCounts={topicCounts} events={events} />
-          </div>
+      <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-16">
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+          <div className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-signal-green/80">JGSOPS</div>
+          <h1 className="mt-10 max-w-4xl text-4xl font-semibold leading-tight text-[#eef4ef] md:text-6xl">
+            Realtime observability systems
+            <br />
+            <span className="text-[#aeb8b1]">for monitoring intelligent infrastructure.</span>
+          </h1>
+        </motion.div>
+
+        <motion.div
+          className="mt-14 grid max-w-2xl gap-3 font-mono text-sm uppercase tracking-normal text-signal-muted md:grid-cols-2"
+          initial="hidden"
+          animate="visible"
+          variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
+        >
+          {words.map((word) => (
+            <motion.div
+              key={word}
+              variants={{ hidden: { opacity: 0, y: 6 }, visible: { opacity: 1, y: 0 } }}
+              className="border-l border-[#24392c] bg-[#050806]/52 px-4 py-3"
+            >
+              {word}
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7, duration: 0.7 }} className="mt-16">
+          <Link
+            href="/console"
+            className="group inline-flex items-center gap-4 border border-[#2f4a39] bg-[#07100b]/76 px-5 py-3 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-signal-green transition hover:border-signal-green/70 hover:bg-[#09140d]"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-signal-green/80 transition group-hover:shadow-[0_0_14px_rgba(137,227,173,.42)]" />
+            Enter Console
+          </Link>
+        </motion.div>
+
+        <div className="absolute bottom-8 left-6 right-6 flex items-center justify-between border-t border-[#101b15] pt-4 font-mono text-[0.64rem] uppercase text-signal-dim md:left-6 md:right-6">
+          <span>Railway telemetry bus</span>
+          <span>Vercel console surface</span>
+          <span className="hidden sm:inline">jgsops.dev</span>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
