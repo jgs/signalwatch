@@ -141,6 +141,7 @@ function Nav() {
         <Link href="/console" className="transition hover:text-signal-text">console</Link>
         <Link href="/labs" className="transition hover:text-signal-text">labs</Link>
         <Link href="/labs/perception" className="transition hover:text-signal-text">perception</Link>
+        <Link href="/methodology" className="transition hover:text-signal-text">methodology</Link>
         <Link href="/timeline" className="transition hover:text-signal-text">timeline</Link>
       </div>
     </nav>

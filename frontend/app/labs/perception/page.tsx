@@ -88,6 +88,7 @@ function Nav() {
         <Link href="/safety" className="transition hover:text-signal-text">safety</Link>
         <Link href="/labs" className="transition hover:text-signal-text">labs</Link>
         <Link href="/labs/perception" className="text-signal-green/80 transition hover:text-signal-green">perception</Link>
+        <Link href="/methodology" className="transition hover:text-signal-text">methodology</Link>
         <Link href="/timeline" className="transition hover:text-signal-text">timeline</Link>
       </div>
     </nav>
