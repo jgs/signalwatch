@@ -152,7 +152,7 @@ LAB_DEMOS = [
         title="Computer Vision Confidence",
         status="available",
         category="perception systems",
-        summary="Browser-side COCO-SSD object detection for confidence, uncertainty, and failure-case inspection under degraded input conditions.",
+        summary="Browser-side COCO-SSD object detection for upload and webcam confidence, uncertainty, and failure-case inspection under degraded input conditions.",
         constraints=["No detections are fabricated.", "Confidence is displayed only from real model outputs.", "Model assets load in the browser without backend GPU dependency."],
     ),
     DemoDescriptor(
@@ -202,7 +202,7 @@ LAB_DEMOS = [
         title="Detection Robustness Lab",
         status="available",
         category="perception safety",
-        summary="Compares baseline and degraded model behavior across blur, occlusion, lighting, crop, and compression conditions.",
-        constraints=["Reports detection confidence only from COCO-SSD outputs.", "Baseline and degraded traces come from the same uploaded image."],
+        summary="Compares baseline, degraded, and webcam model behavior across blur, occlusion, lighting, crop, and compression conditions.",
+        constraints=["Reports detection confidence only from COCO-SSD outputs.", "Realtime telemetry is computed from rolling detection history."],
     ),
 ]
