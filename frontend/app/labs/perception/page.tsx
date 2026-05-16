@@ -58,6 +58,12 @@ export default function SafetyCriticalPerceptionPage() {
                   text="Inference runs locally in the browser. SIGNALWATCH does not require backend GPU infrastructure for this lab."
                 />
               </div>
+              <Link
+                href="/case-studies"
+                className="mt-5 inline-flex border border-[#203528] bg-[#07100b] px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-[#3e654c]"
+              >
+                reproducible case studies
+              </Link>
             </Panel>
             <Panel title="pose robustness direction" icon={ScanEye} meta="future model slot">
               <PoseStabilityPanel />
@@ -89,6 +95,7 @@ function Nav() {
         <Link href="/evaluations" className="transition hover:text-signal-text">evaluations</Link>
         <Link href="/labs" className="transition hover:text-signal-text">labs</Link>
         <Link href="/labs/perception" className="text-signal-green/80 transition hover:text-signal-green">perception</Link>
+        <Link href="/case-studies" className="transition hover:text-signal-text">case studies</Link>
         <Link href="/methodology" className="transition hover:text-signal-text">methodology</Link>
         <Link href="/timeline" className="transition hover:text-signal-text">timeline</Link>
       </div>

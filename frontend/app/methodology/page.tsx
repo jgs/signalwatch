@@ -36,8 +36,15 @@ const layers = [
     icon: Waves,
     title: "browser-side perception",
     meta: "real model outputs",
-    body: "Computer vision confidence, detection boxes, temporal consistency, replay, and persistence telemetry come from browser-side COCO-SSD outputs. Missing detections remain missing.",
-    examples: ["webcam inference", "upload inference", "degraded canvas frames", "confidence history"],
+    body: "Computer vision confidence, detection boxes, temporal consistency, replay, evidence packets, and persistence telemetry come from browser-side COCO-SSD outputs. Missing detections remain missing.",
+    examples: ["webcam inference", "upload inference", "evidence packet", "confidence history"],
+  },
+  {
+    icon: ShieldCheck,
+    title: "case-study records",
+    meta: "reproducible protocols",
+    body: "Robustness case studies define setup, degradation, observation, operational implication, and evidence requirements. They do not ship with prefilled conclusions.",
+    examples: ["low-light protocol", "occlusion protocol", "compression protocol", "motion protocol"],
   },
   {
     icon: ShieldCheck,
@@ -78,9 +85,10 @@ export default function MethodologyPage() {
             <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">operational rule</div>
             <div className="font-mono text-[0.6rem] uppercase text-signal-dim">real data stays traceable / missing data stays visible</div>
           </div>
-          <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <Boundary title="Ecosystem claims" text="Must be source-backed or derived from source-backed activity." />
             <Boundary title="Model confidence" text="Must come from actual browser-side inference outputs." />
+            <Boundary title="Case studies" text="Must be reproducible from protocols and evidence packets, not prewritten analytics." />
             <Boundary title="Simulations" text="Must be labeled as infrastructure telemetry or conceptual education." />
           </div>
         </section>
@@ -98,6 +106,7 @@ function Nav() {
         <Link href="/safety" className="transition hover:text-signal-text">safety</Link>
         <Link href="/evaluations" className="transition hover:text-signal-text">evaluations</Link>
         <Link href="/labs/perception" className="transition hover:text-signal-text">perception</Link>
+        <Link href="/case-studies" className="transition hover:text-signal-text">case studies</Link>
         <Link href="/methodology" className="text-signal-green/80 transition hover:text-signal-green">methodology</Link>
       </div>
     </nav>

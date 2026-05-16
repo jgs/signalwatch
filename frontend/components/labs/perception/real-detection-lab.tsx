@@ -10,6 +10,7 @@ import { useCocoSsd, type Detection } from "@/components/labs/inference/use-coco
 import { CalibrationSamples } from "@/components/labs/perception/calibration-samples";
 import { ConfidenceRail } from "@/components/labs/telemetry/confidence-rail";
 import { ReplayTimeline } from "@/components/labs/replay/replay-timeline";
+import { EvidencePacketPanel } from "@/components/labs/robustness/evidence-packet";
 import { TemporalTrace } from "@/components/labs/telemetry/temporal-trace";
 import { WebcamStatus, type WebcamState } from "@/components/labs/webcam/webcam-status";
 
@@ -313,6 +314,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
       <DegradationPresets active={activePreset} onSelect={applyPreset} />
       <DegradationControls value={degradation} onChange={updateDegradation} />
       <TemporalTrace frames={frames} metrics={temporalMetrics} />
+      <EvidencePacketPanel frames={frames} preset={activePreset} mode={mode} />
       <ReplayTimeline frames={frames} />
       <ExplainabilityPanel frames={frames} detections={detections} />
       <DetectionReadout mode={mode} detections={detections} baselineDetections={baselineDetections} />

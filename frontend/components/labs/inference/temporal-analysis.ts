@@ -13,6 +13,18 @@ export type TemporalMetric = {
   detail: string;
 };
 
+export type EvidencePacket = {
+  frameCount: number;
+  framesWithDetections: number;
+  emptyFrames: number;
+  meanConfidence: number | null;
+  minConfidence: number | null;
+  maxConfidence: number | null;
+  detectionDropEvents: number;
+  classContinuityBreaks: number;
+  observedClasses: string[];
+};
+
 export function meanConfidence(detections: Detection[]) {
   if (!detections.length) return null;
   return detections.reduce((total, detection) => total + detection.score, 0) / detections.length;
@@ -69,6 +81,22 @@ export function appendDetectionFrame(frames: DetectionFrame[], detections: Detec
   return [...frames, { timestamp: Date.now(), detections }].slice(-limit);
 }
 
+export function buildEvidencePacket(frames: DetectionFrame[]): EvidencePacket {
+  const means = frames.map((frame) => meanConfidence(frame.detections)).filter((value): value is number => value !== null);
+  const pairs = pairwise(frames);
+  return {
+    frameCount: frames.length,
+    framesWithDetections: frames.filter((frame) => frame.detections.length > 0).length,
+    emptyFrames: frames.filter((frame) => frame.detections.length === 0).length,
+    meanConfidence: means.length ? average(means) : null,
+    minConfidence: means.length ? Math.min(...means) : null,
+    maxConfidence: means.length ? Math.max(...means) : null,
+    detectionDropEvents: pairs.filter(([previous, current]) => previous.detections.length > 0 && current.detections.length === 0).length,
+    classContinuityBreaks: pairs.reduce((total, [previous, current]) => total + missingClasses(previous.detections, current.detections).length, 0),
+    observedClasses: Array.from(new Set(frames.flatMap((frame) => frame.detections.map((detection) => detection.class)))).slice(0, 8),
+  };
+}
+
 function classOverlap(previous: Detection[], current: Detection[]) {
   const previousClasses = new Set(previous.map((detection) => detection.class));
   const currentClasses = new Set(current.map((detection) => detection.class));
@@ -76,6 +104,11 @@ function classOverlap(previous: Detection[], current: Detection[]) {
   const intersection = [...previousClasses].filter((name) => currentClasses.has(name)).length;
   const union = new Set([...previousClasses, ...currentClasses]).size;
   return union ? intersection / union : 0;
+}
+
+function missingClasses(previous: Detection[], current: Detection[]) {
+  const currentClasses = new Set(current.map((detection) => detection.class));
+  return Array.from(new Set(previous.map((detection) => detection.class))).filter((name) => !currentClasses.has(name));
 }
 
 function pairwise<T>(values: T[]): Array<[T, T]> {

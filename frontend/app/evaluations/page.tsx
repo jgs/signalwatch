@@ -114,6 +114,19 @@ export default function EvaluationsPage() {
 
         <section className="mt-5 console-panel p-5">
           <div className="flex flex-col justify-between gap-3 border-b border-[#101b15] pb-3 md:flex-row md:items-center">
+            <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">operational case studies</div>
+            <div className="font-mono text-[0.6rem] uppercase text-signal-dim">reproducible protocols / evidence generated locally</div>
+          </div>
+          <p className="mt-5 max-w-3xl text-sm leading-relaxed text-signal-muted">
+            SIGNALWATCH case studies are short engineering records for running degradation protocols, collecting model-output evidence, and documenting observed failure states without prefilled conclusions.
+          </p>
+          <Link href="/case-studies" className="mt-5 inline-flex border border-[#203528] bg-[#07100b] px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-[#3e654c]">
+            open case studies
+          </Link>
+        </section>
+
+        <section className="mt-5 console-panel p-5">
+          <div className="flex flex-col justify-between gap-3 border-b border-[#101b15] pb-3 md:flex-row md:items-center">
             <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">evaluation source registry</div>
             <div className="font-mono text-[0.6rem] uppercase text-signal-dim">framework-backed / no fabricated policy claims</div>
           </div>
@@ -143,6 +156,7 @@ function Nav() {
         <Link href="/console" className="transition hover:text-signal-text">console</Link>
         <Link href="/safety" className="transition hover:text-signal-text">safety</Link>
         <Link href="/evaluations" className="text-signal-green/80 transition hover:text-signal-green">evaluations</Link>
+        <Link href="/case-studies" className="transition hover:text-signal-text">case studies</Link>
         <Link href="/labs/perception" className="transition hover:text-signal-text">perception</Link>
         <Link href="/methodology" className="transition hover:text-signal-text">methodology</Link>
       </div>

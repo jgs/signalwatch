@@ -27,7 +27,7 @@ const philosophy = [
 const principles = [
   ["instrumentation", "Systems should expose state, uncertainty, provenance, and failure modes instead of hiding them behind interface polish."],
   ["robustness", "Perception and intelligence systems need evaluation under degraded, shifted, and operationally messy conditions."],
-  ["evidence", "Claims should remain traceable to source activity, framework references, or clearly labeled conceptual models."],
+  ["evidence", "Claims should remain traceable to source activity, framework references, browser-side model outputs, or clearly labeled conceptual models."],
 ];
 
 export default function SystemsPage() {
@@ -42,6 +42,7 @@ export default function SystemsPage() {
           <div className="flex items-center gap-4">
             <Link href="/console" className="transition hover:text-signal-text">console</Link>
             <Link href="/evaluations" className="transition hover:text-signal-text">evaluations</Link>
+            <Link href="/case-studies" className="transition hover:text-signal-text">case studies</Link>
             <span>systems node</span>
           </div>
         </nav>
@@ -62,7 +63,7 @@ export default function SystemsPage() {
               <span className="text-[#aeb8b1]">and realtime intelligence systems.</span>
             </h1>
             <div className="mt-10 grid max-w-2xl gap-2 font-mono text-[0.72rem] uppercase text-signal-muted sm:grid-cols-2">
-              {["AI observability", "operational telemetry", "realtime infrastructure", "computer vision", "systems engineering", "semantic monitoring"].map((item) => (
+              {["AI observability", "operational telemetry", "evaluation records", "computer vision", "systems engineering", "robustness protocols"].map((item) => (
                 <span key={item} className="border-l border-[#24392c] bg-[#050806]/54 px-3 py-2">{item}</span>
               ))}
             </div>
