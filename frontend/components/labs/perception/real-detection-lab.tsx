@@ -5,8 +5,10 @@ import { motion } from "framer-motion";
 import { Camera, ImageIcon } from "lucide-react";
 import { appendDetectionFrame, analyzeTemporalDetections, type DetectionFrame } from "@/components/labs/inference/temporal-analysis";
 import { DegradationControls, type DegradationState } from "@/components/labs/degradation/degradation-controls";
+import { DegradationPresets, type DegradationPreset } from "@/components/labs/degradation/degradation-presets";
 import { useCocoSsd, type Detection } from "@/components/labs/inference/use-coco-ssd";
 import { ConfidenceRail } from "@/components/labs/telemetry/confidence-rail";
+import { ReplayTimeline } from "@/components/labs/replay/replay-timeline";
 import { TemporalTrace } from "@/components/labs/telemetry/temporal-trace";
 import { WebcamStatus, type WebcamState } from "@/components/labs/webcam/webcam-status";
 
@@ -34,6 +36,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
   const inFlightRef = useRef(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [mode, setMode] = useState<"upload" | "webcam">("upload");
+  const [activePreset, setActivePreset] = useState<string>("default");
   const [webcamState, setWebcamState] = useState<WebcamState>("idle");
   const [webcamMessage, setWebcamMessage] = useState<string | undefined>();
   const [degradation, setDegradation] = useState<DegradationState>(initialDegradation);
@@ -214,6 +217,18 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
     setFrames([]);
   }
 
+  function applyPreset(preset: DegradationPreset) {
+    setActivePreset(preset.id);
+    setDegradation(preset.value);
+    setFrames([]);
+    setDetections([]);
+  }
+
+  function updateDegradation(next: DegradationState) {
+    setActivePreset("custom");
+    setDegradation(next);
+  }
+
   return (
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-[1fr_.9fr]">
@@ -277,9 +292,12 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
           </button>
         </div>
       </div>
-      <DegradationControls value={degradation} onChange={setDegradation} />
+      <DegradationPresets active={activePreset} onSelect={applyPreset} />
+      <DegradationControls value={degradation} onChange={updateDegradation} />
       <TemporalTrace frames={frames} metrics={temporalMetrics} />
-      <DetectionReadout detections={detections} baselineDetections={baselineDetections} />
+      <ReplayTimeline frames={frames} />
+      <ExplainabilityPanel frames={frames} detections={detections} />
+      <DetectionReadout mode={mode} detections={detections} baselineDetections={baselineDetections} />
       <div className="border-l border-[#24392c] bg-[#050806]/62 px-3 py-2 text-sm leading-relaxed text-signal-muted">
         {error
           ? `Model load failed: ${error}`
@@ -323,7 +341,7 @@ function DetectionOverlay({ detections, canvasRef }: { detections: Detection[]; 
   );
 }
 
-function DetectionReadout({ detections, baselineDetections }: { detections: Detection[]; baselineDetections: Detection[] }) {
+function DetectionReadout({ mode, detections, baselineDetections }: { mode: "upload" | "webcam"; detections: Detection[]; baselineDetections: Detection[] }) {
   const topDetections = detections.slice(0, 5);
   const baselineClasses = baselineDetections.slice(0, 5).map((detection) => detection.class).join(" / ");
   return (
@@ -346,11 +364,39 @@ function DetectionReadout({ detections, baselineDetections }: { detections: Dete
       <div className="border border-[#101b15] bg-[#050806]/70 p-3">
         <div className="font-mono text-[0.62rem] uppercase text-signal-green/75">robustness trace</div>
         <p className="mt-3 text-sm leading-relaxed text-signal-muted">
-          Baseline detections are captured from the same uploaded image before degradation. The degraded frame is re-run after slider changes; instability is measured only from COCO-SSD outputs.
+          {mode === "upload"
+            ? "Baseline detections are captured from the same uploaded image before degradation. The degraded frame is re-run after slider changes; instability is measured only from COCO-SSD outputs."
+            : "Webcam robustness is measured from rolling degraded inference frames. No stable object continuity is assumed unless the model reports it across time."}
         </p>
         <div className="mt-3 font-mono text-[0.6rem] uppercase text-signal-dim">
           baseline / {baselineClasses || "unavailable"}
         </div>
+      </div>
+    </div>
+  );
+}
+
+function ExplainabilityPanel({ frames, detections }: { frames: DetectionFrame[]; detections: Detection[] }) {
+  const previous = frames.length > 1 ? frames[frames.length - 2] : null;
+  const currentClasses = new Set(detections.map((detection) => detection.class));
+  const disappeared = previous?.detections.filter((detection) => !currentClasses.has(detection.class)).map((detection) => detection.class) ?? [];
+  const mean = detections.length ? detections.reduce((total, detection) => total + detection.score, 0) / detections.length : null;
+  const explanation = !frames.length
+    ? "No inference history yet. Enable webcam or upload an image to begin collecting real model outputs."
+    : !detections.length
+      ? "The model reported no detections in the latest degraded frame. This may occur when the transformed input no longer matches features the detector can reliably classify."
+      : disappeared.length
+        ? `${Array.from(new Set(disappeared)).join(" / ")} disappeared from the latest frame. The trace marks a continuity break from model output history.`
+        : mean !== null && mean < 0.45
+          ? "Detections are present, but confidence is low. Increased blur, noise, crop, or occlusion can reduce feature quality before inference."
+          : "Recent detections remain visible in the model output stream. Continue changing environmental stress to inspect confidence and persistence movement.";
+
+  return (
+    <div className="border border-[#101b15] bg-[#050806]/70 p-3">
+      <div className="font-mono text-[0.62rem] uppercase text-signal-green/75">operational explainability</div>
+      <p className="mt-3 text-sm leading-relaxed text-signal-muted">{explanation}</p>
+      <div className="mt-3 font-mono text-[0.58rem] uppercase text-signal-dim">
+        provenance / latest explanation derived from detection history and current model outputs
       </div>
     </div>
   );

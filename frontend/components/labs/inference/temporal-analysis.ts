@@ -24,6 +24,7 @@ export function analyzeTemporalDetections(frames: DetectionFrame[]): TemporalMet
   const counts = frames.map((frame) => frame.detections.length);
   const persistence = pairwise(frames).map(([previous, current]) => classOverlap(previous.detections, current.detections));
   const confidenceDeltas = pairwise(means).map(([previous, current]) => Math.abs(current - previous));
+  const emptyFrameRate = frames.length ? frames.filter((frame) => frame.detections.length === 0).length / frames.length : null;
 
   return [
     {
@@ -50,6 +51,16 @@ export function analyzeTemporalDetections(frames: DetectionFrame[]): TemporalMet
       label: "PERCEPTION.STABILITY",
       value: counts.length > 2 ? 1 - clamp(standardDeviation(counts) / Math.max(1, average(counts) + 1)) : null,
       detail: "stability of detected object count",
+    },
+    {
+      label: "FRAME.INTEGRITY",
+      value: emptyFrameRate === null ? null : 1 - emptyFrameRate,
+      detail: "share of recent frames with at least one model detection",
+    },
+    {
+      label: "OCCLUSION.PRESSURE",
+      value: persistence.length && emptyFrameRate !== null ? clamp((1 - average(persistence)) * 0.55 + emptyFrameRate * 0.45) : null,
+      detail: "derived from detection disappearance and class continuity loss",
     },
   ];
 }

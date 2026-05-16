@@ -52,6 +52,12 @@ export default function LabsPage() {
         <section className="grid gap-5 lg:grid-cols-[1.15fr_.85fr]">
           <Panel title="real perception under degradation" icon={Camera} meta={cvStatus?.status ?? "browser model"}>
             <RealDetectionLab cvMessage={cvStatus?.message} />
+            <Link
+              href="/labs/perception"
+              className="mt-4 inline-flex border border-[#203528] bg-[#07100b] px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-[#3e654c]"
+            >
+              open safety-critical perception layer
+            </Link>
           </Panel>
 
           <Panel title="pose stability monitoring" icon={ScanEye} meta="architecture ready">
@@ -150,6 +156,7 @@ function Nav() {
         <Link href="/console" className="transition hover:text-signal-text">console</Link>
         <Link href="/safety" className="transition hover:text-signal-text">safety</Link>
         <Link href="/labs" className="text-signal-green/80 transition hover:text-signal-green">labs</Link>
+        <Link href="/labs/perception" className="transition hover:text-signal-text">perception</Link>
         <Link href="/timeline" className="transition hover:text-signal-text">timeline</Link>
       </div>
     </nav>
