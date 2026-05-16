@@ -60,6 +60,7 @@ export default function LandingPage() {
 
         <div className="absolute bottom-8 left-6 right-6 flex flex-wrap items-center justify-between gap-3 border-t border-[#101b15] pt-4 font-mono text-[0.64rem] uppercase text-signal-dim md:left-6 md:right-6">
           <Link href="/safety" className="transition hover:text-signal-muted">safety layer</Link>
+          <Link href="/evaluations" className="transition hover:text-signal-muted">evaluations</Link>
           <Link href="/labs/perception" className="transition hover:text-signal-muted">perception lab</Link>
           <Link href="/methodology" className="transition hover:text-signal-muted">methodology</Link>
           <Link href="/timeline" className="transition hover:text-signal-muted">timeline memory</Link>

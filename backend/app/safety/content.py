@@ -44,6 +44,16 @@ SOURCES = [
         accessed="2026-05-16",
         summary="Stanford HAI's annual synthesis of AI research, deployment, policy, economy, and societal trends.",
     ),
+    SafetySource(
+        id="nist-ai-rmf",
+        title="AI Risk Management Framework",
+        publisher="NIST",
+        url="https://www.nist.gov/itl/ai-risk-management-framework",
+        category="official AI risk management framework",
+        reliability="official",
+        accessed="2026-05-16",
+        summary="NIST's framework for managing AI risks through governance, mapping, measurement, and management practices.",
+    ),
 ]
 
 
@@ -83,6 +93,7 @@ RISK_FRAMEWORKS = [
         evidence=[
             EvidenceLink(source_id="openai-preparedness", note="Preparedness frameworks evaluate advanced capabilities before deployment."),
             EvidenceLink(source_id="anthropic-rsp-v3", note="Anthropic identifies autonomous AI R&D capability as a frontier risk area."),
+            EvidenceLink(source_id="nist-ai-rmf", note="Risk management frameworks emphasize measurement, monitoring, and governance across AI systems."),
         ],
     ),
     RiskCategory(

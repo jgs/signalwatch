@@ -56,6 +56,7 @@ export function OperationalSidebar({
         <div className="mt-4 grid grid-cols-3 gap-2 font-mono text-[0.62rem] uppercase">
           <Link href="/console" className="border border-[#101b15] px-2 py-1 text-signal-green/80 transition hover:border-[#2f4a39]">console</Link>
           <Link href="/safety" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">safety</Link>
+          <Link href="/evaluations" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">evals</Link>
           <Link href="/labs" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">labs</Link>
           <Link href="/timeline" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">timeline</Link>
           <Link href="/methodology" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">method</Link>

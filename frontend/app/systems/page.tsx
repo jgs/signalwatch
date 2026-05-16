@@ -19,8 +19,15 @@ const stack = [
 const philosophy = [
   "quiet systems over interface noise",
   "observability-first engineering",
-  "realtime infrastructure before ornament",
+  "evaluation visibility before claims",
+  "traceability before abstraction",
   "alignment-aware systems thinking",
+];
+
+const principles = [
+  ["instrumentation", "Systems should expose state, uncertainty, provenance, and failure modes instead of hiding them behind interface polish."],
+  ["robustness", "Perception and intelligence systems need evaluation under degraded, shifted, and operationally messy conditions."],
+  ["evidence", "Claims should remain traceable to source activity, framework references, or clearly labeled conceptual models."],
 ];
 
 export default function SystemsPage() {
@@ -34,6 +41,7 @@ export default function SystemsPage() {
           <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">JGSOPS</Link>
           <div className="flex items-center gap-4">
             <Link href="/console" className="transition hover:text-signal-text">console</Link>
+            <Link href="/evaluations" className="transition hover:text-signal-text">evaluations</Link>
             <span>systems node</span>
           </div>
         </nav>
@@ -133,6 +141,18 @@ export default function SystemsPage() {
                 <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">{group}</div>
                 <div className="mt-5 text-sm leading-relaxed text-signal-muted">{values}</div>
               </motion.div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-5 console-panel p-5">
+          <SectionLabel icon={Route} label="observability principles" meta="operating philosophy" />
+          <div className="mt-5 grid gap-3 md:grid-cols-3">
+            {principles.map(([title, text]) => (
+              <div key={title} className="border border-[#101b15] bg-[#050806]/70 p-4">
+                <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">{title}</div>
+                <p className="mt-3 text-sm leading-relaxed text-signal-muted">{text}</p>
+              </div>
             ))}
           </div>
         </section>

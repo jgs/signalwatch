@@ -139,6 +139,7 @@ function Nav() {
       <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">JGSOPS</Link>
       <div className="flex flex-wrap items-center justify-end gap-4">
         <Link href="/console" className="transition hover:text-signal-text">console</Link>
+        <Link href="/evaluations" className="transition hover:text-signal-text">evaluations</Link>
         <Link href="/labs" className="transition hover:text-signal-text">labs</Link>
         <Link href="/labs/perception" className="transition hover:text-signal-text">perception</Link>
         <Link href="/methodology" className="transition hover:text-signal-text">methodology</Link>
