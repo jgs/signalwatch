@@ -16,8 +16,39 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "JGSOPS / SIGNALWATCH",
-  description: "Realtime observability systems for monitoring intelligent infrastructure"
+  metadataBase: new URL("https://jgsops.dev"),
+  title: {
+    default: "JGSOPS — Realtime AI Observability Systems",
+    template: "%s / JGSOPS"
+  },
+  description:
+    "Realtime observability infrastructure for monitoring intelligent systems, alignment signals, operational telemetry, and ecosystem drift.",
+  alternates: {
+    canonical: "/"
+  },
+  openGraph: {
+    title: "JGSOPS — Realtime AI Observability Systems",
+    description:
+      "Realtime observability infrastructure for monitoring intelligent systems, alignment signals, operational telemetry, and ecosystem drift.",
+    url: "https://jgsops.dev",
+    siteName: "JGSOPS",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "JGSOPS realtime observability systems"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "JGSOPS — Realtime AI Observability Systems",
+    description:
+      "Realtime observability infrastructure for monitoring intelligent systems, alignment signals, operational telemetry, and ecosystem drift.",
+    images: ["/og-image.svg"]
+  }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {

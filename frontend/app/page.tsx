@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
+import { ConsoleEntry } from "@/components/landing/console-entry";
 
 const words = ["Research.", "Alignment.", "Operational telemetry.", "Ecosystem drift."];
 
@@ -49,13 +49,7 @@ export default function LandingPage() {
         </motion.div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7, duration: 0.7 }} className="mt-16">
-          <Link
-            href="/console"
-            className="group inline-flex items-center gap-4 border border-[#2f4a39] bg-[#07100b]/76 px-5 py-3 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-signal-green transition hover:border-signal-green/70 hover:bg-[#09140d]"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-signal-green/80 transition group-hover:shadow-[0_0_14px_rgba(137,227,173,.42)]" />
-            Enter Console
-          </Link>
+          <ConsoleEntry />
         </motion.div>
 
         <div className="absolute bottom-8 left-6 right-6 flex items-center justify-between border-t border-[#101b15] pt-4 font-mono text-[0.64rem] uppercase text-signal-dim md:left-6 md:right-6">

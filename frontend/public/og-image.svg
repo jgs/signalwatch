@@ -1,0 +1,28 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#030403"/>
+  <rect x="1" y="1" width="1198" height="628" stroke="#16251c" stroke-width="2"/>
+  <circle cx="760" cy="312" r="238" stroke="#1f3a2b" stroke-width="1"/>
+  <circle cx="760" cy="312" r="152" stroke="#203428" stroke-width="1"/>
+  <circle cx="760" cy="312" r="72" stroke="#2f4a39" stroke-width="1"/>
+  <path d="M654 248L760 312L880 228M760 312L914 380M760 312L650 424M760 312L566 328" stroke="#2f4a39" stroke-width="2" stroke-linecap="round"/>
+  <g fill="#89e3ad">
+    <circle cx="760" cy="312" r="7"/>
+    <circle cx="654" cy="248" r="4"/>
+    <circle cx="880" cy="228" r="4"/>
+    <circle cx="914" cy="380" r="4"/>
+    <circle cx="650" cy="424" r="4"/>
+    <circle cx="566" cy="328" r="4"/>
+  </g>
+  <g opacity="0.12" stroke="#89e3ad" stroke-width="1">
+    <path d="M112 104H1088"/>
+    <path d="M112 526H1088"/>
+    <path d="M112 104V526"/>
+    <path d="M1088 104V526"/>
+  </g>
+  <text x="112" y="176" fill="#89e3ad" font-family="JetBrains Mono, Consolas, monospace" font-size="24" letter-spacing="8">JGSOPS</text>
+  <text x="112" y="276" fill="#eef4ef" font-family="Inter, Arial, sans-serif" font-size="58" font-weight="600">Realtime observability systems</text>
+  <text x="112" y="346" fill="#aeb8b1" font-family="Inter, Arial, sans-serif" font-size="46">for monitoring intelligent infrastructure.</text>
+  <text x="112" y="470" fill="#536059" font-family="JetBrains Mono, Consolas, monospace" font-size="18" letter-spacing="3">RESEARCH / ALIGNMENT / TELEMETRY / ECOSYSTEM DRIFT</text>
+  <rect x="112" y="512" width="210" height="1" fill="#2f4a39"/>
+  <text x="342" y="519" fill="#7f8b83" font-family="JetBrains Mono, Consolas, monospace" font-size="15" letter-spacing="2">SIGNALWATCH OPERATIONAL CONSOLE</text>
+</svg>
