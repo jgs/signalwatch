@@ -30,6 +30,10 @@ def test_operational_websocket_stream() -> None:
         assert snapshot["type"] == "snapshot"
         assert event["type"] in {
             "signal.event",
+            "model.release",
+            "policy.update",
+            "safety.research",
+            "capability.signal",
             "telemetry.update",
             "collector.health",
             "source.latency",

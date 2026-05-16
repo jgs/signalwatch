@@ -3,7 +3,6 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import os
-import random
 
 from app.collectors.simulator import CollectorSimulator
 from app.models import OperationalEvent
@@ -23,7 +22,6 @@ class OperationalRuntime:
             return
         self._running = True
         self._tasks = {
-            asyncio.create_task(self._event_loop(), name="signalwatch:event-loop"),
             asyncio.create_task(self._collector_loop(), name="signalwatch:collector-loop"),
             asyncio.create_task(self._heartbeat_loop(), name="signalwatch:heartbeat-loop"),
             asyncio.create_task(self._ingestion_loop(), name="signalwatch:ecosystem-ingestion"),
@@ -41,11 +39,6 @@ class OperationalRuntime:
     async def emit(self, event: OperationalEvent) -> None:
         await telemetry_state.record(event)
         await hub.broadcast(event)
-
-    async def _event_loop(self) -> None:
-        while self._running:
-            await asyncio.sleep(random.uniform(2.0, 4.8))
-            await self.emit(self.simulator.event())
 
     async def _collector_loop(self) -> None:
         while self._running:

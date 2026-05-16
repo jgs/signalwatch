@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import os
 import time
+from collections import Counter, defaultdict
 from datetime import UTC, datetime
 
 import aiohttp
@@ -29,6 +30,8 @@ class EcosystemIngestionService:
 
     @property
     def enabled(self) -> bool:
+        if os.getenv("PYTEST_CURRENT_TEST"):
+            return os.getenv("SIGNALWATCH_REAL_INGESTION_ENABLED", "false").lower() in {"1", "true", "yes"}
         return os.getenv("SIGNALWATCH_REAL_INGESTION_ENABLED", "true").lower() not in {"0", "false", "no"}
 
     @property
@@ -52,6 +55,7 @@ class EcosystemIngestionService:
                 continue
             events.extend(result)
 
+        events.extend(self.derived_aggregate_events(events))
         return events
 
     async def _collect_source(self, collector, session: aiohttp.ClientSession) -> list[OperationalEvent]:
@@ -109,53 +113,89 @@ class EcosystemIngestionService:
             event = normalize_signal_item(item)
             event.payload["collector_latency_ms"] = round(latency_ms, 2)
             events.append(event)
-            derived = self._derived_events(event)
-            events.extend(derived)
             if len(events) >= 18:
                 break
         return events
 
-    def _derived_events(self, event: OperationalEvent) -> list[OperationalEvent]:
-        pressure = float(event.payload.get("pressure", 0.0))
-        topics = event.payload.get("topics", [])
-        topic = str(topics[0]) if isinstance(topics, list) and topics else "ecosystem"
+    def derived_aggregate_events(self, events: list[OperationalEvent]) -> list[OperationalEvent]:
+        ecosystem_events = [
+            event
+            for event in events
+            if event.type in {"signal.event", "model.release", "policy.update", "safety.research", "capability.signal", "alignment.alert"}
+        ]
+        if len(ecosystem_events) < 2:
+            return []
+
+        topic_counts: Counter[str] = Counter()
+        topic_sources: dict[str, set[str]] = defaultdict(set)
+        topic_pressure: dict[str, list[float]] = defaultdict(list)
+        for event in ecosystem_events:
+            topics = event.payload.get("topics", [])
+            if not isinstance(topics, list):
+                continue
+            for topic in topics:
+                topic_name = str(topic)
+                topic_counts[topic_name] += 1
+                topic_sources[topic_name].add(event.source)
+                topic_pressure[topic_name].append(float(event.payload.get("pressure", 0.0)))
+
         derived: list[OperationalEvent] = []
+        for topic, count in topic_counts.most_common(5):
+            sources = topic_sources[topic]
+            avg_pressure = sum(topic_pressure[topic]) / max(1, len(topic_pressure[topic]))
+            confidence = min(0.97, 0.48 + count * 0.1 + len(sources) * 0.08 + avg_pressure * 0.18)
 
-        if event.type in {"capability.signal", "safety.research"} and pressure >= 0.62:
-            derived.append(
-                OperationalEvent(
-                    type="semantic.cluster",
-                    severity="watch" if pressure < 0.78 else "elevated",
-                    source="semantic ingestion layer",
-                    message=f"new {topic} semantic cluster detected",
-                    payload={
-                        "topics": topics,
-                        "pressure": pressure,
-                        "confidence": event.payload.get("confidence", 0.82),
-                        "source_overlap": 2,
-                        "cluster_count": 1,
-                        "origin_signal": event.id,
-                    },
+            if count >= 2:
+                event_type = "alignment.alert" if topic in {"alignment", "policy"} else "semantic.cluster"
+                message = _aggregate_message(topic, event_type, count, len(sources))
+                derived.append(
+                    OperationalEvent(
+                        type=event_type,
+                        severity="elevated" if confidence >= 0.78 else "watch",
+                        source="semantic aggregation layer",
+                        message=message,
+                        payload={
+                            "topics": [topic],
+                            "pressure": round(avg_pressure, 3),
+                            "confidence": round(confidence, 3),
+                            "source_overlap": len(sources),
+                            "cluster_count": count,
+                            "derived_from": [event.id for event in ecosystem_events if topic in event.payload.get("topics", [])][:8],
+                        },
+                    )
                 )
-            )
 
-        if pressure >= 0.74:
-            derived.append(
-                OperationalEvent(
-                    type="trend.spike",
-                    severity="elevated",
-                    source="ecosystem velocity monitor",
-                    message=f"{topic} research velocity increasing",
-                    payload={
-                        "topics": topics,
-                        "pressure": pressure,
-                        "confidence": event.payload.get("confidence", 0.84),
-                        "origin_signal": event.id,
-                    },
+            if count >= 3 or len(sources) >= 2:
+                derived.append(
+                    OperationalEvent(
+                        type="trend.spike",
+                        severity="elevated" if confidence >= 0.82 else "watch",
+                        source="ecosystem trend analyzer",
+                        message=f"{topic} activity increasing across real source window",
+                        payload={
+                            "topics": [topic],
+                            "pressure": round(avg_pressure, 3),
+                            "confidence": round(confidence, 3),
+                            "source_overlap": len(sources),
+                            "cluster_count": count,
+                            "derived_from": [event.id for event in ecosystem_events if topic in event.payload.get("topics", [])][:8],
+                        },
+                    )
                 )
-            )
 
-        return derived
+        return derived[:8]
+
+
+def _aggregate_message(topic: str, event_type: str, count: int, source_count: int) -> str:
+    if event_type == "alignment.alert":
+        return f"{topic} activity elevated across {source_count} real sources"
+    if topic in {"agents", "reasoning"}:
+        return f"agentic reasoning activity increasing across {count} real signals"
+    if topic == "multimodal":
+        return f"multimodal systems cluster formed from {count} real signals"
+    if topic == "models":
+        return f"model release activity clustered across {source_count} sources"
+    return f"{topic} research cluster derived from real ecosystem activity"
 
 
 ecosystem_ingestion = EcosystemIngestionService()
