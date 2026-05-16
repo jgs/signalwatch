@@ -10,7 +10,7 @@ export function ActivityStream({ events }: { events: RealtimeEvent[] }) {
   const viewportRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (viewportRef.current) viewportRef.current.scrollTop = 0;
+    viewportRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }, [events.length]);
 
   return (
@@ -18,21 +18,34 @@ export function ActivityStream({ events }: { events: RealtimeEvent[] }) {
       <PanelHeader title="realtime event stream" meta={`${events.length} websocket frames`} />
       <div ref={viewportRef} className="event-stream-mask max-h-[430px] space-y-1 overflow-y-auto pr-1">
         <AnimatePresence initial={false}>
-          {events.slice(0, 28).map((event, index) => (
+          {events.slice(0, 34).map((event, index) => (
           <motion.div
-            key={`${event.timestamp}-${index}`}
+            key={event.id ?? `${event.timestamp}-${event.type}-${index}`}
             layout
-            initial={{ opacity: 0, y: -5, filter: "blur(3px)" }}
-            animate={{ opacity: Math.max(0.34, 1 - index * 0.032), y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, y: -4, filter: "blur(2px)" }}
+            animate={{
+              opacity: Math.max(0.28, 1 - index * 0.028),
+              y: 0,
+              filter: "blur(0px)",
+              backgroundColor: index === 0 ? ["rgba(7,16,11,.88)", "rgba(5,8,6,.72)"] : "rgba(5,8,6,.72)"
+            }}
             exit={{ opacity: 0, y: 5 }}
-            transition={{ duration: 0.24 }}
+            transition={{ duration: 0.42, ease: "easeOut" }}
             className={cn(
-              "grid grid-cols-[5.9rem_3.4rem_1fr] gap-2 border-l bg-[#050806]/70 py-1.5 pl-2.5 pr-2 font-mono text-[0.66rem] text-signal-muted",
-              severityClass(event.payload.severity)
+              "relative grid grid-cols-[5.9rem_4.2rem_1fr] gap-2 border-l py-1.5 pl-2.5 pr-2 font-mono text-[0.66rem] text-signal-muted",
+              severityClass(event.payload.severity),
+              event.type === "system.heartbeat" && "opacity-75"
             )}
           >
-            <span className="whitespace-nowrap text-signal-green">[{timeOnly(event.timestamp).replace(" UTC", "")}]</span>
-            <span className="truncate uppercase text-signal-dim">{event.payload.severity ?? "TRACE"}</span>
+            {index < 6 ? <span className="absolute left-0 top-0 h-full w-px bg-signal-green/20" /> : null}
+            <motion.span
+              className="whitespace-nowrap text-signal-green/90"
+              animate={event.type === "system.heartbeat" ? { opacity: [0.52, 0.95, 0.52] } : { opacity: index < 2 ? [0.78, 1, 0.78] : 0.78 }}
+              transition={{ duration: event.type === "system.heartbeat" ? 2.8 : 3.6, repeat: Infinity }}
+            >
+              [{timeOnly(event.timestamp).replace(" UTC", "")}]
+            </motion.span>
+            <span className={cn("truncate uppercase", severityText(event.payload.severity))}>{event.payload.severity ?? "TRACE"}</span>
             <div className="min-w-0">
               <div className="flex min-w-0 items-center gap-2">
                 <span className="shrink-0 border border-signal-line px-1 text-[0.58rem] uppercase text-signal-dim">{event.payload.category ?? event.type}</span>
@@ -46,6 +59,14 @@ export function ActivityStream({ events }: { events: RealtimeEvent[] }) {
       </div>
     </Panel>
   );
+}
+
+function severityText(severity: RealtimeEvent["payload"]["severity"]) {
+  if (severity === "CRITICAL") return "text-signal-danger";
+  if (severity === "ALERT") return "text-signal-amber";
+  if (severity === "ELEVATED") return "text-signal-olive";
+  if (severity === "WATCH") return "text-signal-green";
+  return "text-signal-dim";
 }
 
 function messageFor(event: RealtimeEvent) {

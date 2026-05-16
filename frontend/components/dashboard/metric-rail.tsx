@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { animate, motion, useMotionValue, useTransform } from "framer-motion";
+import { useEffect } from "react";
 
 export function MetricRail({
   pulseKey,
@@ -36,41 +37,62 @@ export function MetricRail({
   collectorLatency: number;
 }) {
   const metrics = [
-    ["live signals", String(signalCount).padStart(3, "0"), "filtered operational feed"],
-    ["monitoring sources", String(sourceCount).padStart(2, "0"), "8 collectors configured"],
-    ["active alerts", String(activeAlerts || alertCandidates).padStart(2, "0"), "alert / critical routes"],
-    ["max importance", maxImportance.toFixed(2), "source weighted score"],
-    ["signals/minute", signalsPerMinute.toFixed(1), "normalization throughput"],
-    ["trend velocity", String(trendVelocity).padStart(2, "0"), "ws trend events"],
-    ["semantic clusters", String(semanticClusterCount).padStart(2, "0"), "active correlation groups"],
-    ["ws clients", String(websocketClients).padStart(2, "0"), "active realtime viewers"],
-    ["collector latency", `${Math.round(collectorLatency)}ms`, "health telemetry p50"],
-    ["collector uptime", `${Math.round(collectorUptime * 100)}%`, "rolling source availability"],
-    ["source reliability", `${Math.round(sourceReliability * 100)}%`, "failure adjusted confidence"],
-    ["retry count", String(retryCount).padStart(2, "0"), "collector recovery attempts"],
-    ["norm pressure", normalizationPressure.toFixed(2), "schema routing saturation"]
+    metric("live signals", signalCount, "filtered operational feed", (value) => String(Math.round(value)).padStart(3, "0")),
+    metric("monitoring sources", sourceCount, "collector mesh sources", (value) => String(Math.round(value)).padStart(2, "0")),
+    metric("active alerts", activeAlerts || alertCandidates, "elevated / alert routes", (value) => String(Math.round(value)).padStart(2, "0")),
+    metric("max importance", maxImportance, "source weighted score", (value) => value.toFixed(2)),
+    metric("signals/minute", signalsPerMinute, "normalization throughput", (value) => value.toFixed(1)),
+    metric("trend velocity", trendVelocity, "ws trend events", (value) => String(Math.round(value)).padStart(2, "0")),
+    metric("semantic clusters", semanticClusterCount, "active correlation groups", (value) => String(Math.round(value)).padStart(2, "0")),
+    metric("ws clients", websocketClients, "active realtime viewers", (value) => String(Math.round(value)).padStart(2, "0")),
+    metric("collector latency", collectorLatency, "health telemetry p50", (value) => `${Math.round(value)}ms`),
+    metric("collector uptime", collectorUptime * 100, "rolling source availability", (value) => `${Math.round(value)}%`),
+    metric("source reliability", sourceReliability * 100, "failure adjusted confidence", (value) => `${Math.round(value)}%`),
+    metric("retry count", retryCount, "collector recovery attempts", (value) => String(Math.round(value)).padStart(2, "0")),
+    metric("norm pressure", normalizationPressure, "schema routing saturation", (value) => value.toFixed(2))
   ];
 
   return (
     <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
-      {metrics.map(([label, value, foot], index) => (
+      {metrics.map((item, index) => (
         <motion.div
-          key={label}
+          key={item.label}
           initial={{ opacity: 0, y: 6 }}
           animate={{
             opacity: 1,
             y: 0,
             borderColor: pulseKey ? ["#1a2b21", "#2f4a39", "#1a2b21"] : "#1a2b21",
-            backgroundColor: pulseKey ? ["rgba(7,10,8,.85)", "rgba(8,18,12,.88)", "rgba(7,10,8,.85)"] : "rgba(7,10,8,.85)"
+            boxShadow: pulseKey ? ["0 24px 90px rgba(0,0,0,.28)", "0 0 28px rgba(137,227,173,.055)", "0 24px 90px rgba(0,0,0,.28)"] : "0 24px 90px rgba(0,0,0,.28)"
           }}
-          transition={{ delay: index * 0.04, duration: 0.75 }}
-          className="console-panel p-4 transition hover:border-[#2f4a39]"
+          transition={{ delay: index * 0.025, duration: 0.9 }}
+          className="console-panel relative overflow-hidden p-4 transition hover:border-[#2f4a39]"
         >
-          <div className="terminal-label">{label}</div>
-          <div className="mt-4 font-mono text-2xl font-semibold text-signal-text">{value}</div>
-          <div className="mt-4 text-xs text-signal-dim">{foot}</div>
+          <motion.div
+            className="absolute inset-x-0 top-0 h-px bg-signal-green/25"
+            animate={{ opacity: [0.12, 0.42, 0.12], x: ["-18%", "18%", "-18%"] }}
+            transition={{ duration: 6 + (index % 4), repeat: Infinity, ease: "easeInOut" }}
+          />
+          <div className="terminal-label">{item.label}</div>
+          <AnimatedMetricValue value={item.value} format={item.format} />
+          <div className="mt-4 text-xs text-signal-dim">{item.foot}</div>
         </motion.div>
       ))}
     </div>
   );
+}
+
+function metric(label: string, value: number, foot: string, format: (value: number) => string) {
+  return { label, value, foot, format };
+}
+
+function AnimatedMetricValue({ value, format }: { value: number; format: (value: number) => string }) {
+  const motionValue = useMotionValue(value);
+  const display = useTransform(motionValue, (latest) => format(latest));
+
+  useEffect(() => {
+    const controls = animate(motionValue, value, { duration: 0.7, ease: [0.22, 1, 0.36, 1] });
+    return controls.stop;
+  }, [motionValue, value]);
+
+  return <motion.div className="mt-4 font-mono text-2xl font-semibold tabular-nums text-signal-text">{display}</motion.div>;
 }

@@ -68,11 +68,10 @@ export function OperationalSidebar({
                 )}
               >
                 <span className="flex min-w-0 items-center gap-2">
-                  <span
-                    className={cn(
-                      "h-1.5 w-1.5 rounded-full bg-signal-amber",
-                      count > 0 && "bg-signal-green shadow-[0_0_10px_rgba(137,227,173,0.45)]"
-                    )}
+                  <motion.span
+                    className={cn("relative h-2 w-2 rounded-full border border-[#213629] bg-[#07100b]", count > 0 && "border-signal-green/50 bg-signal-green/80")}
+                    animate={count > 0 ? { opacity: [0.48, 1, 0.48], scale: [0.92, 1, 0.92] } : { opacity: 0.42, scale: 0.86 }}
+                    transition={{ duration: 2.8 + (source.length % 4) * 0.35, repeat: count > 0 ? Infinity : 0, ease: "easeInOut" }}
                   />
                   <span className="truncate">{sourceLabel(source)}</span>
                 </span>
@@ -104,6 +103,7 @@ export function OperationalSidebar({
         <Readout label="websocket" value={connectionState} live={connected} />
         <Readout label="watch score" value="0.72" />
         <Readout label="collector mesh" value="telemetry" />
+        <TopologyTrace active={connected} />
       </SidebarSection>
 
       <SidebarSection icon={Database} title="system status">
@@ -114,6 +114,21 @@ export function OperationalSidebar({
 
       <div className="mt-4 font-mono text-[0.64rem] text-[#223429]">--- operational bus ----------------</div>
     </aside>
+  );
+}
+
+function TopologyTrace({ active }: { active: boolean }) {
+  return (
+    <div className="mt-3 grid grid-cols-7 gap-1">
+      {Array.from({ length: 7 }).map((_, index) => (
+        <motion.span
+          key={index}
+          className="h-1 border border-[#142118] bg-signal-green/20"
+          animate={{ opacity: active ? [0.18, 0.58, 0.18] : 0.16 }}
+          transition={{ duration: 2.4, repeat: Infinity, delay: index * 0.18, ease: "easeInOut" }}
+        />
+      ))}
+    </div>
   );
 }
 

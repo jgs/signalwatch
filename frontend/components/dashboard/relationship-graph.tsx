@@ -7,33 +7,34 @@ import type { GraphNode, RelationshipGraph as RelationshipGraphType } from "@/li
 
 export function RelationshipGraph({ graph }: { graph: RelationshipGraphType }) {
   const [hovered, setHovered] = useState<GraphNode | null>(null);
-  const nodes = graph.nodes.slice(0, 22);
-  const edges = graph.edges.slice(0, 34);
+  const nodes = graph.nodes.slice(0, 26);
+  const edges = graph.edges.slice(0, 42);
   const positioned = nodes.map((node, index) => {
-    const radius = node.type === "cluster" ? 74 : node.type === "signal" ? 118 : 96;
+    const radius = node.type === "cluster" ? 58 : node.type === "signal" ? 126 : 98;
     const angle = (index / Math.max(1, nodes.length)) * Math.PI * 2;
     return {
       ...node,
-      x: 170 + Math.cos(angle) * radius + (node.type === "cluster" ? 0 : Math.sin(index) * 14),
-      y: 120 + Math.sin(angle) * radius + (node.type === "signal" ? Math.cos(index) * 10 : 0),
+      x: 170 + Math.cos(angle) * radius + (node.type === "cluster" ? Math.sin(index * 1.7) * 12 : Math.sin(index) * 16),
+      y: 126 + Math.sin(angle) * radius + (node.type === "source" ? Math.cos(index * 0.8) * 12 : 0),
+      driftX: Math.sin(index * 1.9) * 3.2,
+      driftY: Math.cos(index * 1.4) * 2.8,
     };
   });
   const byId = new Map(positioned.map((node) => [node.id, node]));
 
   return (
     <Panel>
-      <PanelHeader title="signal relationship graph" meta={`${graph.nodes.length} nodes / ${graph.edges.length} links`} />
-      <svg viewBox="0 0 340 240" className="h-[260px] w-full overflow-visible">
-        <rect width="340" height="240" fill="#050706" stroke="#101b15" />
+      <PanelHeader title="semantic topology" meta={`${graph.nodes.length} nodes / ${graph.edges.length} links`} />
+      <svg viewBox="0 0 340 252" className="h-[276px] w-full overflow-visible">
+        <rect width="340" height="252" fill="#050706" stroke="#101b15" />
         <defs>
-          <filter id="nodeSoftGlow" x="-80%" y="-80%" width="260%" height="260%">
-            <feGaussianBlur stdDeviation="2.4" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
+          <radialGradient id="topologyWell" cx="50%" cy="48%" r="64%">
+            <stop offset="0%" stopColor="#102016" stopOpacity="0.34" />
+            <stop offset="100%" stopColor="#050706" stopOpacity="0" />
+          </radialGradient>
         </defs>
+        <rect width="340" height="252" fill="url(#topologyWell)" />
+        <path d="M32 126 H308 M170 24 V226" stroke="#101b15" strokeWidth="0.6" strokeDasharray="2 8" opacity="0.72" />
         {edges.map((edge, index) => {
           const source = byId.get(edge.source);
           const target = byId.get(edge.target);
@@ -47,28 +48,36 @@ export function RelationshipGraph({ graph }: { graph: RelationshipGraphType }) {
               x2={target.x}
               y2={target.y}
               stroke={active ? "#89e3ad" : "#1f3a2b"}
-              strokeOpacity={active ? 0.72 : 0.46}
-              strokeWidth={Math.min(2, Math.max(0.5, edge.weight / 6))}
-              initial={{ pathLength: 0.2, opacity: 0.2 }}
-              animate={{ pathLength: [0.35, 1, 0.72], opacity: active ? 0.72 : 0.46 }}
-              transition={{ duration: 5 + (index % 4), repeat: Infinity, repeatType: "mirror" }}
+              strokeOpacity={active ? 0.62 : 0.28}
+              strokeWidth={active ? 0.9 : 0.55}
+              initial={{ pathLength: 0.08, opacity: 0.12 }}
+              animate={{ pathLength: [0.35, 0.92, 0.58], opacity: active ? 0.62 : [0.2, 0.36, 0.2] }}
+              transition={{ duration: 7 + (index % 5), repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
             />
           );
         })}
         {positioned.map((node) => (
-          <g key={node.id} onMouseEnter={() => setHovered(node)} onMouseLeave={() => setHovered(null)} className="cursor-crosshair">
-            <circle
+          <motion.g
+            key={node.id}
+            onMouseEnter={() => setHovered(node)}
+            onMouseLeave={() => setHovered(null)}
+            className="cursor-crosshair"
+            animate={{ x: [0, node.driftX, 0], y: [0, node.driftY, 0] }}
+            transition={{ duration: 8 + (node.id.length % 5), repeat: Infinity, ease: "easeInOut" }}
+          >
+            <motion.circle
               cx={node.x}
               cy={node.y}
               r={nodeRadius(node.type)}
               fill={nodeFill(node.type)}
               stroke={hovered?.id === node.id ? "#89e3ad" : "#2f4a39"}
               strokeWidth="1"
-              opacity="0.95"
-              filter={hovered?.id === node.id ? "url(#nodeSoftGlow)" : undefined}
+              opacity="0.92"
+              animate={{ opacity: hovered?.id === node.id ? 1 : [0.72, 0.96, 0.72] }}
+              transition={{ duration: node.type === "cluster" ? 3.8 : 5.8, repeat: Infinity, ease: "easeInOut" }}
             />
-            {node.type === "cluster" ? <circle cx={node.x} cy={node.y} r={nodeRadius(node.type) + 5} fill="none" stroke="#89e3ad" strokeOpacity="0.13" /> : null}
-          </g>
+            {node.type === "cluster" ? <circle cx={node.x} cy={node.y} r={nodeRadius(node.type) + 6} fill="none" stroke="#89e3ad" strokeOpacity="0.12" strokeDasharray="2 4" /> : null}
+          </motion.g>
         ))}
         {positioned.filter((node) => node.type === "cluster").slice(0, 3).map((node) => (
           <text key={`${node.id}-label`} x={node.x + 9} y={node.y - 8} fill="#7f8b83" fontSize="9" fontFamily="Consolas, monospace">
@@ -77,8 +86,8 @@ export function RelationshipGraph({ graph }: { graph: RelationshipGraphType }) {
         ))}
         {hovered ? (
           <g>
-            <rect x="12" y="204" width="212" height="24" fill="#07100b" stroke="#1a2b21" />
-            <text x="20" y="219" fill="#aeb8b1" fontSize="9" fontFamily="Consolas, monospace">
+            <rect x="12" y="216" width="226" height="24" fill="#07100b" stroke="#1a2b21" />
+            <text x="20" y="231" fill="#aeb8b1" fontSize="9" fontFamily="Consolas, monospace">
               {hovered.type.toUpperCase()} :: {hovered.label.slice(0, 32)}
             </text>
           </g>
