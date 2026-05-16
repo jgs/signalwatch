@@ -18,6 +18,13 @@ export type EventKind =
 export type Signal = {
   fingerprint: string;
   source: string;
+  source_title?: string;
+  source_type?: string;
+  source_url?: string;
+  fetched_at?: string;
+  evidence_links?: Array<{ title?: string; url?: string; source?: string }>;
+  derived_reason?: string;
+  source_count?: number;
   title: string;
   url: string;
   summary: string;

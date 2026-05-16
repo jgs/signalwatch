@@ -44,10 +44,8 @@ _pulse_events = cycle(
     [
         ("collector.synced", "collector", "TRACE", "{source} collector heartbeat acknowledged"),
         ("websocket.activity", "system", "TRACE", "websocket bus emitted operational telemetry frame"),
-        ("normalization.completed", "normalization", "TRACE", "{source} artifact normalized into signal schema"),
-        ("scoring.completed", "scoring", "WATCH", "{source} signal scoring route completed"),
-        ("trend.acceleration.detected", "trend", "WATCH", "topic momentum increased across source overlap window"),
-        ("semantic.cluster.generated", "cluster", "WATCH", "semantic cluster refreshed from rolling signal window"),
+        ("source.sync", "collector", "TRACE", "{source} source sync completed"),
+        ("source.latency", "collector", "WATCH", "{source} source latency sample updated"),
     ]
 )
 
@@ -134,23 +132,13 @@ async def collect() -> dict:
     for trend in result.get("trends", [])[:5]:
         score = float(trend.get("score", 0.0))
         await hub.publish(
-            "trend.detected",
+            "source.overlap",
             trend
             | {
-                "category": "trend",
+                "category": "derived",
                 "severity": severity_from_score(min(1.0, score / 100)),
                 "message": summarize_trend(trend),
-            },
-        )
-    for cluster in latest_operational_state["clusters"][:6]:
-        await hub.publish(
-            "semantic.cluster.generated",
-            {
-                "category": "cluster",
-                "severity": severity_from_score(min(1.0, float(cluster.get("confidence", 0.0)))),
-                "source": "semantic engine",
-                "message": cluster.get("summary"),
-                "cluster": cluster,
+                "derived_reason": "computed from real source frequency and topic overlap",
             },
         )
     await hub.publish(
@@ -242,14 +230,11 @@ async def _operational_pulse() -> None:
         payload = {
             "category": category,
             "severity": severity,
-            "source": source if category not in {"system", "cluster"} else ("semantic engine" if category == "cluster" else "websocket"),
+            "source": source if category != "system" else "websocket",
             "message": template.format(source=source.replace("_", " ")),
             "websocket_clients": hub.client_count,
             "telemetry": _rolling_telemetry(health, clusters),
         }
-        if category == "cluster" and clusters:
-            payload["cluster"] = clusters[0]
-            payload["message"] = clusters[0].get("summary", payload["message"])
         await hub.publish(event_type, payload)
 
 

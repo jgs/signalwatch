@@ -8,17 +8,23 @@ import { cn, severityClass, timeOnly } from "@/lib/utils";
 
 export function ActivityStream({ events }: { events: RealtimeEvent[] }) {
   const viewportRef = useRef<HTMLDivElement>(null);
+  const telemetryEvents = events.filter((event) =>
+    ["system.heartbeat", "telemetry.update", "collector.health", "source.latency", "watcher.reconnect"].includes(event.type)
+  );
 
   useEffect(() => {
     viewportRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }, [events.length]);
 
   return (
-    <Panel className="overflow-hidden">
-      <PanelHeader title="realtime event stream" meta={`${events.length} websocket frames`} />
-      <div ref={viewportRef} className="event-stream-mask max-h-[430px] space-y-1 overflow-y-auto pr-1">
+    <Panel className="overflow-hidden opacity-85">
+      <details open>
+        <summary className="cursor-pointer list-none">
+          <PanelHeader title="background telemetry" meta={`${telemetryEvents.length} quiet frames`} />
+        </summary>
+      <div ref={viewportRef} className="event-stream-mask max-h-[260px] space-y-1 overflow-y-auto pr-1">
         <AnimatePresence initial={false}>
-          {events.slice(0, 34).map((event, index) => (
+          {telemetryEvents.slice(0, 18).map((event, index) => (
           <motion.div
             key={event.id ?? `${event.timestamp}-${event.type}-${index}`}
             layout
@@ -32,7 +38,7 @@ export function ActivityStream({ events }: { events: RealtimeEvent[] }) {
             exit={{ opacity: 0, y: 5 }}
             transition={{ duration: 0.42, ease: "easeOut" }}
             className={cn(
-              "relative grid grid-cols-[5.9rem_4.2rem_1fr] gap-2 border-l py-1.5 pl-2.5 pr-2 font-mono text-[0.66rem] text-signal-muted",
+              "relative grid grid-cols-[5.9rem_4.2rem_1fr] gap-2 border-l py-1.5 pl-2.5 pr-2 font-mono text-[0.62rem] text-signal-dim",
               severityClass(event.payload.severity),
               event.type === "system.heartbeat" && "opacity-75"
             )}
@@ -51,12 +57,13 @@ export function ActivityStream({ events }: { events: RealtimeEvent[] }) {
                 <span className="shrink-0 border border-signal-line px-1 text-[0.58rem] uppercase text-signal-dim">{event.payload.category ?? event.type}</span>
                 <span className="truncate text-signal-olive">{event.payload.source ?? "signalwatch"}</span>
               </div>
-              <div className="mt-0.5 truncate text-signal-muted">{messageFor(event)}</div>
+              <div className="mt-0.5 truncate text-signal-dim">{messageFor(event)}</div>
             </div>
           </motion.div>
           ))}
         </AnimatePresence>
       </div>
+      </details>
     </Panel>
   );
 }
@@ -71,15 +78,9 @@ function severityText(severity: RealtimeEvent["payload"]["severity"]) {
 
 function messageFor(event: RealtimeEvent) {
   if (event.payload.message) return event.payload.message;
-  if (event.type === "trend.detected" || event.type === "trend.acceleration.detected") {
-    return `trend acceleration detected :: ${String(event.payload.keyword ?? "cross-source momentum")}`;
-  }
-  if (event.type === "collection.completed") return "collector mesh synced :: websocket broadcast emitted";
-  if (event.type === "model.release") return "model release signal indexed";
-  if (event.type === "policy.update") return "policy update indexed";
-  if (event.type === "safety.research") return "safety research signal classified";
-  if (event.type === "capability.signal") return "capability research signal indexed";
-  if (event.type === "websocket.activity") return "websocket throughput frame acknowledged";
-  if (event.type === "scoring.completed") return "importance score recomputed for active signal";
-  return "signal normalized and routed";
+  if (event.type === "system.heartbeat") return "runtime heartbeat";
+  if (event.type === "collector.health") return "collector health changed";
+  if (event.type === "source.latency") return "source latency update";
+  if (event.type === "watcher.reconnect") return "collector reconnect update";
+  return "telemetry frame";
 }

@@ -2,7 +2,7 @@
 
 import type { ComponentType, ReactNode } from "react";
 import Link from "next/link";
-import { Activity, Database, Radio, Route, ShieldCheck } from "lucide-react";
+import { Activity, Radio, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { sourceLabel } from "@/lib/api";
 import type { ConnectionState } from "@/lib/types";
@@ -44,26 +44,28 @@ export function OperationalSidebar({
   signalCount,
   alertCandidates
 }: SidebarProps) {
-  const topics = Object.entries(topicCounts).sort((a, b) => b[1] - a[1]).slice(0, 12);
+  const topics = Object.entries(topicCounts).sort((a, b) => b[1] - a[1]).slice(0, 8);
   const activeSources = Array.from(new Set([...sources, ...Object.keys(sourceCounts)]));
+  const primarySources = activeSources.slice(0, 6);
 
   return (
     <aside className="border-b border-signal-line bg-[#050806]/95 px-4 py-5 backdrop-blur lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:w-[286px] lg:border-b-0 lg:border-r">
       <div className="border-b border-signal-line pb-4">
         <div className="text-lg font-semibold text-signal-text">signalwatch</div>
-        <div className="mt-1 font-mono text-[0.68rem] uppercase text-signal-muted">AI ecosystem ops / local node</div>
+        <div className="mt-1 font-mono text-[0.68rem] uppercase text-signal-muted">real ecosystem observability</div>
         <div className="mt-4 grid grid-cols-3 gap-2 font-mono text-[0.62rem] uppercase">
           <Link href="/console" className="border border-[#101b15] px-2 py-1 text-signal-green/80 transition hover:border-[#2f4a39]">console</Link>
           <Link href="/safety" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">safety</Link>
           <Link href="/labs" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">labs</Link>
           <Link href="/timeline" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">timeline</Link>
+          <Link href="/methodology" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">method</Link>
           <Link href="/systems" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">systems</Link>
         </div>
       </div>
 
-      <SidebarSection icon={Radio} title="sources">
+      <SidebarSection icon={Radio} title="core sources">
         <div className="space-y-1">
-          {activeSources.map((source) => {
+          {primarySources.map((source) => {
             const count = sourceCounts[source] ?? 0;
             const active = selectedSource === source;
             return (
@@ -88,6 +90,21 @@ export function OperationalSidebar({
             );
           })}
         </div>
+        <details className="mt-3 border-t border-[#101b15] pt-3 font-mono text-[0.64rem] text-signal-dim">
+          <summary className="cursor-pointer list-none text-signal-muted">source diagnostics / {activeSources.length} monitored</summary>
+          <div className="mt-2 space-y-1">
+            {activeSources.slice(6).map((source) => (
+              <button
+                key={source}
+                onClick={() => onSourceChange(selectedSource === source ? "" : source)}
+                className="flex w-full items-center justify-between py-1 text-left transition hover:text-signal-text"
+              >
+                <span>{sourceLabel(source)}</span>
+                <span>{sourceCounts[source] ?? 0}</span>
+              </button>
+            ))}
+          </div>
+        </details>
       </SidebarSection>
 
       <SidebarSection icon={Activity} title="topics">
@@ -101,42 +118,15 @@ export function OperationalSidebar({
         </div>
       </SidebarSection>
 
-      <SidebarSection icon={Route} title="signal routing">
-        <Readout label="normalized" value={String(signalCount).padStart(3, "0")} />
-        <Readout label="candidate alerts" value={String(alertCandidates).padStart(2, "0")} />
-        <Readout label="discord sink" value="standby" />
-      </SidebarSection>
-
-      <SidebarSection icon={ShieldCheck} title="active watchers">
+      <SidebarSection icon={ShieldCheck} title="global status">
         <Readout label="websocket" value={connectionState} live={connected} />
-        <Readout label="watch score" value="0.72" />
-        <Readout label="collector mesh" value="telemetry" />
-        <TopologyTrace active={connected} />
+        <Readout label="source items" value={String(signalCount).padStart(3, "0")} />
+        <Readout label="watch items" value={String(alertCandidates).padStart(2, "0")} />
+        <Readout label="claim mode" value="source-first" />
       </SidebarSection>
 
-      <SidebarSection icon={Database} title="system status">
-        <Readout label="storage" value="postgres ready" />
-        <Readout label="scheduler" value="apscheduler" />
-        <Readout label="api surface" value="fastapi" />
-      </SidebarSection>
-
-      <div className="mt-4 font-mono text-[0.64rem] text-[#223429]">--- operational bus ----------------</div>
+      <div className="mt-4 font-mono text-[0.64rem] text-[#223429]">--- background telemetry -----------</div>
     </aside>
-  );
-}
-
-function TopologyTrace({ active }: { active: boolean }) {
-  return (
-    <div className="mt-3 grid grid-cols-7 gap-1">
-      {Array.from({ length: 7 }).map((_, index) => (
-        <motion.span
-          key={index}
-          className="h-1 border border-[#142118] bg-signal-green/20"
-          animate={{ opacity: active ? [0.18, 0.58, 0.18] : 0.16 }}
-          transition={{ duration: 2.4, repeat: Infinity, delay: index * 0.18, ease: "easeInOut" }}
-        />
-      ))}
-    </div>
   );
 }
 

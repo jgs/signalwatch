@@ -6,13 +6,21 @@ import { Badge } from "@/components/ui/badge";
 import { Panel, PanelHeader } from "@/components/ui/panel";
 import { sourceCode, sourceLabel } from "@/lib/api";
 import type { Signal } from "@/lib/types";
-import { cn, formatUtc, severityClass, severityFromScore } from "@/lib/utils";
+import { formatUtc } from "@/lib/utils";
 
 export function SignalFeed({ signals }: { signals: Signal[] }) {
   return (
     <Panel>
-      <PanelHeader title="signal feed" meta={`${signals.length} normalized artifacts`} />
+      <PanelHeader title="real source feed" meta={`${signals.length} source items`} />
       <div className="space-y-3">
+        {!signals.length ? (
+          <div className="border border-[#101b15] bg-[#050806]/70 p-5">
+            <div className="font-mono text-[0.68rem] uppercase text-signal-green/75">awaiting real source items</div>
+            <p className="mt-3 text-sm leading-relaxed text-signal-muted">
+              The console only shows source-backed ecosystem content here. Heartbeats, collector updates, and infrastructure frames remain in background telemetry.
+            </p>
+          </div>
+        ) : null}
         {signals.slice(0, 48).map((signal, index) => (
           <SignalCard key={signal.fingerprint} signal={signal} index={index} />
         ))}
@@ -22,44 +30,49 @@ export function SignalFeed({ signals }: { signals: Signal[] }) {
 }
 
 function SignalCard({ signal, index }: { signal: Signal; index: number }) {
-  const severity = signal.severity ?? severityFromScore(signal.importance);
+  const tags = (signal.topics ?? []).slice(0, 3);
   return (
     <motion.article
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.28, delay: Math.min(index * 0.015, 0.18) }}
-      className={cn(
-        "group border bg-gradient-to-b from-[#090d0a] to-[#050706] p-4 transition hover:border-[#2f4a39] hover:shadow-glow",
-        severityClass(severity)
-      )}
+      className="group border border-[#101b15] bg-gradient-to-b from-[#090d0a] to-[#050706] p-4 transition hover:border-[#2f4a39]"
     >
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
+        <div className="flex flex-wrap items-center gap-2">
           <Badge className="text-signal-green">{sourceCode(signal.source)} / {sourceLabel(signal.source)}</Badge>
+          <Badge>{signal.source_type ?? "source item"}</Badge>
           <span className="font-mono text-[0.68rem] text-signal-dim">{formatUtc(signal.published_at)}</span>
         </div>
-        <div className="font-mono text-[0.72rem]">{severity} {signal.importance.toFixed(2)}</div>
+        <a href={signal.url} target="_blank" className="font-mono text-[0.68rem] text-signal-green transition hover:text-signal-text">
+          <ExternalLink className="inline h-3 w-3" /> source
+        </a>
       </div>
 
       <h3 className="mt-4 text-[1rem] font-semibold leading-snug text-signal-text">{signal.title}</h3>
-      {signal.briefing ? (
-        <div className="mt-3 border-l border-[#203428] bg-[#07100b]/70 px-3 py-2 font-mono text-[0.72rem] leading-relaxed text-signal-olive">
-          {signal.briefing}
-        </div>
-      ) : null}
-      <p className="mt-3 line-clamp-4 text-[0.8rem] leading-relaxed text-[#aeb8b1]">{signal.summary || "No summary emitted by source."}</p>
-      <SignalMemoryRail signal={signal} />
+      <p className="mt-3 line-clamp-3 text-[0.82rem] leading-relaxed text-[#aeb8b1]">{signal.summary || "No summary emitted by source."}</p>
+      <div className="mt-3 flex flex-wrap gap-1.5">
+        {tags.length ? tags.map((topic) => <Badge key={topic}>{topic}</Badge>) : <Badge>untagged</Badge>}
+      </div>
 
       <details className="mt-3 border-t border-[#101b15] pt-3 font-mono text-[0.66rem] text-signal-dim">
         <summary className="flex cursor-pointer list-none items-center gap-1 text-signal-muted">
           <ChevronDown className="h-3 w-3" />
-          signal trace
+          evidence / provenance
         </summary>
-        <div className="mt-2 grid gap-1">
+        <div className="mt-2 grid gap-1 break-words">
           <span>fingerprint={signal.fingerprint}</span>
           <span>source={signal.source}</span>
-          <span>severity={severity}</span>
+          <span>type={signal.source_type ?? "source-item"}</span>
+          {signal.source_count ? <span>source_count={signal.source_count}</span> : null}
+          {signal.derived_reason ? <span>derived_reason={signal.derived_reason}</span> : null}
           <span>authors={(signal.authors ?? []).slice(0, 4).join(", ") || "unknown"}</span>
+          {signal.fetched_at ? <span>fetched_at={signal.fetched_at}</span> : null}
+          {(signal.evidence_links ?? []).slice(0, 3).map((link) => (
+            <a key={`${link.source}-${link.url}`} href={link.url} target="_blank" className="text-signal-olive">
+              evidence={link.source ?? signal.source} :: {link.title ?? link.url}
+            </a>
+          ))}
           {signal.memory ? (
             <>
               <span>maturity={signal.memory.maturity}</span>
@@ -75,60 +88,6 @@ function SignalCard({ signal, index }: { signal: Signal; index: number }) {
           ))}
         </div>
       </details>
-
-      <div className="mt-3 flex items-center justify-between gap-4 border-t border-[#101b15] pt-3">
-        <div className="flex flex-wrap gap-1.5">
-          {(signal.topics ?? []).slice(0, 6).map((topic) => (
-            <Badge key={topic}>{topic}</Badge>
-          ))}
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="h-1.5 w-24 border border-[#122219] bg-[#07100b]">
-            <div className="h-full bg-signal-green" style={{ width: `${Math.round(signal.importance * 100)}%` }} />
-          </div>
-          <a href={signal.url} target="_blank" className="font-mono text-[0.68rem] text-signal-green">
-            <ExternalLink className="inline h-3 w-3" /> open
-          </a>
-        </div>
-      </div>
     </motion.article>
-  );
-}
-
-function SignalMemoryRail({ signal }: { signal: Signal }) {
-  const memory = signal.memory;
-  if (!memory) {
-    return (
-      <div className="mt-3 grid grid-cols-3 gap-2 font-mono text-[0.6rem] uppercase text-signal-dim">
-        <span>confidence pending</span>
-        <span>memory cold</span>
-        <span>trace direct</span>
-      </div>
-    );
-  }
-
-  return (
-    <div className="mt-3 grid gap-2 border border-[#101b15] bg-[#050806]/70 p-2 font-mono text-[0.62rem] uppercase text-signal-dim sm:grid-cols-3">
-      <MemoryBar label="confidence" value={memory.confidence} />
-      <MemoryBar label="stability" value={memory.stability} />
-      <MemoryBar label="pressure" value={memory.pressure_accumulation} />
-      <span className="text-signal-olive">{memory.maturity}</span>
-      <span>accel {memory.acceleration >= 0 ? "+" : ""}{memory.acceleration.toFixed(2)}</span>
-      <span>{memory.observation_count} observations</span>
-    </div>
-  );
-}
-
-function MemoryBar({ label, value }: { label: string; value: number }) {
-  return (
-    <div>
-      <div className="flex items-center justify-between gap-2">
-        <span>{label}</span>
-        <span>{Math.round(value * 100)}</span>
-      </div>
-      <div className="mt-1 h-1 border border-[#122219] bg-[#07100b]">
-        <div className="h-full bg-signal-olive" style={{ width: `${Math.max(4, Math.min(100, value * 100))}%` }} />
-      </div>
-    </div>
   );
 }

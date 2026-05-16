@@ -159,14 +159,16 @@ class EcosystemIngestionService:
                     OperationalEvent(
                         type=event_type,
                         severity="elevated" if confidence >= 0.78 else "watch",
-                        source="semantic aggregation layer",
+                        source="source-overlap aggregation",
                         message=message,
                         payload={
                             "topics": [topic],
                             "pressure": round(avg_pressure, 3),
                             "confidence": round(confidence, 3),
                             "source_overlap": len(sources),
+                            "source_count": len(sources),
                             "cluster_count": count,
+                            "derived_reason": f"{count} real source items matched topic '{topic}' across {len(sources)} sources",
                             "derived_from": [event.id for event in ecosystem_events if topic in event.payload.get("topics", [])][:8],
                             "provenance": _provenance(ecosystem_events, topic),
                         },
@@ -178,14 +180,16 @@ class EcosystemIngestionService:
                     OperationalEvent(
                         type="trend.spike",
                         severity="elevated" if confidence >= 0.82 else "watch",
-                        source="ecosystem trend analyzer",
-                        message=f"{topic} activity increasing across real source window",
+                        source="source-frequency aggregation",
+                        message=f"{count} real source items matched {topic} tags in this window",
                         payload={
                             "topics": [topic],
                             "pressure": round(avg_pressure, 3),
                             "confidence": round(confidence, 3),
                             "source_overlap": len(sources),
+                            "source_count": len(sources),
                             "cluster_count": count,
+                            "derived_reason": f"{count} real source items matched topic '{topic}' across {len(sources)} sources",
                             "derived_from": [event.id for event in ecosystem_events if topic in event.payload.get("topics", [])][:8],
                             "provenance": _provenance(ecosystem_events, topic),
                         },
@@ -197,14 +201,8 @@ class EcosystemIngestionService:
 
 def _aggregate_message(topic: str, event_type: str, count: int, source_count: int) -> str:
     if event_type == "alignment.alert":
-        return f"{topic} activity elevated across {source_count} real sources"
-    if topic in {"agents", "reasoning"}:
-        return f"agentic reasoning activity increasing across {count} real signals"
-    if topic == "multimodal":
-        return f"multimodal systems cluster formed from {count} real signals"
-    if topic == "models":
-        return f"model release activity clustered across {source_count} sources"
-    return f"{topic} research cluster derived from real ecosystem activity"
+        return f"{count} real {topic} items matched across {source_count} sources"
+    return f"{count} real source items matched {topic} tags across {source_count} sources"
 
 
 def _provenance(events: list[OperationalEvent], topic: str) -> dict:

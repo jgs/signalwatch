@@ -207,35 +207,35 @@ function telemetryFromEvent(event: RealtimeEvent): OperationalTelemetry | null {
 function eventsToSignals(events: RealtimeEvent[]): Signal[] {
   return events
     .filter((event) =>
-      [
-        "signal.event",
-        "model.release",
-        "policy.update",
-        "safety.research",
-        "capability.signal",
-        "semantic.cluster",
-        "trend.spike",
-        "alignment.alert",
-        "source.latency",
-        "watcher.reconnect"
-      ].includes(event.type)
+      ["signal.event", "model.release", "policy.update", "safety.research", "capability.signal", "alignment.alert"].includes(event.type) &&
+      Boolean(event.payload.title || event.payload.source_title) &&
+      Boolean(event.payload.url || event.payload.source_url)
     )
     .slice(0, MAX_SIGNALS)
     .map((event) => {
       const importance = importanceFromEvent(event);
-      const source = event.payload.source ?? event.source ?? "signalwatch-runtime";
+      const source = String(event.payload.source ?? event.source ?? "signalwatch-runtime");
+      const title = String(event.payload.source_title ?? event.payload.title ?? event.message ?? event.type);
+      const url = String(event.payload.source_url ?? event.payload.url ?? "#");
+      const topics = topicsFor(event);
       return {
         fingerprint: event.id ?? eventKey(event),
         source,
-        title: event.message ?? event.payload.message ?? event.type,
-        url: "#",
+        source_title: typeof event.payload.source_title === "string" ? event.payload.source_title : title,
+        source_type: typeof event.payload.source_type === "string" ? event.payload.source_type : event.type.replace(".", "-"),
+        source_url: url,
+        fetched_at: typeof event.payload.fetched_at === "string" ? event.payload.fetched_at : undefined,
+        evidence_links: Array.isArray(event.payload.evidence_links) ? event.payload.evidence_links as Signal["evidence_links"] : undefined,
+        derived_reason: typeof event.payload.derived_reason === "string" ? event.payload.derived_reason : undefined,
+        source_count: numeric(event.payload.source_count),
+        title,
+        url,
         summary: summaryFor(event),
-        authors: ["signalwatch runtime"],
-        topics: topicsFor(event),
+        authors: Array.isArray(event.payload.authors) ? event.payload.authors.map(String).slice(0, 4) : [],
+        topics,
         importance,
-        published_at: event.timestamp,
+        published_at: typeof event.payload.published_at === "string" ? event.payload.published_at : event.timestamp,
         severity: eventSeverity(event),
-        briefing: `${sourceLabel(source)} :: ${event.type.replace(".", " / ")}`,
         memory: isRecord(event.payload.memory) ? event.payload.memory as Signal["memory"] : undefined,
         provenance: isRecord(event.payload.provenance) ? event.payload.provenance as Signal["provenance"] : undefined,
       };
@@ -354,15 +354,16 @@ function topicsFor(event: RealtimeEvent) {
 }
 
 function summaryFor(event: RealtimeEvent) {
-  const latency = numeric(event.payload.latency_ms);
-  const drift = numeric(event.payload.drift);
-  const pressure = numeric(event.payload.pressure);
-  const parts = [
-    latency !== undefined ? `source latency ${Math.round(latency)}ms` : null,
-    pressure !== undefined ? `pressure ${pressure.toFixed(2)}` : null,
-    drift !== undefined ? `alignment drift ${drift.toFixed(2)}` : null,
-  ].filter(Boolean);
-  return parts.length ? parts.join(" / ") : "Operational event routed through the realtime backend.";
+  if (typeof event.payload.summary_vector === "string" && event.payload.summary_vector.trim()) {
+    return event.payload.summary_vector;
+  }
+  if (typeof event.payload.summary === "string" && event.payload.summary.trim()) {
+    return event.payload.summary;
+  }
+  if (typeof event.message === "string" && event.message.trim()) {
+    return event.message;
+  }
+  return "Source item indexed without a summary.";
 }
 
 function clusterName(event: RealtimeEvent, index: number) {

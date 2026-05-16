@@ -7,53 +7,30 @@ export function MetricRail({
   pulseKey,
   signalCount,
   sourceCount,
-  alertCandidates,
-  maxImportance,
   signalsPerMinute,
-  trendVelocity,
   websocketClients,
-  semanticClusterCount,
-  activeAlerts,
-  retryCount,
   collectorUptime,
-  sourceReliability,
-  normalizationPressure,
   collectorLatency
 }: {
   pulseKey: number;
   signalCount: number;
   sourceCount: number;
-  alertCandidates: number;
-  maxImportance: number;
   signalsPerMinute: number;
-  trendVelocity: number;
   websocketClients: number;
-  semanticClusterCount: number;
-  activeAlerts: number;
-  retryCount: number;
   collectorUptime: number;
-  sourceReliability: number;
-  normalizationPressure: number;
   collectorLatency: number;
 }) {
   const metrics = [
-    metric("live signals", signalCount, "filtered operational feed", (value) => String(Math.round(value)).padStart(3, "0")),
-    metric("monitoring sources", sourceCount, "collector mesh sources", (value) => String(Math.round(value)).padStart(2, "0")),
-    metric("active alerts", activeAlerts || alertCandidates, "elevated / alert routes", (value) => String(Math.round(value)).padStart(2, "0")),
-    metric("max importance", maxImportance, "source weighted score", (value) => value.toFixed(2)),
-    metric("signals/minute", signalsPerMinute, "normalization throughput", (value) => value.toFixed(1)),
-    metric("trend velocity", trendVelocity, "ws trend events", (value) => String(Math.round(value)).padStart(2, "0")),
-    metric("semantic clusters", semanticClusterCount, "active correlation groups", (value) => String(Math.round(value)).padStart(2, "0")),
-    metric("ws clients", websocketClients, "active realtime viewers", (value) => String(Math.round(value)).padStart(2, "0")),
-    metric("collector latency", collectorLatency, "health telemetry p50", (value) => `${Math.round(value)}ms`),
-    metric("collector uptime", collectorUptime * 100, "rolling source availability", (value) => `${Math.round(value)}%`),
-    metric("source reliability", sourceReliability * 100, "failure adjusted confidence", (value) => `${Math.round(value)}%`),
-    metric("retry count", retryCount, "collector recovery attempts", (value) => String(Math.round(value)).padStart(2, "0")),
-    metric("norm pressure", normalizationPressure, "schema routing saturation", (value) => value.toFixed(2))
+    metric("source items", signalCount, "real feed window", (value) => String(Math.round(value)).padStart(3, "0")),
+    metric("sources", sourceCount, "active source families", (value) => String(Math.round(value)).padStart(2, "0")),
+    metric("update cadence", signalsPerMinute, "items per minute", (value) => value.toFixed(1)),
+    metric("collector latency", collectorLatency, "p50 health telemetry", (value) => `${Math.round(value)}ms`),
+    metric("collector uptime", collectorUptime * 100, "rolling availability", (value) => `${Math.round(value)}%`),
+    metric("websocket", websocketClients, "connected clients", (value) => String(Math.round(value)).padStart(2, "0"))
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
+    <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
       {metrics.map((item, index) => (
         <motion.div
           key={item.label}
