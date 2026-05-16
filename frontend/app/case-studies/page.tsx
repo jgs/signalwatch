@@ -68,7 +68,7 @@ export default function CaseStudiesPage() {
             reproducibility boundary
           </div>
           <p className="mt-5 max-w-3xl text-sm leading-relaxed text-signal-muted">
-            Case-study evidence should be captured from the operational evidence packet: frame count, empty frames, confidence history, detection drop events, and class continuity breaks. If the model emits no detections, the record should state that plainly.
+            Case-study evidence should be captured from the operational evidence packet: frame count, empty frames, confidence history, detection drop events, class continuity breaks, and exported JSON records. If the model emits no detections, the record should state that plainly.
           </p>
         </section>
       </section>

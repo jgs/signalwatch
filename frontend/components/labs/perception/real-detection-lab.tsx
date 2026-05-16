@@ -314,7 +314,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
       <DegradationPresets active={activePreset} onSelect={applyPreset} />
       <DegradationControls value={degradation} onChange={updateDegradation} />
       <TemporalTrace frames={frames} metrics={temporalMetrics} />
-      <EvidencePacketPanel frames={frames} preset={activePreset} mode={mode} />
+      <EvidencePacketPanel frames={frames} preset={activePreset} mode={mode} degradation={degradation} />
       <ReplayTimeline frames={frames} />
       <ExplainabilityPanel frames={frames} detections={detections} />
       <DetectionReadout mode={mode} detections={detections} baselineDetections={baselineDetections} />
