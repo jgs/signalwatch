@@ -27,6 +27,32 @@ export type Signal = {
   published_at: string;
   severity?: Severity;
   briefing?: string;
+  memory?: SignalMemory;
+  provenance?: SignalProvenance;
+};
+
+export type SignalMemory = {
+  topic: string;
+  pressure_accumulation: number;
+  acceleration: number;
+  stability: number;
+  confidence: number;
+  maturity: string;
+  half_life_minutes: number;
+  observation_count: number;
+  source_counts: Record<string, number>;
+  derived_from: string[];
+};
+
+export type SignalProvenance = {
+  source_counts?: Record<string, number>;
+  traces?: Array<{
+    id?: string;
+    source?: string;
+    type?: string;
+    title?: string;
+    url?: string;
+  }>;
 };
 
 export type RealtimeEvent = {
@@ -93,6 +119,7 @@ export type TrendCluster = {
   topics: string[];
   keywords: string[];
   summary: string;
+  memory?: SignalMemory;
 };
 
 export type GraphNode = {
@@ -130,6 +157,13 @@ export type OperationalTelemetry = {
   active_trend_count?: number;
   trend_pressure?: number;
   alignment_drift?: number;
+  ecosystem_drift?: {
+    capability_acceleration?: number;
+    alignment_intensity?: number;
+    governance_pressure?: number;
+    multimodal_saturation?: number;
+    agentic_momentum?: number;
+  };
   heartbeat?: string;
   retry_count?: number;
   collected?: number;

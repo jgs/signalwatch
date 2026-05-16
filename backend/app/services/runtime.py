@@ -8,6 +8,7 @@ from app.collectors.simulator import CollectorSimulator
 from app.models import OperationalEvent
 from app.services.ingestion import ecosystem_ingestion
 from app.telemetry import telemetry_state
+from app.telemetry.memory import signal_memory
 from app.websocket.manager import hub
 
 
@@ -59,13 +60,15 @@ class OperationalRuntime:
     async def _heartbeat_loop(self) -> None:
         while self._running:
             snapshot = await telemetry_state.telemetry(active_clients=hub.client_count)
+            payload = snapshot.model_dump(mode="json")
+            payload["ecosystem_drift"] = signal_memory.ecosystem_drift()
             await self.emit(
                 OperationalEvent(
                     type="system.heartbeat",
                     severity="trace",
                     source="signalwatch-runtime",
                     message="operational heartbeat",
-                    payload=snapshot.model_dump(mode="json"),
+                    payload=payload,
                 )
             )
             await asyncio.sleep(10.0)

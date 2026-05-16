@@ -37,6 +37,13 @@ export function TrendClusters({ clusters }: { clusters: TrendCluster[] }) {
                 <span>drift {Math.round((cluster.semantic_drift ?? 0) * 100)}%</span>
                 <span>pressure {cluster.pressure}</span>
               </div>
+              {cluster.memory ? (
+                <div className="mt-3 grid grid-cols-3 gap-2 font-mono text-[0.6rem] uppercase text-signal-dim">
+                  <MemoryTrace label="stability" value={cluster.memory.stability} />
+                  <MemoryTrace label="confidence" value={cluster.memory.confidence} />
+                  <span className="text-signal-olive">{cluster.memory.maturity}</span>
+                </div>
+              ) : null}
               <div className="mt-3 flex flex-wrap gap-1.5">
                 {cluster.keywords.slice(0, 5).map((keyword) => (
                   <Badge key={keyword}>{keyword}</Badge>
@@ -50,5 +57,19 @@ export function TrendClusters({ clusters }: { clusters: TrendCluster[] }) {
         )}
       </div>
     </Panel>
+  );
+}
+
+function MemoryTrace({ label, value }: { label: string; value: number }) {
+  return (
+    <div>
+      <div className="flex justify-between gap-2">
+        <span>{label}</span>
+        <span>{Math.round(value * 100)}</span>
+      </div>
+      <div className="mt-1 h-1 border border-[#122219] bg-[#07100b]">
+        <div className="h-full bg-signal-green/70" style={{ width: `${Math.max(4, Math.min(100, value * 100))}%` }} />
+      </div>
+    </div>
   );
 }

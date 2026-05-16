@@ -199,6 +199,7 @@ function telemetryFromEvent(event: RealtimeEvent): OperationalTelemetry | null {
     trend_pressure: numeric(event.payload.pressure),
     alignment_drift: numeric(event.payload.drift),
     semantic_cluster_count: numeric(event.payload.cluster_count),
+    ecosystem_drift: typeof event.payload.ecosystem_drift === "object" ? event.payload.ecosystem_drift as OperationalTelemetry["ecosystem_drift"] : undefined,
     heartbeat: event.timestamp,
   };
 }
@@ -234,7 +235,9 @@ function eventsToSignals(events: RealtimeEvent[]): Signal[] {
         importance,
         published_at: event.timestamp,
         severity: eventSeverity(event),
-        briefing: `${sourceLabel(source)} :: ${event.type.replace(".", " / ")}`
+        briefing: `${sourceLabel(source)} :: ${event.type.replace(".", " / ")}`,
+        memory: isRecord(event.payload.memory) ? event.payload.memory as Signal["memory"] : undefined,
+        provenance: isRecord(event.payload.provenance) ? event.payload.provenance as Signal["provenance"] : undefined,
       };
     });
 }
@@ -254,7 +257,8 @@ function eventsToClusters(events: RealtimeEvent[], telemetry: OperationalTelemet
     sources: [event.payload.source ?? event.source ?? "signalwatch-runtime"],
     topics: topicsFor(event),
     keywords: topicsFor(event).slice(0, 4),
-    summary: event.message ?? event.payload.message ?? "Semantic correlation group updated by realtime telemetry."
+    summary: event.message ?? event.payload.message ?? "Semantic correlation group updated by realtime telemetry.",
+    memory: isRecord(event.payload.memory) ? event.payload.memory as TrendCluster["memory"] : undefined,
   }));
 
   if (clusters.length) return clusters;
@@ -393,6 +397,10 @@ function median(values: number[]) {
 
 function numeric(value: unknown) {
   return typeof value === "number" && Number.isFinite(value) ? value : undefined;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
 }
 
 function eventKey(event: RealtimeEvent) {

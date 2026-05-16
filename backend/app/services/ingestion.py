@@ -14,6 +14,7 @@ from app.collectors.arxiv import ArxivAICollector
 from app.models import CollectorState, OperationalEvent, SignalItem
 from app.normalization import normalize_signal_item
 from app.telemetry import telemetry_state
+from app.telemetry.memory import signal_memory
 
 
 class EcosystemIngestionService:
@@ -55,7 +56,13 @@ class EcosystemIngestionService:
                 continue
             events.extend(result)
 
-        events.extend(self.derived_aggregate_events(events))
+        signal_memory.ingest(events)
+        derived = self.derived_aggregate_events(events)
+        for event in derived:
+            signal_memory.annotate(event)
+            drift = signal_memory.ecosystem_drift()
+            event.payload["ecosystem_drift"] = drift
+        events.extend(derived)
         return events
 
     async def _collect_source(self, collector, session: aiohttp.ClientSession) -> list[OperationalEvent]:
@@ -161,6 +168,7 @@ class EcosystemIngestionService:
                             "source_overlap": len(sources),
                             "cluster_count": count,
                             "derived_from": [event.id for event in ecosystem_events if topic in event.payload.get("topics", [])][:8],
+                            "provenance": _provenance(ecosystem_events, topic),
                         },
                     )
                 )
@@ -179,6 +187,7 @@ class EcosystemIngestionService:
                             "source_overlap": len(sources),
                             "cluster_count": count,
                             "derived_from": [event.id for event in ecosystem_events if topic in event.payload.get("topics", [])][:8],
+                            "provenance": _provenance(ecosystem_events, topic),
                         },
                     )
                 )
@@ -196,6 +205,26 @@ def _aggregate_message(topic: str, event_type: str, count: int, source_count: in
     if topic == "models":
         return f"model release activity clustered across {source_count} sources"
     return f"{topic} research cluster derived from real ecosystem activity"
+
+
+def _provenance(events: list[OperationalEvent], topic: str) -> dict:
+    source_counts: Counter[str] = Counter()
+    traces: list[dict] = []
+    for event in events:
+        topics = event.payload.get("topics", [])
+        if not isinstance(topics, list) or topic not in topics:
+            continue
+        source_counts[event.source] += 1
+        traces.append(
+            {
+                "id": event.id,
+                "source": event.source,
+                "type": event.type,
+                "title": event.payload.get("title"),
+                "url": event.payload.get("url"),
+            }
+        )
+    return {"source_counts": dict(source_counts), "traces": traces[:12]}
 
 
 ecosystem_ingestion = EcosystemIngestionService()

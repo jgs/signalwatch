@@ -53,4 +53,5 @@ def test_aggregate_signal_requires_real_event_window() -> None:
 
     assert derived
     assert all(event.payload.get("derived_from") for event in derived)
+    assert all(event.payload.get("provenance") for event in derived)
     assert any(event.type in {"semantic.cluster", "trend.spike", "alignment.alert"} for event in derived)
