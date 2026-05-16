@@ -25,6 +25,11 @@ export type EvidencePacket = {
   observedClasses: string[];
 };
 
+export type OperationalObservation = {
+  label: string;
+  text: string;
+};
+
 export function meanConfidence(detections: Detection[]) {
   if (!detections.length) return null;
   return detections.reduce((total, detection) => total + detection.score, 0) / detections.length;
@@ -94,6 +99,57 @@ export function buildEvidencePacket(frames: DetectionFrame[]): EvidencePacket {
     detectionDropEvents: pairs.filter(([previous, current]) => previous.detections.length > 0 && current.detections.length === 0).length,
     classContinuityBreaks: pairs.reduce((total, [previous, current]) => total + missingClasses(previous.detections, current.detections).length, 0),
     observedClasses: Array.from(new Set(frames.flatMap((frame) => frame.detections.map((detection) => detection.class)))).slice(0, 8),
+  };
+}
+
+export function buildOperationalObservations(frames: DetectionFrame[]): OperationalObservation[] {
+  const packet = buildEvidencePacket(frames);
+  const observations: OperationalObservation[] = [];
+  if (!packet.frameCount) {
+    return [{ label: "waiting", text: "No inference frames have been recorded in this observation window." }];
+  }
+  if (packet.emptyFrames > 0) {
+    observations.push({
+      label: "frame integrity",
+      text: `${packet.emptyFrames} empty inference frame${packet.emptyFrames === 1 ? "" : "s"} observed in the current window.`,
+    });
+  }
+  if (packet.detectionDropEvents > 0) {
+    observations.push({
+      label: "detection continuity",
+      text: `${packet.detectionDropEvents} transition${packet.detectionDropEvents === 1 ? "" : "s"} moved from detected objects to no detections.`,
+    });
+  }
+  if (packet.classContinuityBreaks > 0) {
+    observations.push({
+      label: "class persistence",
+      text: `${packet.classContinuityBreaks} class continuity break${packet.classContinuityBreaks === 1 ? "" : "s"} recorded across adjacent frames.`,
+    });
+  }
+  if (packet.meanConfidence !== null && packet.meanConfidence < 0.45) {
+    observations.push({
+      label: "confidence",
+      text: `Mean confidence in detected frames is ${Math.round(packet.meanConfidence * 100)}% in this window.`,
+    });
+  }
+  if (!observations.length) {
+    observations.push({
+      label: "stable window",
+      text: "No empty-frame or continuity-break observation has been recorded in the current window.",
+    });
+  }
+  return observations.slice(0, 3);
+}
+
+export function observationCadence(frames: DetectionFrame[]) {
+  if (frames.length < 2) return null;
+  const first = frames[0].timestamp;
+  const last = frames[frames.length - 1].timestamp;
+  const durationSeconds = Math.max(0, (last - first) / 1000);
+  const cadenceSeconds = durationSeconds / Math.max(1, frames.length - 1);
+  return {
+    durationSeconds,
+    cadenceSeconds,
   };
 }
 

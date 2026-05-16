@@ -15,8 +15,8 @@ const layers = [
     icon: CircuitBoard,
     title: "derived intelligence",
     meta: "computed from sources",
-    body: "High-level signals are generated from aggregated source activity, tag frequency, temporal pressure, persistence, confidence, and provenance. They are not invented headlines.",
-    examples: ["semantic clusters", "trend acceleration", "signal confidence", "source traceability"],
+    body: "High-level context is generated from aggregated source activity, tag frequency, source overlap, observation windows, confidence, and provenance. It is not invented headline generation.",
+    examples: ["source overlap", "tag frequency", "observation windows", "source traceability"],
   },
   {
     icon: Radio,
@@ -50,8 +50,8 @@ const layers = [
     icon: ShieldCheck,
     title: "claim boundary",
     meta: "credibility rule",
-    body: "SIGNALWATCH separates real data, derived signals, conceptual explanation, and infrastructure telemetry so the interface can stay alive without fabricating intelligence.",
-    examples: ["source registry", "provenance panels", "real-only labels", "unavailable states"],
+    body: "SIGNALWATCH separates real data, derived context, conceptual explanation, and infrastructure telemetry so the interface can stay alive without fabricating intelligence.",
+    examples: ["source registry", "provenance panels", "evidence chains", "unavailable states"],
   },
 ];
 
@@ -89,7 +89,7 @@ export default function MethodologyPage() {
             <Boundary title="Ecosystem claims" text="Must be source-backed or derived from source-backed activity." />
             <Boundary title="Model confidence" text="Must come from actual browser-side inference outputs." />
             <Boundary title="Case studies" text="Must be reproducible from protocols and evidence packets, not prewritten analytics." />
-            <Boundary title="Simulations" text="Must be labeled as infrastructure telemetry or conceptual education." />
+            <Boundary title="Observation windows" text="Must describe timestamped collection, source overlap, recurrence, or model-output history." />
           </div>
         </section>
       </section>

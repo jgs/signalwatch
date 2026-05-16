@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Camera, FileSearch, Gauge, ShieldCheck, type LucideIcon } from "lucide-react";
+import { Camera, FileSearch, Gauge, ListChecks, ShieldCheck, type LucideIcon } from "lucide-react";
 
 const cases = [
   {
@@ -38,6 +38,22 @@ const cases = [
   },
 ];
 
+const protocol = [
+  "select input",
+  "apply degradation preset",
+  "run browser-side inference",
+  "observe failure states",
+  "export evidence JSON",
+  "compare records without generalizing beyond the run",
+];
+
+const proofBoundary = [
+  ["can show", "confidence instability, empty frames, dropped detections, and continuity breaks in this browser/model/input session"],
+  ["can show", "how a selected degradation changes the emitted COCO-SSD output history"],
+  ["cannot prove", "universal model failure across all detectors, datasets, environments, or deployments"],
+  ["cannot prove", "overall safety of a deployed perception system without broader evaluation coverage"],
+];
+
 export default function CaseStudiesPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#030403] text-signal-text">
@@ -60,6 +76,38 @@ export default function CaseStudiesPage() {
           {cases.map((item) => (
             <CaseCard key={item.id} {...item} />
           ))}
+        </section>
+
+        <section className="mt-5 grid gap-5 lg:grid-cols-[.9fr_1.1fr]">
+          <div className="console-panel p-5">
+            <div className="flex items-center gap-2 border-b border-[#101b15] pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">
+              <ListChecks className="h-3.5 w-3.5" />
+              evidence protocol
+            </div>
+            <div className="mt-5 space-y-2">
+              {protocol.map((step, index) => (
+                <div key={step} className="grid grid-cols-[2.2rem_1fr] gap-3 border-l border-[#18271d] bg-[#050806]/62 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-muted">
+                  <span className="text-signal-green/70">{String(index + 1).padStart(2, "0")}</span>
+                  <span>{step}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="console-panel p-5">
+            <div className="flex items-center gap-2 border-b border-[#101b15] pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">
+              <ShieldCheck className="h-3.5 w-3.5" />
+              proof boundary
+            </div>
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              {proofBoundary.map(([label, text]) => (
+                <div key={`${label}-${text}`} className="border border-[#101b15] bg-[#050806]/62 p-3">
+                  <div className="font-mono text-[0.58rem] uppercase text-signal-green/70">{label}</div>
+                  <p className="mt-2 text-sm leading-relaxed text-signal-muted">{text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
         <section className="mt-5 console-panel p-5">

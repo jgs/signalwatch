@@ -31,6 +31,7 @@ export function SignalFeed({ signals }: { signals: Signal[] }) {
 
 function SignalCard({ signal, index }: { signal: Signal; index: number }) {
   const tags = (signal.topics ?? []).slice(0, 3);
+  const observation = observationSummary(signal);
   return (
     <motion.article
       initial={{ opacity: 0, y: 8 }}
@@ -51,6 +52,11 @@ function SignalCard({ signal, index }: { signal: Signal; index: number }) {
 
       <h3 className="mt-3 text-[0.96rem] font-semibold leading-snug text-[#e2e9e4]">{signal.title}</h3>
       <p className="mt-2 line-clamp-3 max-w-3xl text-[0.8rem] leading-relaxed text-[#aeb8b1]">{signal.summary || "No summary emitted by source."}</p>
+      <div className="mt-2 flex max-w-3xl flex-wrap gap-1.5 font-mono text-[0.56rem] uppercase text-signal-dim">
+        {observation.slice(0, 3).map((item) => (
+          <span key={item} className="border border-[#101b15] bg-[#030403]/60 px-1.5 py-1">{item}</span>
+        ))}
+      </div>
       <WhyItMatters topics={signal.topics ?? []} sourceType={signal.source_type} />
       <div className="mt-2.5 flex flex-wrap gap-1.5">
         {tags.length ? tags.map((topic) => <Badge key={topic}>{topic}</Badge>) : <Badge>untagged</Badge>}
@@ -63,6 +69,7 @@ function SignalCard({ signal, index }: { signal: Signal; index: number }) {
         </summary>
         <div className="mt-2 grid gap-1.5 break-words border-l border-[#18271d] pl-3">
           <span>source={signal.source} / type={signal.source_type ?? "source-item"}</span>
+          <span>observation_window={observation.join(" / ")}</span>
           <span>published={formatUtc(signal.published_at)}{signal.fetched_at ? ` / fetched=${formatUtc(signal.fetched_at)}` : ""}</span>
           {signal.source_count ? <span>source_count={signal.source_count}</span> : null}
           {signal.derived_reason ? <span>derived_reason={signal.derived_reason}</span> : null}
@@ -89,6 +96,34 @@ function SignalCard({ signal, index }: { signal: Signal; index: number }) {
       </details>
     </motion.article>
   );
+}
+
+function observationSummary(signal: Signal) {
+  const notes: string[] = [];
+  const sources = signal.provenance?.source_counts ? Object.keys(signal.provenance.source_counts).length : signal.source_count ?? 1;
+  notes.push(sources > 1 ? `observed across ${sources} sources` : "single-source observation");
+
+  const published = Date.parse(signal.published_at);
+  const fetched = signal.fetched_at ? Date.parse(signal.fetched_at) : null;
+  if (Number.isFinite(published) && fetched && Number.isFinite(fetched)) {
+    const minutes = Math.max(0, Math.round((fetched - published) / 60000));
+    notes.push(`ingestion lag ${formatDuration(minutes)}`);
+  }
+
+  if (signal.memory?.observation_count) {
+    notes.push(`repeated ${signal.memory.observation_count} observations`);
+  } else if (signal.topics?.length) {
+    notes.push(`${signal.topics.slice(0, 2).join(" / ")} tags`);
+  }
+
+  return notes;
+}
+
+function formatDuration(minutes: number) {
+  if (minutes < 60) return `${minutes}m`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 48) return `${hours}h`;
+  return `${Math.round(hours / 24)}d`;
 }
 
 function WhyItMatters({ topics, sourceType }: { topics: string[]; sourceType?: string }) {

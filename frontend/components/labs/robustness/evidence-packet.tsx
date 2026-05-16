@@ -1,6 +1,6 @@
 "use client";
 
-import { buildEvidencePacket, type DetectionFrame } from "@/components/labs/inference/temporal-analysis";
+import { buildEvidencePacket, buildOperationalObservations, observationCadence, type DetectionFrame } from "@/components/labs/inference/temporal-analysis";
 import type { DegradationState } from "@/components/labs/degradation/degradation-controls";
 
 export function EvidencePacketPanel({
@@ -15,6 +15,8 @@ export function EvidencePacketPanel({
   degradation: DegradationState;
 }) {
   const packet = buildEvidencePacket(frames);
+  const notes = buildOperationalObservations(frames);
+  const cadence = observationCadence(frames);
   const confidence = packet.meanConfidence === null ? "unavailable" : `${Math.round(packet.meanConfidence * 100)}%`;
 
   function exportEvidence() {
@@ -28,6 +30,13 @@ export function EvidencePacketPanel({
       preset,
       degradation,
       packet,
+      observationWindow: cadence
+        ? {
+            durationSeconds: Number(cadence.durationSeconds.toFixed(3)),
+            cadenceSeconds: Number(cadence.cadenceSeconds.toFixed(3)),
+          }
+        : null,
+      operationalObservations: notes,
       frames: frames.map((frame) => ({
         timestamp: new Date(frame.timestamp).toISOString(),
         detections: frame.detections.map((detection) => ({
@@ -76,8 +85,16 @@ export function EvidencePacketPanel({
           ? `Observed classes: ${packet.observedClasses.join(" / ")}. Values are derived from real model outputs in this session.`
           : "No model detections have been emitted yet. The packet remains empty instead of synthesizing evidence."}
       </div>
+      <div className="mt-3 grid gap-2 md:grid-cols-3">
+        {notes.map((note) => (
+          <div key={`${note.label}-${note.text}`} className="border-l border-[#18271d] bg-[#030403]/48 px-3 py-2">
+            <div className="font-mono text-[0.56rem] uppercase text-signal-green/65">{note.label}</div>
+            <p className="mt-1 text-xs leading-relaxed text-signal-muted">{note.text}</p>
+          </div>
+        ))}
+      </div>
       <div className="mt-3 font-mono text-[0.56rem] uppercase text-signal-dim">
-        export boundary / model outputs, timestamps, degradation settings, and derived packet only
+        export boundary / model outputs, timestamps, degradation settings, derived notes, and evidence packet only
       </div>
     </details>
   );
