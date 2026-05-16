@@ -18,7 +18,7 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://jgsops.dev"),
   title: {
-    default: "JGSOPS — Realtime AI Observability Systems",
+    default: "JGSOPS - Realtime AI Observability Systems",
     template: "%s / JGSOPS"
   },
   description:
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     canonical: "/"
   },
   openGraph: {
-    title: "JGSOPS — Realtime AI Observability Systems",
+    title: "JGSOPS - Realtime AI Observability Systems",
     description:
       "Realtime observability infrastructure for monitoring intelligent systems, alignment signals, operational telemetry, and ecosystem drift.",
     url: "https://jgsops.dev",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "JGSOPS — Realtime AI Observability Systems",
+    title: "JGSOPS - Realtime AI Observability Systems",
     description:
       "Realtime observability infrastructure for monitoring intelligent systems, alignment signals, operational telemetry, and ecosystem drift.",
     images: ["/og-image.svg"]

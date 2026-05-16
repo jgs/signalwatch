@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ConsoleEntry } from "@/components/landing/console-entry";
 
@@ -55,7 +56,7 @@ export default function LandingPage() {
         <div className="absolute bottom-8 left-6 right-6 flex items-center justify-between border-t border-[#101b15] pt-4 font-mono text-[0.64rem] uppercase text-signal-dim md:left-6 md:right-6">
           <span>Railway telemetry bus</span>
           <span>Vercel console surface</span>
-          <span className="hidden sm:inline">jgsops.dev</span>
+          <Link href="/systems" className="hidden transition hover:text-signal-muted sm:inline">systems node</Link>
         </div>
       </section>
     </main>
