@@ -54,7 +54,8 @@ export default function LandingPage() {
         </motion.div>
 
         <div className="absolute bottom-8 left-6 right-6 flex items-center justify-between border-t border-[#101b15] pt-4 font-mono text-[0.64rem] uppercase text-signal-dim md:left-6 md:right-6">
-          <span>Railway telemetry bus</span>
+          <Link href="/safety" className="transition hover:text-signal-muted">safety layer</Link>
+          <Link href="/labs" className="transition hover:text-signal-muted">labs</Link>
           <Link href="/timeline" className="transition hover:text-signal-muted">timeline memory</Link>
           <Link href="/systems" className="hidden transition hover:text-signal-muted sm:inline">systems node</Link>
         </div>

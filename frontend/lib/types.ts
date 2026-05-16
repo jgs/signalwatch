@@ -192,3 +192,57 @@ export type OperationalTimeline = {
     source_counts: Record<string, number>;
   }>;
 };
+
+export type EvidenceLink = {
+  source_id: string;
+  note: string;
+};
+
+export type SafetySource = {
+  id: string;
+  title: string;
+  publisher: string;
+  url: string;
+  category: string;
+  reliability: "official" | "academic" | "institutional";
+  accessed: string;
+  summary: string;
+};
+
+export type RiskCategory = {
+  id: string;
+  name: string;
+  summary: string;
+  why_it_matters: string;
+  mitigations: string[];
+  evidence: EvidenceLink[];
+};
+
+export type JobExposureInsight = {
+  id: string;
+  area: string;
+  pressure: "task exposure" | "transition pressure" | "augmentation potential" | "policy dependency";
+  explanation: string;
+  benefits: string[];
+  transition_risks: string[];
+  evidence: EvidenceLink[];
+};
+
+export type AlignmentConcept = {
+  id: string;
+  title: string;
+  plain_language: string;
+  operational_view: string;
+  examples: string[];
+  evidence: EvidenceLink[];
+};
+
+export type DemoDescriptor = {
+  id: string;
+  title: string;
+  status: "available" | "architecture-ready" | "conceptual";
+  category: string;
+  summary: string;
+  constraints: string[];
+  evidence: EvidenceLink[];
+};

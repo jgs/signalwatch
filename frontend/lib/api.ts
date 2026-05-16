@@ -1,4 +1,14 @@
-import type { CollectorState, OperationalTelemetry, OperationalTimeline, RealtimeEvent } from "@/lib/types";
+import type {
+  AlignmentConcept,
+  CollectorState,
+  DemoDescriptor,
+  JobExposureInsight,
+  OperationalTelemetry,
+  OperationalTimeline,
+  RealtimeEvent,
+  RiskCategory,
+  SafetySource
+} from "@/lib/types";
 
 export const API_BASE =
   normalizeHttpUrl(
@@ -23,6 +33,30 @@ export async function fetchCollectors(): Promise<CollectorState[]> {
 
 export async function fetchTimeline(): Promise<OperationalTimeline> {
   return fetchJson(`${API_BASE}/api/timeline`);
+}
+
+export async function fetchSafetySources(): Promise<SafetySource[]> {
+  return fetchJson(`${API_BASE}/api/safety/sources`);
+}
+
+export async function fetchRiskFrameworks(): Promise<RiskCategory[]> {
+  return fetchJson(`${API_BASE}/api/safety/risk-frameworks`);
+}
+
+export async function fetchJobDisplacement(): Promise<JobExposureInsight[]> {
+  return fetchJson(`${API_BASE}/api/safety/job-displacement`);
+}
+
+export async function fetchAlignmentConcepts(): Promise<AlignmentConcept[]> {
+  return fetchJson(`${API_BASE}/api/safety/alignment`);
+}
+
+export async function fetchLabDemos(): Promise<DemoDescriptor[]> {
+  return fetchJson(`${API_BASE}/api/labs/demos`);
+}
+
+export async function fetchCvStatus(): Promise<{ status: string; message: string; can_run_browser_transforms: boolean }> {
+  return fetchJson(`${API_BASE}/api/labs/cv/status`);
 }
 
 function normalizeHttpUrl(url: string) {

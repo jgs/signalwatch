@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Query
 
+from app.safety import ALIGNMENT, JOB_DISPLACEMENT, LAB_DEMOS, RISK_FRAMEWORKS, SOURCES
 from app.telemetry import telemetry_state
 from app.telemetry.timeline import build_operational_timeline
 from app.websocket.manager import hub
@@ -35,3 +36,37 @@ async def collectors() -> list[dict]:
 @router.get("/timeline")
 async def timeline() -> dict:
     return build_operational_timeline()
+
+
+@router.get("/safety/sources")
+async def safety_sources() -> list[dict]:
+    return [source.model_dump(mode="json") for source in SOURCES]
+
+
+@router.get("/safety/risk-frameworks")
+async def risk_frameworks() -> list[dict]:
+    return [risk.model_dump(mode="json") for risk in RISK_FRAMEWORKS]
+
+
+@router.get("/safety/job-displacement")
+async def job_displacement() -> list[dict]:
+    return [insight.model_dump(mode="json") for insight in JOB_DISPLACEMENT]
+
+
+@router.get("/safety/alignment")
+async def alignment() -> list[dict]:
+    return [concept.model_dump(mode="json") for concept in ALIGNMENT]
+
+
+@router.get("/labs/cv/status")
+async def cv_status() -> dict:
+    return {
+        "status": "model_not_running",
+        "message": "Model not running in this environment.",
+        "can_run_browser_transforms": True,
+    }
+
+
+@router.get("/labs/demos")
+async def labs_demos() -> list[dict]:
+    return [demo.model_dump(mode="json") for demo in LAB_DEMOS]
