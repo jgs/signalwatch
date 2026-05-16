@@ -2,6 +2,10 @@ export type Severity = "TRACE" | "WATCH" | "ELEVATED" | "ALERT" | "CRITICAL";
 export type ConnectionState = "connecting" | "live" | "reconnecting" | "offline";
 export type EventKind =
   | "signal.event"
+  | "model.release"
+  | "policy.update"
+  | "safety.research"
+  | "capability.signal"
   | "telemetry.update"
   | "collector.health"
   | "source.latency"

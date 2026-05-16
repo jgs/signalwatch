@@ -11,6 +11,10 @@ from pydantic import BaseModel, Field
 Severity = Literal["trace", "watch", "elevated", "alert", "critical"]
 EventKind = Literal[
     "signal.event",
+    "model.release",
+    "policy.update",
+    "safety.research",
+    "capability.signal",
     "telemetry.update",
     "collector.health",
     "source.latency",

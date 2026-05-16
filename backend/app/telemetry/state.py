@@ -24,7 +24,16 @@ class TelemetryState:
     async def record(self, event: OperationalEvent) -> None:
         async with self._lock:
             self._events.appendleft(event)
-            if event.type in {"signal.event", "semantic.cluster", "trend.spike", "alignment.alert"}:
+            if event.type in {
+                "signal.event",
+                "model.release",
+                "policy.update",
+                "safety.research",
+                "capability.signal",
+                "semantic.cluster",
+                "trend.spike",
+                "alignment.alert",
+            }:
                 self._signals.appendleft(event)
 
             latency = event.payload.get("latency_ms")

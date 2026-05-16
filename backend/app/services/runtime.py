@@ -2,10 +2,12 @@ from __future__ import annotations
 
 import asyncio
 import contextlib
+import os
 import random
 
 from app.collectors.simulator import CollectorSimulator
 from app.models import OperationalEvent
+from app.services.ingestion import ecosystem_ingestion
 from app.telemetry import telemetry_state
 from app.websocket.manager import hub
 
@@ -24,6 +26,7 @@ class OperationalRuntime:
             asyncio.create_task(self._event_loop(), name="signalwatch:event-loop"),
             asyncio.create_task(self._collector_loop(), name="signalwatch:collector-loop"),
             asyncio.create_task(self._heartbeat_loop(), name="signalwatch:heartbeat-loop"),
+            asyncio.create_task(self._ingestion_loop(), name="signalwatch:ecosystem-ingestion"),
         }
 
     async def stop(self) -> None:
@@ -73,6 +76,15 @@ class OperationalRuntime:
                 )
             )
             await asyncio.sleep(10.0)
+
+    async def _ingestion_loop(self) -> None:
+        await asyncio.sleep(float(os.getenv("SIGNALWATCH_INGESTION_INITIAL_DELAY_SECONDS", "5")))
+        while self._running:
+            events = await ecosystem_ingestion.collect_once()
+            for event in events:
+                await self.emit(event)
+                await asyncio.sleep(0.35)
+            await asyncio.sleep(ecosystem_ingestion.poll_interval_seconds)
 
 
 operational_runtime = OperationalRuntime()

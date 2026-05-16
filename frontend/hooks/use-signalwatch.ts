@@ -205,7 +205,20 @@ function telemetryFromEvent(event: RealtimeEvent): OperationalTelemetry | null {
 
 function eventsToSignals(events: RealtimeEvent[]): Signal[] {
   return events
-    .filter((event) => ["signal.event", "semantic.cluster", "trend.spike", "alignment.alert", "source.latency", "watcher.reconnect"].includes(event.type))
+    .filter((event) =>
+      [
+        "signal.event",
+        "model.release",
+        "policy.update",
+        "safety.research",
+        "capability.signal",
+        "semantic.cluster",
+        "trend.spike",
+        "alignment.alert",
+        "source.latency",
+        "watcher.reconnect"
+      ].includes(event.type)
+    )
     .slice(0, MAX_SIGNALS)
     .map((event) => {
       const importance = importanceFromEvent(event);
@@ -325,6 +338,10 @@ function importanceFromEvent(event: RealtimeEvent) {
 
 function topicsFor(event: RealtimeEvent) {
   if (event.type === "alignment.alert") return ["alignment", "drift", "discourse"];
+  if (event.type === "model.release") return ["models", "release"];
+  if (event.type === "policy.update") return ["policy", "governance"];
+  if (event.type === "safety.research") return ["safety", "alignment"];
+  if (event.type === "capability.signal") return ["capability", "research"];
   if (event.type === "semantic.cluster") return ["semantic-cluster", "correlation"];
   if (event.type === "trend.spike") return ["trend", "capability"];
   if (event.type === "source.latency") return ["latency", "telemetry"];

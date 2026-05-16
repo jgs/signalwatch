@@ -75,6 +75,10 @@ function messageFor(event: RealtimeEvent) {
     return `trend acceleration detected :: ${String(event.payload.keyword ?? "cross-source momentum")}`;
   }
   if (event.type === "collection.completed") return "collector mesh synced :: websocket broadcast emitted";
+  if (event.type === "model.release") return "model release signal indexed";
+  if (event.type === "policy.update") return "policy update indexed";
+  if (event.type === "safety.research") return "safety research signal classified";
+  if (event.type === "capability.signal") return "capability research signal indexed";
   if (event.type === "websocket.activity") return "websocket throughput frame acknowledged";
   if (event.type === "scoring.completed") return "importance score recomputed for active signal";
   return "signal normalized and routed";
