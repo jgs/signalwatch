@@ -3,6 +3,7 @@ from __future__ import annotations
 from fastapi import APIRouter, Query
 
 from app.telemetry import telemetry_state
+from app.telemetry.timeline import build_operational_timeline
 from app.websocket.manager import hub
 
 router = APIRouter(prefix="/api", tags=["operations"])
@@ -29,3 +30,8 @@ async def signals(limit: int = Query(default=50, ge=1, le=200)) -> list[dict]:
 async def collectors() -> list[dict]:
     states = await telemetry_state.collectors()
     return [collector.model_dump(mode="json") for collector in states]
+
+
+@router.get("/timeline")
+async def timeline() -> dict:
+    return build_operational_timeline()

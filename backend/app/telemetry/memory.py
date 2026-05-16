@@ -92,6 +92,13 @@ class SignalMemory:
             "agentic_momentum": _combined(topic_index, ["agents", "reasoning"]),
         }
 
+    def topic_snapshots(self) -> list[dict]:
+        return sorted(
+            [self.snapshot(topic) for topic in self._topics],
+            key=lambda snapshot: (snapshot["pressure_accumulation"], snapshot["confidence"]),
+            reverse=True,
+        )
+
 
 def _combined(snapshots: dict[str, dict], topics: list[str]) -> float:
     values = [float(snapshots[topic]["pressure_accumulation"]) for topic in topics if topic in snapshots]

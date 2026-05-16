@@ -1,4 +1,4 @@
-import type { CollectorState, OperationalTelemetry, RealtimeEvent } from "@/lib/types";
+import type { CollectorState, OperationalTelemetry, OperationalTimeline, RealtimeEvent } from "@/lib/types";
 
 export const API_BASE =
   normalizeHttpUrl(
@@ -19,6 +19,10 @@ export async function fetchOperationalEvents(limit = 80): Promise<RealtimeEvent[
 
 export async function fetchCollectors(): Promise<CollectorState[]> {
   return fetchJson(`${API_BASE}/api/collectors`);
+}
+
+export async function fetchTimeline(): Promise<OperationalTimeline> {
+  return fetchJson(`${API_BASE}/api/timeline`);
 }
 
 function normalizeHttpUrl(url: string) {

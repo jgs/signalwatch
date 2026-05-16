@@ -170,3 +170,25 @@ export type OperationalTelemetry = {
   deduped?: number;
   inserted?: number;
 };
+
+export type OperationalTimeline = {
+  date: string;
+  generated_at: string;
+  briefing: {
+    title: string;
+    lines: string[];
+  };
+  drift: NonNullable<OperationalTelemetry["ecosystem_drift"]>;
+  epochs: Array<{
+    kind: string;
+    topic: string;
+    summary: string;
+    pressure: number;
+    confidence: number;
+    stability: number;
+    acceleration: number;
+    maturity: string;
+    observation_count: number;
+    source_counts: Record<string, number>;
+  }>;
+};

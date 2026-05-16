@@ -52,8 +52,9 @@ export function OperationalSidebar({
       <div className="border-b border-signal-line pb-4">
         <div className="text-lg font-semibold text-signal-text">signalwatch</div>
         <div className="mt-1 font-mono text-[0.68rem] uppercase text-signal-muted">AI ecosystem ops / local node</div>
-        <div className="mt-4 grid grid-cols-2 gap-2 font-mono text-[0.62rem] uppercase">
+        <div className="mt-4 grid grid-cols-3 gap-2 font-mono text-[0.62rem] uppercase">
           <Link href="/console" className="border border-[#101b15] px-2 py-1 text-signal-green/80 transition hover:border-[#2f4a39]">console</Link>
+          <Link href="/timeline" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">timeline</Link>
           <Link href="/systems" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">systems</Link>
         </div>
       </div>
