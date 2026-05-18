@@ -60,6 +60,7 @@ export default function LandingPage() {
           <Link href="/safety" className="transition hover:text-signal-muted">AI safety</Link>
           <Link href="/evaluations" className="transition hover:text-signal-muted">evaluations</Link>
           <Link href="/labs/perception" className="transition hover:text-signal-muted">perception lab</Link>
+          <Link href="/learn/llm-training" className="transition hover:text-signal-muted">LLM guide</Link>
           <Link href="/case-studies" className="transition hover:text-signal-muted">case studies</Link>
           <Link href="/methodology" className="transition hover:text-signal-muted">methodology</Link>
           <Link href="/timeline" className="transition hover:text-signal-muted">timeline</Link>

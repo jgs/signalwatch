@@ -59,6 +59,7 @@ export function OperationalSidebar({
           <Link href="/evaluations" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">tests</Link>
           <Link href="/labs" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">labs</Link>
           <Link href="/timeline" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">timeline</Link>
+          <Link href="/learn/llm-training" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">learn</Link>
           <Link href="/methodology" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">method</Link>
           <Link href="/systems" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">systems</Link>
         </div>

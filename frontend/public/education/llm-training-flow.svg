@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">LLM training pipeline</title>
+  <desc id="desc">A simple visual path from source data to deployment monitoring.</desc>
+  <rect width="1200" height="720" fill="#0b0f0c"/>
+  <rect x="42" y="42" width="1116" height="636" rx="10" fill="#0d120f" stroke="#243329"/>
+  <text x="82" y="98" fill="#edf3ee" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700">How a language model is trained</text>
+  <text x="82" y="132" fill="#a7b2aa" font-family="Inter, Arial, sans-serif" font-size="17">A simplified overview. Exact methods vary between labs, but the core path is usually similar.</text>
+
+  <g font-family="Inter, Arial, sans-serif">
+    <g transform="translate(82 188)">
+      <rect width="214" height="118" rx="8" fill="#111813" stroke="#2c3d32"/>
+      <text x="22" y="36" fill="#9bd8b3" font-size="13" font-family="Consolas, monospace">01 DATA</text>
+      <text x="22" y="66" fill="#edf3ee" font-size="21" font-weight="700">Collect and filter</text>
+      <text x="22" y="94" fill="#a7b2aa" font-size="14">Documents, code, books, web text, and licensed data are cleaned.</text>
+    </g>
+    <path d="M304 247H370" stroke="#6f8c78" stroke-width="2"/>
+    <path d="M362 239l10 8-10 8" fill="none" stroke="#6f8c78" stroke-width="2"/>
+
+    <g transform="translate(386 188)">
+      <rect width="214" height="118" rx="8" fill="#111813" stroke="#2c3d32"/>
+      <text x="22" y="36" fill="#9bd8b3" font-size="13" font-family="Consolas, monospace">02 TOKENS</text>
+      <text x="22" y="66" fill="#edf3ee" font-size="21" font-weight="700">Break text apart</text>
+      <text x="22" y="94" fill="#a7b2aa" font-size="14">Text becomes tokens: small units the model can process.</text>
+    </g>
+    <path d="M608 247H674" stroke="#6f8c78" stroke-width="2"/>
+    <path d="M666 239l10 8-10 8" fill="none" stroke="#6f8c78" stroke-width="2"/>
+
+    <g transform="translate(690 188)">
+      <rect width="214" height="118" rx="8" fill="#111813" stroke="#2c3d32"/>
+      <text x="22" y="36" fill="#9bd8b3" font-size="13" font-family="Consolas, monospace">03 PRETRAIN</text>
+      <text x="22" y="66" fill="#edf3ee" font-size="21" font-weight="700">Predict next token</text>
+      <text x="22" y="94" fill="#a7b2aa" font-size="14">The model learns patterns by predicting what comes next.</text>
+    </g>
+    <path d="M912 247H978" stroke="#6f8c78" stroke-width="2"/>
+    <path d="M970 239l10 8-10 8" fill="none" stroke="#6f8c78" stroke-width="2"/>
+
+    <g transform="translate(994 188)">
+      <rect width="124" height="118" rx="8" fill="#172018" stroke="#3b5140"/>
+      <text x="18" y="36" fill="#b7c49b" font-size="13" font-family="Consolas, monospace">CHECK</text>
+      <text x="18" y="66" fill="#edf3ee" font-size="20" font-weight="700">Evaluate</text>
+      <text x="18" y="94" fill="#a7b2aa" font-size="13">Loss, quality, safety.</text>
+    </g>
+
+    <path d="M1056 312V374H198V416" fill="none" stroke="#6f8c78" stroke-width="2"/>
+    <path d="M190 408l8 10 8-10" fill="none" stroke="#6f8c78" stroke-width="2"/>
+
+    <g transform="translate(82 424)">
+      <rect width="214" height="118" rx="8" fill="#111813" stroke="#2c3d32"/>
+      <text x="22" y="36" fill="#9bd8b3" font-size="13" font-family="Consolas, monospace">04 INSTRUCT</text>
+      <text x="22" y="66" fill="#edf3ee" font-size="21" font-weight="700">Teach helpful use</text>
+      <text x="22" y="94" fill="#a7b2aa" font-size="14">Examples show how to follow questions, tasks, and style.</text>
+    </g>
+    <path d="M304 483H370" stroke="#6f8c78" stroke-width="2"/>
+    <path d="M362 475l10 8-10 8" fill="none" stroke="#6f8c78" stroke-width="2"/>
+
+    <g transform="translate(386 424)">
+      <rect width="214" height="118" rx="8" fill="#111813" stroke="#2c3d32"/>
+      <text x="22" y="36" fill="#9bd8b3" font-size="13" font-family="Consolas, monospace">05 PREFERENCES</text>
+      <text x="22" y="66" fill="#edf3ee" font-size="21" font-weight="700">Rank responses</text>
+      <text x="22" y="94" fill="#a7b2aa" font-size="14">Human or model preference data can steer behavior.</text>
+    </g>
+    <path d="M608 483H674" stroke="#6f8c78" stroke-width="2"/>
+    <path d="M666 475l10 8-10 8" fill="none" stroke="#6f8c78" stroke-width="2"/>
+
+    <g transform="translate(690 424)">
+      <rect width="214" height="118" rx="8" fill="#111813" stroke="#2c3d32"/>
+      <text x="22" y="36" fill="#9bd8b3" font-size="13" font-family="Consolas, monospace">06 SAFETY</text>
+      <text x="22" y="66" fill="#edf3ee" font-size="21" font-weight="700">Stress test</text>
+      <text x="22" y="94" fill="#a7b2aa" font-size="14">Teams test misuse, hallucination, bias, and refusal behavior.</text>
+    </g>
+    <path d="M912 483H978" stroke="#6f8c78" stroke-width="2"/>
+    <path d="M970 475l10 8-10 8" fill="none" stroke="#6f8c78" stroke-width="2"/>
+
+    <g transform="translate(994 424)">
+      <rect width="124" height="118" rx="8" fill="#172018" stroke="#3b5140"/>
+      <text x="18" y="36" fill="#b7c49b" font-size="13" font-family="Consolas, monospace">07 LIVE</text>
+      <text x="18" y="66" fill="#edf3ee" font-size="20" font-weight="700">Monitor</text>
+      <text x="18" y="94" fill="#a7b2aa" font-size="13">Logs, feedback, incidents.</text>
+    </g>
+  </g>
+
+  <rect x="82" y="598" width="1036" height="44" rx="6" fill="#151b16" stroke="#2c3d32"/>
+  <text x="104" y="626" fill="#c8b77b" font-family="Consolas, monospace" font-size="14">Boundary:</text>
+  <text x="190" y="626" fill="#a7b2aa" font-family="Inter, Arial, sans-serif" font-size="15">This is an educational map, not a claim about any one company's private training recipe.</text>
+</svg>

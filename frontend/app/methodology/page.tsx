@@ -92,6 +92,29 @@ export default function MethodologyPage() {
             <Boundary title="Observation windows" text="Must describe timestamped collection, source overlap, recurrence, or model-output history." />
           </div>
         </section>
+
+        <section className="mt-5 grid gap-5 lg:grid-cols-[.95fr_1.05fr]">
+          <div className="console-panel overflow-hidden p-3">
+            <img
+              src="/education/evidence-loop.svg"
+              alt="Evidence loop diagram showing real-world input, model behavior, observed facts, and monitoring action."
+              className="w-full"
+            />
+          </div>
+          <div className="console-panel p-5">
+            <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">plain-language guide</div>
+            <h2 className="mt-4 text-2xl font-semibold text-signal-text">How LLM training fits this system</h2>
+            <p className="mt-4 text-sm leading-relaxed text-signal-muted">
+              SIGNALWATCH monitors what happens after models are trained: real sources, outputs, failures, and evidence trails. The LLM guide explains the training path in simple terms.
+            </p>
+            <Link
+              href="/learn/llm-training"
+              className="mt-5 inline-flex border border-[#203528] bg-[#07100b] px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-[#3e654c]"
+            >
+              open LLM guide
+            </Link>
+          </div>
+        </section>
       </section>
     </main>
   );
