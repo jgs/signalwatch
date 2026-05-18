@@ -7,7 +7,9 @@ import { fetchCvStatus } from "@/lib/api";
 import { EvidencePacketPreview } from "@/components/education/evidence-packet-preview";
 import { OperationalCallouts } from "@/components/education/operational-callouts";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
+import { UnavailableStatesGallery } from "@/components/education/unavailable-states-gallery";
 import { OperationalNav } from "@/components/layout/operational-nav";
+import { SystemStatusBar } from "@/components/layout/system-status-bar";
 import { OperationalNote } from "@/components/labs/overlays/operational-note";
 import { RealDetectionLab } from "@/components/labs/perception/real-detection-lab";
 import { RealOnlyBoundary } from "@/components/labs/perception/real-only-boundary";
@@ -93,12 +95,17 @@ export default function SafetyCriticalPerceptionPage() {
         </div>
 
         <div className="mt-5">
+          <UnavailableStatesGallery title="perception unavailable states" />
+        </div>
+
+        <div className="mt-5">
           <RealWorldImageBand
             ids={["low-light-hallway", "motion-blur", "cctv-camera", "thermal-camera"]}
             title="perception operating conditions"
             description="These source-attributed photos show visual conditions the lab is built to reason about. They do not contain detection boxes, confidence values, or precomputed outcomes; those are produced only when the browser model runs."
           />
         </div>
+        <SystemStatusBar />
       </section>
     </main>
   );

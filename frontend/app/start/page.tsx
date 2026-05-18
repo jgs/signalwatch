@@ -5,6 +5,7 @@ import { RealWorldImageBand } from "@/components/education/real-world-image-band
 import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
 import { OperationalCallouts } from "@/components/education/operational-callouts";
 import { OperationalNav } from "@/components/layout/operational-nav";
+import { SystemStatusBar } from "@/components/layout/system-status-bar";
 
 export const metadata: Metadata = {
   title: "Start Here",
@@ -112,6 +113,7 @@ export default function StartPage() {
         <div className="mt-5">
           <RealWorldImageBand compact ids={["control-room", "cctv-camera", "low-light-hallway"]} />
         </div>
+        <SystemStatusBar />
       </section>
     </main>
   );

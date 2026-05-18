@@ -5,6 +5,7 @@ import { Activity, Boxes, Database, GitBranch, Radio, ShieldCheck, type LucideIc
 import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
 import { OperationalCallouts } from "@/components/education/operational-callouts";
 import { OperationalNav } from "@/components/layout/operational-nav";
+import { SystemStatusBar } from "@/components/layout/system-status-bar";
 
 const registry = [
   {
@@ -112,6 +113,7 @@ export default function SystemsPage() {
             ))}
           </div>
         </section>
+        <SystemStatusBar />
       </section>
     </main>
   );

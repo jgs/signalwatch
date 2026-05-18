@@ -5,7 +5,9 @@ import { Camera, FileSearch, Gauge, ListChecks, ShieldCheck, type LucideIcon } f
 import { EvidencePacketPreview } from "@/components/education/evidence-packet-preview";
 import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
+import { UnavailableStatesGallery } from "@/components/education/unavailable-states-gallery";
 import { OperationalNav } from "@/components/layout/operational-nav";
+import { SystemStatusBar } from "@/components/layout/system-status-bar";
 import { PERCEPTION_DATASET_SEQUENCES } from "@/lib/perception-datasets";
 
 const cases = [
@@ -68,6 +70,14 @@ const packetFields = [
   "frames",
 ];
 
+const runSheet = [
+  ["input selected", "requires webcam, upload, or imported calibration sample"],
+  ["degradation configured", "preset and manual controls must be visible before inference"],
+  ["model loaded", "browser-side model state must be available or explicitly unavailable"],
+  ["observation window held", "frame history must exist before temporal claims"],
+  ["packet exported", "evidence JSON is created only after real output history exists"],
+];
+
 const proofBoundary = [
   ["can show", "confidence instability, empty frames, dropped detections, and continuity breaks in this browser/model/input session"],
   ["can show", "how a selected degradation changes the emitted COCO-SSD output history"],
@@ -97,6 +107,24 @@ export default function CaseStudiesPage() {
           {cases.map((item) => (
             <CaseCard key={item.id} {...item} />
           ))}
+        </section>
+
+        <section className="mt-5 console-panel p-5">
+          <div className="flex flex-col justify-between gap-3 border-b border-[#101b15] pb-3 md:flex-row md:items-center">
+            <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80">
+              <ListChecks className="h-3.5 w-3.5" />
+              case-study run sheet
+            </div>
+            <div className="font-mono text-[0.58rem] uppercase text-signal-dim">checklist structure / no prefilled run result</div>
+          </div>
+          <div className="mt-5 grid gap-2 md:grid-cols-5">
+            {runSheet.map(([label, detail], index) => (
+              <div key={label} className="border border-[#101b15] bg-[#050806]/66 p-3">
+                <div className="font-mono text-[0.56rem] uppercase text-signal-green/70">{String(index + 1).padStart(2, "0")} / {label}</div>
+                <p className="mt-2 text-xs leading-relaxed text-signal-muted">{detail}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         <div className="mt-5">
@@ -170,6 +198,10 @@ export default function CaseStudiesPage() {
           <EvidencePacketPreview title="case-study export shape" />
         </div>
 
+        <div className="mt-5">
+          <UnavailableStatesGallery title="case-study unavailable states" />
+        </div>
+
         <section className="mt-5 console-panel p-5">
           <div className="flex items-center gap-2 border-b border-[#101b15] pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">
             <ShieldCheck className="h-3.5 w-3.5" />
@@ -184,6 +216,7 @@ export default function CaseStudiesPage() {
             ))}
           </div>
         </section>
+        <SystemStatusBar />
       </section>
     </main>
   );

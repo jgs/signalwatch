@@ -7,6 +7,9 @@ import { MetricRail } from "@/components/dashboard/metric-rail";
 import { OperationalSidebar } from "@/components/dashboard/operational-sidebar";
 import { SignalFeed } from "@/components/dashboard/signal-feed";
 import { Topbar } from "@/components/dashboard/topbar";
+import { SourceRegistryVisual } from "@/components/education/source-registry-visual";
+import { UnavailableStatesGallery } from "@/components/education/unavailable-states-gallery";
+import { SystemStatusBar } from "@/components/layout/system-status-bar";
 import { useSignalwatch } from "@/hooks/use-signalwatch";
 import { timeOnly } from "@/lib/utils";
 
@@ -74,6 +77,9 @@ export default function ConsolePage() {
             <CollectorHealth health={collectorHealth} />
           </div>
         </div>
+        <SourceRegistryVisual health={collectorHealth} />
+        <UnavailableStatesGallery title="console unavailable states" />
+        <SystemStatusBar />
       </div>
     </main>
   );

@@ -8,6 +8,7 @@ import { ConsoleEntry } from "@/components/landing/console-entry";
 import { LandingVisualField } from "@/components/landing/landing-visual-field";
 import { OperationalSurfaceMap } from "@/components/landing/operational-surface-map";
 import { OrientationStrip } from "@/components/landing/orientation-strip";
+import { SystemStatusBar } from "@/components/layout/system-status-bar";
 
 const words = ["Real sources.", "Clear evidence.", "Model behavior.", "Failure visibility."];
 
@@ -88,6 +89,7 @@ export default function LandingPage() {
           <Link href="/timeline" className="transition hover:text-signal-muted">timeline</Link>
           <Link href="/systems" className="hidden transition hover:text-signal-muted sm:inline">systems node</Link>
         </div>
+        <SystemStatusBar />
       </section>
     </main>
   );

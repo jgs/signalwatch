@@ -7,7 +7,10 @@ import { fetchSafetySources } from "@/lib/api";
 import { EvidencePacketPreview } from "@/components/education/evidence-packet-preview";
 import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
+import { SourceRegistryVisual } from "@/components/education/source-registry-visual";
+import { UnavailableStatesGallery } from "@/components/education/unavailable-states-gallery";
 import { OperationalNav } from "@/components/layout/operational-nav";
+import { SystemStatusBar } from "@/components/layout/system-status-bar";
 import { PERCEPTION_DATASET_SEQUENCES, perceptionDatasetSummary } from "@/lib/perception-datasets";
 import type { SafetySource } from "@/lib/types";
 
@@ -133,6 +136,10 @@ export default function EvaluationsPage() {
         </div>
 
         <div className="mt-5">
+          <UnavailableStatesGallery title="evaluation unavailable states" />
+        </div>
+
+        <div className="mt-5">
           <RealWorldImageBand compact />
         </div>
 
@@ -148,6 +155,10 @@ export default function EvaluationsPage() {
             open case studies
           </Link>
         </section>
+
+        <div className="mt-5">
+          <SourceRegistryVisual />
+        </div>
 
         <section className="mt-5 console-panel p-5">
           <div className="flex flex-col justify-between gap-3 border-b border-[#101b15] pb-3 md:flex-row md:items-center">
@@ -187,6 +198,7 @@ export default function EvaluationsPage() {
             })}
           </div>
         </section>
+        <SystemStatusBar />
       </section>
     </main>
   );

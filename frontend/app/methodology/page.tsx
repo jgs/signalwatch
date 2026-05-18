@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { CircuitBoard, Database, FlaskConical, Radio, ShieldCheck, Waves, type LucideIcon } from "lucide-react";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
+import { UnavailableStatesGallery } from "@/components/education/unavailable-states-gallery";
 import { OperationalNav } from "@/components/layout/operational-nav";
+import { SystemStatusBar } from "@/components/layout/system-status-bar";
 
 const layers = [
   {
@@ -110,6 +112,10 @@ export default function MethodologyPage() {
           </div>
         </section>
 
+        <div className="mt-5">
+          <UnavailableStatesGallery title="methodology unavailable states" />
+        </div>
+
         <section className="mt-5 grid gap-5 lg:grid-cols-[.95fr_1.05fr]">
           <div className="console-panel overflow-hidden p-3">
             <img
@@ -132,6 +138,7 @@ export default function MethodologyPage() {
             </Link>
           </div>
         </section>
+        <SystemStatusBar />
       </section>
     </main>
   );
