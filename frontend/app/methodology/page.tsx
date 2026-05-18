@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { CircuitBoard, Database, FlaskConical, Radio, ShieldCheck, Waves, type LucideIcon } from "lucide-react";
+import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 
 const layers = [
   {
@@ -85,6 +86,15 @@ export default function MethodologyPage() {
             <MethodCard key={layer.title} {...layer} />
           ))}
         </section>
+
+        <div className="mt-5">
+          <RealWorldImageBand
+            compact
+            ids={["cctv-camera", "motion-blur", "low-light-hallway"]}
+            title="method boundary images"
+            description="The methodology separates context from evidence. These images illustrate operational conditions that can affect perception systems, while model detections and confidence still have to come from actual inference outputs."
+          />
+        </div>
 
         <section className="mt-5 console-panel p-5">
           <div className="flex flex-col justify-between gap-3 border-b border-[#101b15] pb-3 md:flex-row md:items-center">

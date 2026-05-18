@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 import { Camera, CircuitBoard, ScanEye, ShieldCheck, type LucideIcon } from "lucide-react";
 import { fetchCvStatus } from "@/lib/api";
+import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { OperationalNote } from "@/components/labs/overlays/operational-note";
 import { RealDetectionLab } from "@/components/labs/perception/real-detection-lab";
 import { RealOnlyBoundary } from "@/components/labs/perception/real-only-boundary";
@@ -80,6 +81,14 @@ export default function SafetyCriticalPerceptionPage() {
             <SafetyCriticalContext />
           </div>
         </section>
+
+        <div className="mt-5">
+          <RealWorldImageBand
+            ids={["low-light-hallway", "motion-blur", "cctv-camera", "thermal-camera"]}
+            title="perception operating conditions"
+            description="These source-attributed photos show visual conditions the lab is built to reason about. They do not contain detection boxes, confidence values, or precomputed outcomes; those are produced only when the browser model runs."
+          />
+        </div>
       </section>
     </main>
   );

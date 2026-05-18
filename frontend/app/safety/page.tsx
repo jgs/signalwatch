@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Database, Shield, Wrench } from "lucide-react";
 import { fetchAlignmentConcepts, fetchJobDisplacement, fetchRiskFrameworks, fetchSafetySources } from "@/lib/api";
+import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { SafetyBridge } from "@/components/safety/safety-bridge";
 import type { AlignmentConcept, JobExposureInsight, RiskCategory, SafetySource } from "@/lib/types";
 
@@ -49,6 +50,15 @@ export default function SafetyPage() {
         </header>
 
         <SafetyBridge />
+
+        <div className="mb-5">
+          <RealWorldImageBand
+            compact
+            ids={["control-room", "thermal-camera", "camera-cluster"]}
+            title="safety monitoring context"
+            description="These photos ground the safety page in real operational settings: human review rooms, specialized sensors, and camera coverage. They are visual references only, not claims about a deployed SIGNALWATCH run."
+          />
+        </div>
 
         <section className="mb-5 grid gap-3 md:grid-cols-3">
           <WhyPanel text="Autonomous systems become difficult to supervise when capability growth exceeds evaluation and interpretability progress." source="OpenAI / Anthropic frameworks" />
