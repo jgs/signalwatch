@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Activity, AlertTriangle, Eye, Gauge, Network, ScanSearch, ShieldCheck, type LucideIcon } from "lucide-react";
 import { fetchSafetySources } from "@/lib/api";
+import { EvidencePacketPreview } from "@/components/education/evidence-packet-preview";
 import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { PERCEPTION_DATASET_SEQUENCES, perceptionDatasetSummary } from "@/lib/perception-datasets";
@@ -125,6 +126,10 @@ export default function EvaluationsPage() {
             </div>
           </Panel>
         </section>
+
+        <div className="mt-5">
+          <EvidencePacketPreview title="evaluation evidence packet shape" />
+        </div>
 
         <div className="mt-5">
           <RealWorldImageBand compact />

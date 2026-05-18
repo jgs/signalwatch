@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Camera, FileSearch, Gauge, ListChecks, ShieldCheck, type LucideIcon } from "lucide-react";
+import { EvidencePacketPreview } from "@/components/education/evidence-packet-preview";
 import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { PERCEPTION_DATASET_SEQUENCES } from "@/lib/perception-datasets";
@@ -163,6 +164,10 @@ export default function CaseStudiesPage() {
             </div>
           </div>
         </section>
+
+        <div className="mt-5">
+          <EvidencePacketPreview title="case-study export shape" />
+        </div>
 
         <section className="mt-5 console-panel p-5">
           <div className="flex items-center gap-2 border-b border-[#101b15] pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">

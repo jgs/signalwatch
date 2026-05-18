@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { OperationalCallouts } from "@/components/education/operational-callouts";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { ConsoleEntry } from "@/components/landing/console-entry";
 import { LandingVisualField } from "@/components/landing/landing-visual-field";
@@ -49,6 +50,10 @@ export default function LandingPage() {
               {word}
             </motion.div>
           ))}
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="mt-6">
+          <OperationalCallouts compact />
         </motion.div>
 
         <div className="mt-8">

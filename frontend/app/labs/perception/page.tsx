@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
 import { Camera, CircuitBoard, ScanEye, ShieldCheck, type LucideIcon } from "lucide-react";
 import { fetchCvStatus } from "@/lib/api";
+import { EvidencePacketPreview } from "@/components/education/evidence-packet-preview";
+import { OperationalCallouts } from "@/components/education/operational-callouts";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { OperationalNote } from "@/components/labs/overlays/operational-note";
 import { RealDetectionLab } from "@/components/labs/perception/real-detection-lab";
@@ -36,6 +38,9 @@ export default function SafetyCriticalPerceptionPage() {
           </p>
           <div className="mt-8">
             <RealOnlyBoundary />
+          </div>
+          <div className="mt-4">
+            <OperationalCallouts compact />
           </div>
         </header>
 
@@ -81,6 +86,10 @@ export default function SafetyCriticalPerceptionPage() {
             <SafetyCriticalContext />
           </div>
         </section>
+
+        <div className="mt-5">
+          <EvidencePacketPreview title="perception evidence packet shape" />
+        </div>
 
         <div className="mt-5">
           <RealWorldImageBand

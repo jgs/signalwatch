@@ -1,4 +1,5 @@
 import { Activity, Database, FileJson, ShieldCheck, type LucideIcon } from "lucide-react";
+import { OperationalCallouts } from "@/components/education/operational-callouts";
 
 const boundaryRows: Array<{
   icon: LucideIcon;
@@ -50,6 +51,9 @@ export function OperationalBoundaryPanel({ title = "operational evidence boundar
             <div className="border border-signal-line/70 px-1.5 py-0.5 font-mono text-[0.5rem] uppercase text-signal-dim">{state}</div>
           </div>
         ))}
+      </div>
+      <div className="mt-4">
+        <OperationalCallouts compact />
       </div>
     </section>
   );
