@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Camera, FileSearch, Gauge, ListChecks, ShieldCheck, type LucideIcon } from "lucide-react";
+import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { PERCEPTION_DATASET_SEQUENCES } from "@/lib/perception-datasets";
 
 const cases = [
@@ -94,6 +95,10 @@ export default function CaseStudiesPage() {
             <CaseCard key={item.id} {...item} />
           ))}
         </section>
+
+        <div className="mt-5">
+          <RealWorldImageBand compact />
+        </div>
 
         <section className="mt-5 console-panel p-5">
           <div className="flex flex-col justify-between gap-3 border-b border-[#101b15] pb-3 md:flex-row md:items-center">

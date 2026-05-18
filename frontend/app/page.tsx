@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { ConsoleEntry } from "@/components/landing/console-entry";
 import { OrientationStrip } from "@/components/landing/orientation-strip";
 
@@ -52,11 +53,16 @@ export default function LandingPage() {
           <OrientationStrip />
         </motion.div>
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7, duration: 0.7 }} className="mt-16">
+        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.62, duration: 0.7 }} className="mt-8">
+          <RealWorldImageBand compact />
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7, duration: 0.7 }} className="mt-10">
           <ConsoleEntry />
         </motion.div>
 
         <div className="absolute bottom-8 left-6 right-6 flex flex-wrap items-center justify-between gap-3 border-t border-signal-line/55 pt-4 font-mono text-[0.64rem] uppercase text-signal-dim md:left-6 md:right-6">
+          <Link href="/start" className="transition hover:text-signal-muted">start here</Link>
           <Link href="/safety" className="transition hover:text-signal-muted">AI safety</Link>
           <Link href="/evaluations" className="transition hover:text-signal-muted">evaluations</Link>
           <Link href="/labs/perception" className="transition hover:text-signal-muted">perception lab</Link>

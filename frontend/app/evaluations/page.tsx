@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Activity, AlertTriangle, Eye, Gauge, Network, ScanSearch, ShieldCheck, type LucideIcon } from "lucide-react";
 import { fetchSafetySources } from "@/lib/api";
+import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { PERCEPTION_DATASET_SEQUENCES, perceptionDatasetSummary } from "@/lib/perception-datasets";
 import type { SafetySource } from "@/lib/types";
 
@@ -119,6 +120,10 @@ export default function EvaluationsPage() {
             </div>
           </Panel>
         </section>
+
+        <div className="mt-5">
+          <RealWorldImageBand compact />
+        </div>
 
         <section className="mt-5 console-panel p-5">
           <div className="flex flex-col justify-between gap-3 border-b border-[#101b15] pb-3 md:flex-row md:items-center">
