@@ -1,4 +1,5 @@
 import { Database, FileText, Github, MessageSquareText, Newspaper, ShieldCheck, type LucideIcon } from "lucide-react";
+import { OperationalSection } from "@/components/layout/operational-section";
 import { sourceLabel } from "@/lib/api";
 import type { CollectorHealth } from "@/lib/types";
 
@@ -20,15 +21,8 @@ export function SourceRegistryVisual({ health = [] }: { health?: CollectorHealth
   const healthBySource = new Map(health.map((entry) => [entry.source, entry]));
 
   return (
-    <section className="console-panel p-5">
-      <div className="flex flex-col justify-between gap-3 border-b border-signal-line/60 pb-3 md:flex-row md:items-center">
-        <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80">
-          <Database className="h-3.5 w-3.5" />
-          source registry visual
-        </div>
-        <div className="font-mono text-[0.58rem] uppercase text-signal-dim">collector type / provenance / runtime state</div>
-      </div>
-      <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+    <OperationalSection title="source registry visual" meta="collector type / provenance / runtime state" icon={Database}>
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {sourceRegistry.map(({ icon: Icon, source, type, provenance }) => {
           const healthEntry = healthBySource.get(source);
           const state = healthEntry?.state ?? "UNOBSERVED";
@@ -52,6 +46,6 @@ export function SourceRegistryVisual({ health = [] }: { health?: CollectorHealth
           );
         })}
       </div>
-    </section>
+    </OperationalSection>
   );
 }

@@ -26,6 +26,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/"
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png" }
+    ],
+    apple: "/apple-icon.png"
+  },
   openGraph: {
     title: "SIGNALWATCH - Evidence-first AI observability",
     description:

@@ -1,5 +1,6 @@
 import { Activity, Database, FileJson, ShieldCheck, type LucideIcon } from "lucide-react";
 import { OperationalCallouts } from "@/components/education/operational-callouts";
+import { OperationalSection } from "@/components/layout/operational-section";
 
 const boundaryRows: Array<{
   icon: LucideIcon;
@@ -35,12 +36,8 @@ const boundaryRows: Array<{
 
 export function OperationalBoundaryPanel({ title = "operational evidence boundary" }: { title?: string }) {
   return (
-    <section className="console-panel p-5">
-      <div className="flex flex-col justify-between gap-3 border-b border-signal-line/60 pb-3 md:flex-row md:items-center">
-        <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">{title}</div>
-        <div className="font-mono text-[0.58rem] uppercase text-signal-dim">real inputs / real outputs / explicit unavailable states</div>
-      </div>
-      <div className="mt-5 grid gap-3 md:grid-cols-2">
+    <OperationalSection title={title} meta="real inputs / real outputs / explicit unavailable states" icon={ShieldCheck}>
+      <div className="grid gap-3 md:grid-cols-2">
         {boundaryRows.map(({ icon: Icon, label, value, state }) => (
           <div key={label} className="grid grid-cols-[auto_1fr] items-start gap-3 border border-[#101b15] bg-[#050806]/66 p-3 sm:grid-cols-[auto_1fr_auto]">
             <Icon className="mt-0.5 h-3.5 w-3.5 text-signal-green/72" />
@@ -55,6 +52,6 @@ export function OperationalBoundaryPanel({ title = "operational evidence boundar
       <div className="mt-4">
         <OperationalCallouts compact />
       </div>
-    </section>
+    </OperationalSection>
   );
 }

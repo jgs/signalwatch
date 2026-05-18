@@ -1,4 +1,5 @@
 import { AlertTriangle, CameraOff, DatabaseZap, FileX2, TimerReset, WifiOff, type LucideIcon } from "lucide-react";
+import { OperationalSection } from "@/components/layout/operational-section";
 
 const unavailableStates: Array<{
   icon: LucideIcon;
@@ -46,12 +47,8 @@ const unavailableStates: Array<{
 
 export function UnavailableStatesGallery({ title = "unavailable states gallery" }: { title?: string }) {
   return (
-    <section className="console-panel p-5">
-      <div className="flex flex-col justify-between gap-3 border-b border-signal-line/60 pb-3 md:flex-row md:items-center">
-        <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">{title}</div>
-        <div className="font-mono text-[0.58rem] uppercase text-signal-dim">absence is observable / absence is not guessed</div>
-      </div>
-      <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+    <OperationalSection title={title} meta="absence is observable / absence is not guessed">
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {unavailableStates.map(({ icon: Icon, label, surface, detail }) => (
           <article key={label} className="border border-[#101b15] bg-[#050806]/66 p-4">
             <div className="flex items-start justify-between gap-3">
@@ -65,6 +62,6 @@ export function UnavailableStatesGallery({ title = "unavailable states gallery" 
           </article>
         ))}
       </div>
-    </section>
+    </OperationalSection>
   );
 }

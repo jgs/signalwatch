@@ -1,4 +1,5 @@
 import { Braces, FileJson } from "lucide-react";
+import { OperationalSection } from "@/components/layout/operational-section";
 
 const packetRows = [
   ["schema", "signalwatch.perception.evidence.v1"],
@@ -23,15 +24,8 @@ const packetShape = `{
 
 export function EvidencePacketPreview({ title = "evidence packet preview" }: { title?: string }) {
   return (
-    <section className="console-panel p-5">
-      <div className="flex flex-col justify-between gap-3 border-b border-signal-line/60 pb-3 md:flex-row md:items-center">
-        <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80">
-          <FileJson className="h-3.5 w-3.5" />
-          {title}
-        </div>
-        <div className="font-mono text-[0.58rem] uppercase text-signal-dim">schema preview / values require real run</div>
-      </div>
-      <div className="mt-5 grid gap-5 lg:grid-cols-[.95fr_1.05fr]">
+    <OperationalSection title={title} meta="schema preview / values require real run" icon={FileJson}>
+      <div className="grid gap-5 lg:grid-cols-[.95fr_1.05fr]">
         <div className="grid gap-2">
           {packetRows.map(([field, rule]) => (
             <div key={field} className="grid gap-1 border-l border-[#24392c] bg-[#050806]/62 px-3 py-2 sm:grid-cols-[9.5rem_1fr] sm:gap-3">
@@ -50,6 +44,6 @@ export function EvidencePacketPreview({ title = "evidence packet preview" }: { t
           </pre>
         </div>
       </div>
-    </section>
+    </OperationalSection>
   );
 }

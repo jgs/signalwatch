@@ -7,6 +7,7 @@ import { OperationalBoundaryPanel } from "@/components/education/operational-bou
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { UnavailableStatesGallery } from "@/components/education/unavailable-states-gallery";
 import { OperationalNav } from "@/components/layout/operational-nav";
+import { OperationalSection } from "@/components/layout/operational-section";
 import { SystemStatusBar } from "@/components/layout/system-status-bar";
 import { PERCEPTION_DATASET_SEQUENCES } from "@/lib/perception-datasets";
 
@@ -109,23 +110,18 @@ export default function CaseStudiesPage() {
           ))}
         </section>
 
-        <section className="mt-5 console-panel p-5">
-          <div className="flex flex-col justify-between gap-3 border-b border-[#101b15] pb-3 md:flex-row md:items-center">
-            <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80">
-              <ListChecks className="h-3.5 w-3.5" />
-              case-study run sheet
-            </div>
-            <div className="font-mono text-[0.58rem] uppercase text-signal-dim">checklist structure / no prefilled run result</div>
-          </div>
-          <div className="mt-5 grid gap-2 md:grid-cols-5">
+        <div className="mt-5">
+          <OperationalSection title="case-study run sheet" meta="checklist structure / no prefilled run result" icon={ListChecks}>
+            <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-5">
             {runSheet.map(([label, detail], index) => (
               <div key={label} className="border border-[#101b15] bg-[#050806]/66 p-3">
                 <div className="font-mono text-[0.56rem] uppercase text-signal-green/70">{String(index + 1).padStart(2, "0")} / {label}</div>
                 <p className="mt-2 text-xs leading-relaxed text-signal-muted">{detail}</p>
               </div>
             ))}
-          </div>
-        </section>
+            </div>
+          </OperationalSection>
+        </div>
 
         <div className="mt-5">
           <OperationalBoundaryPanel title="case-study evidence boundary" />
