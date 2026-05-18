@@ -18,35 +18,35 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://jgsops.dev"),
   title: {
-    default: "JGSOPS - Realtime AI Observability Systems",
-    template: "%s / JGSOPS"
+    default: "SIGNALWATCH - Evidence-first AI observability",
+    template: "%s / SIGNALWATCH"
   },
   description:
-    "Realtime observability infrastructure for monitoring intelligent systems, alignment signals, operational telemetry, and ecosystem drift.",
+    "A clear, evidence-first interface for understanding AI safety signals, model behavior, and perception robustness without fabricated telemetry.",
   alternates: {
     canonical: "/"
   },
   openGraph: {
-    title: "JGSOPS - Realtime AI Observability Systems",
+    title: "SIGNALWATCH - Evidence-first AI observability",
     description:
-      "Realtime observability infrastructure for monitoring intelligent systems, alignment signals, operational telemetry, and ecosystem drift.",
+      "A clear, evidence-first interface for understanding AI safety signals, model behavior, and perception robustness without fabricated telemetry.",
     url: "https://jgsops.dev",
-    siteName: "JGSOPS",
+    siteName: "SIGNALWATCH",
     type: "website",
     images: [
       {
         url: "/og-image.svg",
         width: 1200,
         height: 630,
-        alt: "JGSOPS realtime observability systems"
+        alt: "SIGNALWATCH evidence-first AI observability"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "JGSOPS - Realtime AI Observability Systems",
+    title: "SIGNALWATCH - Evidence-first AI observability",
     description:
-      "Realtime observability infrastructure for monitoring intelligent systems, alignment signals, operational telemetry, and ecosystem drift.",
+      "A clear, evidence-first interface for understanding AI safety signals, model behavior, and perception robustness without fabricated telemetry.",
     images: ["/og-image.svg"]
   }
 };

@@ -18,20 +18,20 @@ export default function SafetyCriticalPerceptionPage() {
   }, []);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#030403] text-signal-text">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_62%_10%,rgba(71,108,81,0.12),transparent_30rem)]" />
-      <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(rgba(137,227,173,.28)_1px,transparent_1px),linear-gradient(90deg,rgba(137,227,173,.18)_1px,transparent_1px)] [background-size:36px_36px]" />
+    <main className="relative min-h-screen overflow-hidden bg-signal-black text-signal-text">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_62%_10%,rgba(155,216,179,0.10),transparent_30rem)]" />
+      <div className="absolute inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(155,216,179,.24)_1px,transparent_1px),linear-gradient(90deg,rgba(155,216,179,.16)_1px,transparent_1px)] [background-size:40px_40px]" />
       <section className="relative mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-12">
         <Nav />
         <header className="py-12 md:py-16">
-          <div className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-signal-green/80">safety-critical perception</div>
-          <h1 className="mt-9 max-w-5xl text-4xl font-semibold leading-tight text-[#eef4ef] md:text-6xl">
-            Operational robustness layer
+          <div className="font-mono text-[0.72rem] uppercase tracking-[0.22em] text-signal-green/80">perception lab</div>
+          <h1 className="mt-8 max-w-5xl text-4xl font-semibold leading-tight text-signal-text md:text-5xl">
+            See when a vision model stops seeing clearly
             <br />
-            <span className="text-[#aeb8b1]">for AI vision systems under uncertainty.</span>
+            <span className="text-signal-muted">under blur, low light, motion, and occlusion.</span>
           </h1>
-          <p className="mt-8 max-w-3xl text-sm leading-relaxed text-signal-muted">
-            Perception systems operating in real environments face uncertainty, degradation, occlusion, instability, and environmental variability that may not appear in benchmark conditions.
+          <p className="mt-7 max-w-3xl text-sm leading-relaxed text-signal-muted">
+            Upload an image or use a webcam. SIGNALWATCH runs COCO-SSD in the browser and records only what the model actually reports: detections, confidence, timing, and failures.
           </p>
           <div className="mt-8">
             <RealOnlyBoundary />
@@ -39,33 +39,33 @@ export default function SafetyCriticalPerceptionPage() {
         </header>
 
         <section className="grid gap-5 xl:grid-cols-[1.45fr_.55fr]">
-          <Panel title="realtime perception robustness lab" icon={Camera} meta={cvStatus?.status ?? "browser inference"}>
+          <Panel title="live perception test" icon={Camera} meta={cvStatus?.status ?? "browser inference"}>
             <RealDetectionLab cvMessage={cvStatus?.message} />
           </Panel>
           <div className="space-y-5">
-            <Panel title="operational frame" icon={ShieldCheck} meta="source bounded">
+            <Panel title="plain boundary" icon={ShieldCheck} meta="real outputs only">
               <div className="space-y-3">
                 <OperationalNote
                   label="purpose"
-                  text="This layer is designed to inspect how model outputs move as input conditions degrade. It is not a demonstration of model superiority."
+                  text="This lab shows how detections change when the input gets harder to read. It is not a ranking of models."
                 />
                 <OperationalNote
                   label="data boundary"
-                  text="Detections, confidence, persistence, and replay telemetry are computed from browser-side COCO-SSD outputs. Missing outputs remain missing."
+                  text="Detections, confidence, persistence, and replay traces come from browser-side COCO-SSD outputs. Missing outputs stay visible."
                 />
                 <OperationalNote
                   label="deployment surface"
-                  text="Inference runs locally in the browser. SIGNALWATCH does not require backend GPU infrastructure for this lab."
+                  text="Inference runs locally in the browser. The backend does not generate or simulate detections."
                 />
               </div>
               <Link
                 href="/case-studies"
                 className="mt-5 inline-flex border border-[#203528] bg-[#07100b] px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-[#3e654c]"
               >
-                reproducible case studies
+                case studies
               </Link>
             </Panel>
-            <Panel title="pose robustness direction" icon={ScanEye} meta="future model slot">
+            <Panel title="future pose tests" icon={ScanEye} meta="not simulated">
               <PoseStabilityPanel />
             </Panel>
           </div>
@@ -88,7 +88,7 @@ export default function SafetyCriticalPerceptionPage() {
 function Nav() {
   return (
     <nav className="flex items-center justify-between border-b border-[#101b15] pb-4 font-mono text-[0.68rem] uppercase text-signal-dim">
-      <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">JGSOPS</Link>
+      <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">SIGNALWATCH</Link>
       <div className="flex flex-wrap items-center justify-end gap-4">
         <Link href="/console" className="transition hover:text-signal-text">console</Link>
         <Link href="/safety" className="transition hover:text-signal-text">safety</Link>

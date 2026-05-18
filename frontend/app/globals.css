@@ -13,14 +13,14 @@
 html,
 body {
   min-height: 100%;
-  background: #040605;
+  background: #080b09;
 }
 
 body {
-  color: #d8ded9;
+  color: #edf3ee;
   background:
-    radial-gradient(circle at 78% 6%, rgba(71, 108, 81, 0.09), transparent 28rem),
-    linear-gradient(180deg, #050706 0%, #030403 100%);
+    radial-gradient(circle at 78% 6%, rgba(126, 155, 128, 0.1), transparent 30rem),
+    linear-gradient(180deg, #0b0f0c 0%, #080b09 48%, #060806 100%);
 }
 
 a {
@@ -29,8 +29,8 @@ a {
 }
 
 ::selection {
-  background: rgba(137, 227, 173, 0.22);
-  color: #f0f7f1;
+  background: rgba(155, 216, 179, 0.24);
+  color: #f5faf6;
 }
 
 ::-webkit-scrollbar {
@@ -38,21 +38,21 @@ a {
 }
 
 ::-webkit-scrollbar-track {
-  background: #040605;
+  background: #080b09;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #17251d;
-  border: 2px solid #040605;
+  background: #243329;
+  border: 2px solid #080b09;
 }
 
 @layer components {
   .console-panel {
-    @apply border border-signal-line bg-signal-panel/85 shadow-console;
+    @apply border border-signal-line/80 bg-signal-panel/90 shadow-console;
   }
 
   .terminal-label {
-    @apply font-mono text-[0.68rem] uppercase tracking-normal text-signal-dim;
+    @apply font-mono text-[0.68rem] uppercase tracking-normal text-signal-muted;
   }
 
   .terminal-value {

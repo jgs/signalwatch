@@ -21,12 +21,12 @@ export function MetricRail({
   collectorLatency: number;
 }) {
   const metrics = [
-    metric("source items", signalCount, "real feed window", (value) => String(Math.round(value)).padStart(3, "0")),
-    metric("sources", sourceCount, "active source families", (value) => String(Math.round(value)).padStart(2, "0")),
-    metric("update cadence", signalsPerMinute, "items per minute", (value) => value.toFixed(1)),
-    metric("collector latency", collectorLatency, "p50 health telemetry", (value) => `${Math.round(value)}ms`),
-    metric("collector uptime", collectorUptime * 100, "rolling availability", (value) => `${Math.round(value)}%`),
-    metric("websocket", websocketClients, "connected clients", (value) => String(Math.round(value)).padStart(2, "0"))
+    metric("items shown", signalCount, "source-backed updates", (value) => String(Math.round(value)).padStart(3, "0")),
+    metric("source groups", sourceCount, "places being watched", (value) => String(Math.round(value)).padStart(2, "0")),
+    metric("new item rate", signalsPerMinute, "items per minute", (value) => value.toFixed(1)),
+    metric("response time", collectorLatency, "median collector delay", (value) => `${Math.round(value)}ms`),
+    metric("source uptime", collectorUptime * 100, "collector availability", (value) => `${Math.round(value)}%`),
+    metric("live viewers", websocketClients, "open websocket clients", (value) => String(Math.round(value)).padStart(2, "0"))
   ];
 
   return (

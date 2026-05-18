@@ -33,7 +33,7 @@ export default function TimelinePage() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_12%,rgba(71,108,81,0.10),transparent_30rem)]" />
       <section className="relative mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-12">
         <nav className="flex items-center justify-between border-b border-[#101b15] pb-4 font-mono text-[0.68rem] uppercase text-signal-dim">
-          <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">JGSOPS</Link>
+          <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">SIGNALWATCH</Link>
           <div className="flex items-center gap-4">
             <Link href="/console" className="transition hover:text-signal-text">console</Link>
             <Link href="/systems" className="transition hover:text-signal-text">systems</Link>

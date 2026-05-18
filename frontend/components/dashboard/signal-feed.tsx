@@ -11,13 +11,16 @@ import { formatUtc } from "@/lib/utils";
 export function SignalFeed({ signals }: { signals: Signal[] }) {
   return (
     <Panel>
-      <PanelHeader title="real source feed" meta={`${signals.length} source items`} />
+      <PanelHeader title="evidence-backed updates" meta={`${signals.length} source items`} />
+      <p className="mb-4 max-w-3xl text-sm leading-relaxed text-signal-muted">
+        Each item below comes from a real source. Open the evidence section to see the source, timing, and provenance details behind it.
+      </p>
       <div className="space-y-3">
         {!signals.length ? (
           <div className="border border-[#101b15] bg-[#050806]/70 p-5">
-            <div className="font-mono text-[0.68rem] uppercase text-signal-green/75">awaiting real source items</div>
+            <div className="font-mono text-[0.68rem] uppercase text-signal-green/75">waiting for real source items</div>
             <p className="mt-3 text-sm leading-relaxed text-signal-muted">
-              The console only shows source-backed ecosystem content here. Heartbeats, collector updates, and infrastructure frames remain in background telemetry.
+              The console only shows source-backed content here. System heartbeats and connection updates stay separate so they are not confused with evidence.
             </p>
           </div>
         ) : null}
@@ -51,7 +54,7 @@ function SignalCard({ signal, index }: { signal: Signal; index: number }) {
       </div>
 
       <h3 className="mt-3 text-[0.96rem] font-semibold leading-snug text-[#e2e9e4]">{signal.title}</h3>
-      <p className="mt-2 line-clamp-3 max-w-3xl text-[0.8rem] leading-relaxed text-[#aeb8b1]">{signal.summary || "No summary emitted by source."}</p>
+      <p className="mt-2 line-clamp-3 max-w-3xl text-[0.86rem] leading-relaxed text-signal-muted">{signal.summary || "No summary emitted by source."}</p>
       <div className="mt-2 flex max-w-3xl flex-wrap gap-1.5 font-mono text-[0.56rem] uppercase text-signal-dim">
         {observation.slice(0, 3).map((item) => (
           <span key={item} className="border border-[#101b15] bg-[#030403]/60 px-1.5 py-1">{item}</span>
@@ -65,7 +68,7 @@ function SignalCard({ signal, index }: { signal: Signal; index: number }) {
       <details className="mt-3 border-t border-[#101b15] pt-2.5 font-mono text-[0.6rem] text-signal-dim">
         <summary className="flex cursor-pointer list-none items-center gap-1 text-signal-dim transition hover:text-signal-muted">
           <ChevronDown className="h-3 w-3" />
-          evidence / provenance
+          show evidence
         </summary>
         <div className="mt-2 grid gap-1.5 break-words border-l border-[#18271d] pl-3">
           <span>source={signal.source} / type={signal.source_type ?? "source-item"}</span>

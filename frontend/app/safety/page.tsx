@@ -26,21 +26,19 @@ export default function SafetyPage() {
   }, []);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#030403] text-signal-text">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_14%,rgba(71,108,81,0.10),transparent_30rem)]" />
+    <main className="relative min-h-screen overflow-hidden bg-signal-black text-signal-text">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_14%,rgba(155,216,179,0.09),transparent_30rem)]" />
       <section className="relative mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-12">
         <Nav />
         <header className="py-12 md:py-16">
-          <div className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-signal-green/80">safety intelligence layer</div>
-          <h1 className="mt-9 max-w-4xl text-4xl font-semibold leading-tight text-[#eef4ef] md:text-6xl">
-            Alignment, governance,
+          <div className="font-mono text-[0.72rem] uppercase tracking-[0.22em] text-signal-green/80">AI safety</div>
+          <h1 className="mt-8 max-w-4xl text-4xl font-semibold leading-tight text-signal-text md:text-5xl">
+            Understand AI safety risks
             <br />
-            frontier risk,
-            <br />
-            <span className="text-[#aeb8b1]">and societal transition signals.</span>
+            <span className="text-signal-muted">with sources attached.</span>
           </h1>
-          <p className="mt-8 max-w-2xl text-sm leading-relaxed text-signal-muted">
-            Source-backed explanations for public understanding. Claims are tied to registry entries or labeled as conceptual examples.
+          <p className="mt-7 max-w-2xl text-sm leading-relaxed text-signal-muted">
+            This page explains alignment, governance, frontier risk, and job transition pressure in plain language. Claims are tied to source registry entries or clearly marked as conceptual examples.
           </p>
         </header>
 
@@ -136,7 +134,7 @@ export default function SafetyPage() {
 function Nav() {
   return (
     <nav className="flex items-center justify-between border-b border-[#101b15] pb-4 font-mono text-[0.68rem] uppercase text-signal-dim">
-      <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">JGSOPS</Link>
+      <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">SIGNALWATCH</Link>
       <div className="flex flex-wrap items-center justify-end gap-4">
         <Link href="/console" className="transition hover:text-signal-text">console</Link>
         <Link href="/evaluations" className="transition hover:text-signal-text">evaluations</Link>

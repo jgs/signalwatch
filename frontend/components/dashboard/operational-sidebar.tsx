@@ -49,14 +49,14 @@ export function OperationalSidebar({
   const primarySources = activeSources.slice(0, 6);
 
   return (
-    <aside className="border-b border-signal-line bg-[#050806]/95 px-4 py-5 backdrop-blur lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:w-[286px] lg:border-b-0 lg:border-r">
+    <aside className="border-b border-signal-line bg-signal-panel/95 px-4 py-5 backdrop-blur lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:w-[286px] lg:border-b-0 lg:border-r">
       <div className="border-b border-signal-line pb-4">
-        <div className="text-lg font-semibold text-signal-text">signalwatch</div>
-        <div className="mt-1 font-mono text-[0.68rem] uppercase text-signal-muted">real ecosystem observability</div>
+        <div className="text-lg font-semibold text-signal-text">SIGNALWATCH</div>
+        <div className="mt-1 text-sm leading-relaxed text-signal-muted">A live, source-backed view of AI safety, releases, policy, and robustness signals.</div>
         <div className="mt-4 grid grid-cols-3 gap-2 font-mono text-[0.62rem] uppercase">
           <Link href="/console" className="border border-[#101b15] px-2 py-1 text-signal-green/80 transition hover:border-[#2f4a39]">console</Link>
           <Link href="/safety" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">safety</Link>
-          <Link href="/evaluations" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">evals</Link>
+          <Link href="/evaluations" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">tests</Link>
           <Link href="/labs" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">labs</Link>
           <Link href="/timeline" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">timeline</Link>
           <Link href="/methodology" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">method</Link>
@@ -64,7 +64,7 @@ export function OperationalSidebar({
         </div>
       </div>
 
-      <SidebarSection icon={Radio} title="core sources">
+      <SidebarSection icon={Radio} title="sources">
         <div className="space-y-1">
           {primarySources.map((source) => {
             const count = sourceCounts[source] ?? 0;
@@ -92,7 +92,7 @@ export function OperationalSidebar({
           })}
         </div>
         <details className="mt-3 border-t border-[#101b15] pt-3 font-mono text-[0.64rem] text-signal-dim">
-          <summary className="cursor-pointer list-none text-signal-muted">source diagnostics / {activeSources.length} monitored</summary>
+          <summary className="cursor-pointer list-none text-signal-muted">more sources / {activeSources.length} monitored</summary>
           <div className="mt-2 space-y-1">
             {activeSources.slice(6).map((source) => (
               <button
@@ -108,7 +108,7 @@ export function OperationalSidebar({
         </details>
       </SidebarSection>
 
-      <SidebarSection icon={Activity} title="topics">
+      <SidebarSection icon={Activity} title="filter by topic">
         <details className="font-mono text-[0.64rem] text-signal-dim">
           <summary className="cursor-pointer list-none text-signal-muted">filter topics / {topics.length || 0}</summary>
           <div className="mt-2 flex flex-wrap gap-1.5 opacity-80">
@@ -122,14 +122,16 @@ export function OperationalSidebar({
         </details>
       </SidebarSection>
 
-      <SidebarSection icon={ShieldCheck} title="global status">
-        <Readout label="websocket" value={connectionState} live={connected} />
-        <Readout label="source items" value={String(signalCount).padStart(3, "0")} />
-        <Readout label="watch items" value={String(alertCandidates).padStart(2, "0")} />
-        <Readout label="claim mode" value="source-first" />
+      <SidebarSection icon={ShieldCheck} title="system status">
+        <Readout label="connection" value={connectionState} live={connected} />
+        <Readout label="items" value={String(signalCount).padStart(3, "0")} />
+        <Readout label="watch list" value={String(alertCandidates).padStart(2, "0")} />
+        <Readout label="evidence mode" value="source-first" />
       </SidebarSection>
 
-      <div className="mt-4 font-mono text-[0.64rem] text-[#223429]">--- background telemetry -----------</div>
+      <div className="mt-4 border-l border-signal-line/70 px-3 py-2 text-xs leading-relaxed text-signal-dim">
+        No item is invented. If sources are unavailable, SIGNALWATCH shows the gap.
+      </div>
     </aside>
   );
 }
