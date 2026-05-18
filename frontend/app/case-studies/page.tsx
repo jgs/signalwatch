@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Camera, FileSearch, Gauge, ListChecks, ShieldCheck, type LucideIcon } from "lucide-react";
+import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { PERCEPTION_DATASET_SEQUENCES } from "@/lib/perception-datasets";
 
@@ -95,6 +96,10 @@ export default function CaseStudiesPage() {
             <CaseCard key={item.id} {...item} />
           ))}
         </section>
+
+        <div className="mt-5">
+          <OperationalBoundaryPanel title="case-study evidence boundary" />
+        </div>
 
         <div className="mt-5">
           <RealWorldImageBand compact />

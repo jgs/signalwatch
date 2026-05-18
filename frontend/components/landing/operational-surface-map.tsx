@@ -1,0 +1,80 @@
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Activity, Database, Eye, FileSearch, ShieldCheck, type LucideIcon } from "lucide-react";
+
+const surfaces: Array<{
+  icon: LucideIcon;
+  label: string;
+  detail: string;
+  href: string;
+  state: string;
+}> = [
+  {
+    icon: Activity,
+    label: "live console",
+    detail: "collector state, source movement, system rhythm",
+    href: "/console",
+    state: "runtime",
+  },
+  {
+    icon: Eye,
+    label: "perception lab",
+    detail: "COCO-SSD outputs, empty frames, confidence history",
+    href: "/labs/perception",
+    state: "browser model",
+  },
+  {
+    icon: FileSearch,
+    label: "case studies",
+    detail: "repeatable degradation protocols and proof boundaries",
+    href: "/case-studies",
+    state: "protocol",
+  },
+  {
+    icon: ShieldCheck,
+    label: "safety registry",
+    detail: "framework-backed safety and governance references",
+    href: "/safety",
+    state: "source-backed",
+  },
+  {
+    icon: Database,
+    label: "methodology",
+    detail: "what is real, derived, conceptual, or unavailable",
+    href: "/methodology",
+    state: "boundary",
+  },
+];
+
+export function OperationalSurfaceMap() {
+  return (
+    <section className="console-panel p-5">
+      <div className="flex flex-col justify-between gap-3 border-b border-signal-line/60 pb-3 md:flex-row md:items-center">
+        <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">operational surface map</div>
+        <div className="font-mono text-[0.58rem] uppercase text-signal-dim">where to inspect evidence</div>
+      </div>
+      <div className="mt-5 grid gap-3 lg:grid-cols-5">
+        {surfaces.map(({ icon: Icon, label, detail, href, state }, index) => (
+          <motion.div
+            key={label}
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.04, duration: 0.24 }}
+          >
+            <Link href={href} className="block h-full border border-[#101b15] bg-[#050806]/66 p-3 transition hover:border-[#2f4a39]">
+              <div className="flex items-center justify-between gap-2">
+                <Icon className="h-3.5 w-3.5 text-signal-green/72" />
+                <span className="border border-signal-line/70 px-1.5 py-0.5 font-mono text-[0.48rem] uppercase text-signal-dim">{state}</span>
+              </div>
+              <div className="mt-4 font-mono text-[0.62rem] uppercase text-signal-green/80">{label}</div>
+              <p className="mt-2 text-xs leading-relaxed text-signal-muted">{detail}</p>
+            </Link>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+}

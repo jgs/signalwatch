@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Activity, AlertTriangle, Eye, Gauge, Network, ScanSearch, ShieldCheck, type LucideIcon } from "lucide-react";
 import { fetchSafetySources } from "@/lib/api";
+import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { PERCEPTION_DATASET_SEQUENCES, perceptionDatasetSummary } from "@/lib/perception-datasets";
 import type { SafetySource } from "@/lib/types";
@@ -93,6 +94,10 @@ export default function EvaluationsPage() {
             <LayerCard key={layer.title} {...layer} />
           ))}
         </section>
+
+        <div className="mt-5">
+          <OperationalBoundaryPanel title="evaluation evidence boundary" />
+        </div>
 
         <section className="mt-5 grid gap-5 lg:grid-cols-[1.05fr_.95fr]">
           <Panel title="perception robustness interface" icon={ScanSearch} meta="real outputs only">

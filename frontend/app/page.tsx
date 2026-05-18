@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { ConsoleEntry } from "@/components/landing/console-entry";
 import { LandingVisualField } from "@/components/landing/landing-visual-field";
+import { OperationalSurfaceMap } from "@/components/landing/operational-surface-map";
 import { OrientationStrip } from "@/components/landing/orientation-strip";
 
 const words = ["Real sources.", "Clear evidence.", "Model behavior.", "Failure visibility."];
@@ -56,6 +57,10 @@ export default function LandingPage() {
 
         <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55, duration: 0.7 }} className="mt-8">
           <OrientationStrip />
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.58, duration: 0.7 }} className="mt-8">
+          <OperationalSurfaceMap />
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.62, duration: 0.7 }} className="mt-8">
