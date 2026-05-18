@@ -6,35 +6,39 @@ import { Camera, FileSearch, Gauge, ListChecks, ShieldCheck, type LucideIcon } f
 const cases = [
   {
     id: "low-light-detection-reliability",
-    scenario: "Low-light detection reliability",
-    setup: ["input: webcam or calibration sample", "preset: low-light route", "model: browser-side COCO-SSD", "cadence: throttled realtime inference"],
-    observation: ["watch for confidence movement", "record empty inference frames", "compare observed classes before and after low-light degradation"],
-    implication: "Low-light conditions can reduce observability of model behavior; production systems need frame-integrity and confidence-history monitoring.",
-    evidence: ["temporal confidence trace", "operational evidence packet", "source frame replay"],
+    scenario: "Low-light reliability window",
+    setup: ["input: webcam or calibration sample", "preset: low-light route", "model: browser-side COCO-SSD", "cadence: browser-throttled inference"],
+    observation: ["mean confidence only when detections exist", "empty inference frames", "confidence variance across adjacent frames"],
+    record: ["observation window", "cadence jitter", "FRAME.INTEGRITY", "exported frame timestamps"],
+    boundary: "The run can show detector output instability for this input and browser session. It cannot generalize to all detectors or deployments.",
+    evidence: ["temporal trace", "evidence JSON", "detection history"],
   },
   {
     id: "partial-visibility-persistence",
-    scenario: "Object persistence under partial visibility",
+    scenario: "Partial-visibility continuity",
     setup: ["input: uploaded scene or webcam", "preset: partial visibility", "degradation: occlusion + crop instability", "model: browser-side COCO-SSD"],
-    observation: ["track disappearing classes", "inspect continuity breaks", "compare detections with baseline when available"],
-    implication: "Object continuity should be measured rather than assumed when a system operates around occlusion or partial visibility.",
-    evidence: ["tracking persistence", "drop events", "provenance: detection history only"],
+    observation: ["lost classes between adjacent frames", "drop and recovery transitions", "baseline comparison when an upload is used"],
+    record: ["TRACKING.PERSISTENCE", "continuity transitions", "drop events", "class continuity breaks"],
+    boundary: "Continuity markers are class-level observations from model outputs. They do not establish object identity or tracking persistence beyond emitted detections.",
+    evidence: ["continuity markers", "drop events", "baseline readout"],
   },
   {
     id: "compression-artifact-frame-integrity",
-    scenario: "Frame integrity under compression artifacts",
+    scenario: "Compression frame integrity",
     setup: ["input: local image or webcam", "preset: compressed feed", "degradation: noise and contrast pressure", "model: browser-side COCO-SSD"],
-    observation: ["count frames with no detections", "watch class instability", "inspect mean confidence only when detections exist"],
-    implication: "Compressed operational feeds can hide failure states unless telemetry exposes empty frames and confidence variance.",
-    evidence: ["FRAME.INTEGRITY", "CONFIDENCE.VARIANCE", "empty frame count"],
+    observation: ["empty-frame rate", "class instability", "confidence range for detected frames"],
+    record: ["empty frames", "min confidence", "max confidence", "observed classes"],
+    boundary: "The record exposes whether this run produced unusable inference frames. It does not infer why the detector failed beyond recorded degradation settings.",
+    evidence: ["FRAME.INTEGRITY", "confidence range", "evidence packet"],
   },
   {
     id: "motion-instability-temporal-consistency",
-    scenario: "Temporal consistency under motion instability",
+    scenario: "Motion consistency trace",
     setup: ["input: webcam movement or sample", "preset: motion instability", "degradation: blur + motion offset", "model: browser-side COCO-SSD"],
-    observation: ["inspect adjacent-frame confidence changes", "record class continuity breaks", "compare replay timeline movement"],
-    implication: "Realtime perception requires temporal instrumentation because single-frame success can hide unstable behavior across time.",
-    evidence: ["TEMPORAL.CONSISTENCY", "replay timeline", "class continuity breaks"],
+    observation: ["adjacent-frame confidence deltas", "class continuity breaks", "replay index movement"],
+    record: ["TEMPORAL.CONSISTENCY", "cadence seconds", "cadence jitter", "replay frame state"],
+    boundary: "The trace documents emitted detection history. It does not synthesize video replay frames or estimate motion vectors.",
+    evidence: ["temporal replay", "cadence readout", "class breaks"],
   },
 ];
 
@@ -42,9 +46,21 @@ const protocol = [
   "select input",
   "apply degradation preset",
   "run browser-side inference",
-  "observe failure states",
+  "hold observation window",
+  "inspect continuity markers",
   "export evidence JSON",
   "compare records without generalizing beyond the run",
+];
+
+const packetFields = [
+  "schema",
+  "generatedAt",
+  "model",
+  "inferenceBoundary",
+  "observationWindow",
+  "operationalObservations",
+  "continuityTransitions",
+  "frames",
 ];
 
 const proofBoundary = [
@@ -62,10 +78,10 @@ export default function CaseStudiesPage() {
         <Nav />
         <header className="py-12 md:py-16">
           <div className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-signal-green/80">operational case studies</div>
-          <h1 className="mt-9 max-w-4xl text-4xl font-semibold leading-tight text-[#eef4ef] md:text-6xl">
-            Reproducible robustness records,
+          <h1 className="mt-9 max-w-4xl text-4xl font-semibold leading-tight text-[#eef4ef] md:text-5xl">
+            Reproducible perception protocols
             <br />
-            <span className="text-[#aeb8b1]">not synthetic benchmark stories.</span>
+            <span className="text-[#aeb8b1]">for evidence-bounded robustness runs.</span>
           </h1>
           <p className="mt-8 max-w-3xl text-sm leading-relaxed text-signal-muted">
             These notes define repeatable perception robustness protocols. Evidence is generated by running the SIGNALWATCH perception lab and reading the model-output history, not by prefilled analytics.
@@ -118,6 +134,11 @@ export default function CaseStudiesPage() {
           <p className="mt-5 max-w-3xl text-sm leading-relaxed text-signal-muted">
             Case-study evidence should be captured from the operational evidence packet: frame count, empty frames, confidence history, detection drop events, class continuity breaks, and exported JSON records. If the model emits no detections, the record should state that plainly.
           </p>
+          <div className="mt-5 grid gap-2 font-mono text-[0.6rem] uppercase text-signal-dim sm:grid-cols-2 lg:grid-cols-4">
+            {packetFields.map((field) => (
+              <div key={field} className="border-b border-[#101b15] pb-1">{field}</div>
+            ))}
+          </div>
         </section>
       </section>
     </main>
@@ -142,13 +163,15 @@ function CaseCard({
   scenario,
   setup,
   observation,
-  implication,
+  record,
+  boundary,
   evidence,
 }: {
   scenario: string;
   setup: string[];
   observation: string[];
-  implication: string;
+  record: string[];
+  boundary: string;
   evidence: string[];
 }) {
   return (
@@ -161,9 +184,12 @@ function CaseCard({
         <Block icon={Camera} title="setup" items={setup} />
         <Block icon={Gauge} title="observation" items={observation} />
       </div>
+      <div className="mt-4">
+        <Block icon={ListChecks} title="required record" items={record} />
+      </div>
       <div className="mt-4 border-l border-[#24392c] bg-[#050806]/62 px-3 py-2">
-        <div className="font-mono text-[0.6rem] uppercase text-signal-green/70">operational implication</div>
-        <p className="mt-1 text-sm leading-relaxed text-signal-muted">{implication}</p>
+        <div className="font-mono text-[0.6rem] uppercase text-signal-green/70">proof boundary</div>
+        <p className="mt-1 text-sm leading-relaxed text-signal-muted">{boundary}</p>
       </div>
       <div className="mt-4 flex flex-wrap gap-1.5 font-mono text-[0.58rem] uppercase text-signal-dim">
         {evidence.map((item) => (

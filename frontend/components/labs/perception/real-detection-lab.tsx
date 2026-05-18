@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { motion } from "framer-motion";
 import { Camera, ImageIcon } from "lucide-react";
-import { appendDetectionFrame, analyzeTemporalDetections, type DetectionFrame } from "@/components/labs/inference/temporal-analysis";
+import { appendDetectionFrame, analyzeTemporalDetections, buildContinuityTransitions, observationWindow, type DetectionFrame } from "@/components/labs/inference/temporal-analysis";
 import { DegradationControls, type DegradationState } from "@/components/labs/degradation/degradation-controls";
 import { DegradationPresets, type DegradationPreset } from "@/components/labs/degradation/degradation-presets";
 import { useCocoSsd, type Detection } from "@/components/labs/inference/use-coco-ssd";
@@ -63,6 +63,8 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
   const confidence = detections.length ? detections.reduce((total, detection) => total + detection.score, 0) / detections.length : 0;
   const stability = baselineDetections.length ? Math.min(1, detections.length / baselineDetections.length) : 0;
   const temporalMetrics = useMemo(() => analyzeTemporalDetections(frames), [frames]);
+  const windowSummary = useMemo(() => observationWindow(frames), [frames]);
+  const continuityTransitions = useMemo(() => buildContinuityTransitions(frames), [frames]);
 
   const renderFrame = useCallback((mode: "baseline" | "degraded") => {
     const image = imageRef.current;
@@ -300,6 +302,12 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
           <div className="border border-[#101b15] bg-[#050806]/70 p-3 font-mono text-[0.62rem] uppercase text-signal-dim">
             detections {detections.length} / frames {frames.length}
           </div>
+          <div className="grid gap-2 border border-[#101b15] bg-[#050806]/70 p-3 font-mono text-[0.58rem] uppercase text-signal-dim">
+            <Readout label="observation window" value={windowSummary ? `${windowSummary.durationSeconds.toFixed(1)}s` : "pending"} />
+            <Readout label="inference cadence" value={windowSummary ? `${windowSummary.cadenceSeconds.toFixed(1)}s` : `${(REALTIME_INFERENCE_INTERVAL / 1000).toFixed(1)}s target`} />
+            <Readout label="continuity transitions" value={String(continuityTransitions.length)} />
+            <Readout label="last frame" value={frames.length ? new Date(frames[frames.length - 1].timestamp).toLocaleTimeString() : "unavailable"} />
+          </div>
           <button
             type="button"
             onClick={() => void runInference()}
@@ -326,6 +334,15 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
             : cvMessage ?? "Model inference remains unavailable until the browser model finishes loading."}{" "}
         Confidence values shown here come only from real model outputs.
       </div>
+    </div>
+  );
+}
+
+function Readout({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-center justify-between gap-3 border-b border-[#101b15] pb-1">
+      <span>{label}</span>
+      <span className="text-signal-muted">{value}</span>
     </div>
   );
 }

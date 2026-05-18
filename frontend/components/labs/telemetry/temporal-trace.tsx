@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { DetectionFrame, TemporalMetric } from "@/components/labs/inference/temporal-analysis";
-import { meanConfidence, observationCadence } from "@/components/labs/inference/temporal-analysis";
+import { buildContinuityTransitions, meanConfidence, observationCadence } from "@/components/labs/inference/temporal-analysis";
 import { ConfidenceRail } from "@/components/labs/telemetry/confidence-rail";
 
 export function TemporalTrace({ frames, metrics }: { frames: DetectionFrame[]; metrics: TemporalMetric[] }) {
@@ -10,6 +10,8 @@ export function TemporalTrace({ frames, metrics }: { frames: DetectionFrame[]; m
   const hasTrace = points.some((point) => point !== null);
   const cadence = observationCadence(frames);
   const recentFrames = frames.slice(-28);
+  const transitions = buildContinuityTransitions(frames);
+  const recentTransitions = transitions.slice(-5).reverse();
 
   return (
     <div className="space-y-4">
@@ -39,6 +41,33 @@ export function TemporalTrace({ frames, metrics }: { frames: DetectionFrame[]; m
         <div className="mt-2 font-mono text-[0.56rem] uppercase text-signal-dim">
           observation window / confidence bars from model outputs / muted break markers indicate dropped detections
         </div>
+        <div className="mt-3 grid gap-2 font-mono text-[0.58rem] uppercase text-signal-dim sm:grid-cols-4">
+          <TraceReadout label="window" value={cadence ? `${cadence.durationSeconds.toFixed(1)}s` : "pending"} />
+          <TraceReadout label="cadence" value={cadence ? `${cadence.cadenceSeconds.toFixed(1)}s` : "pending"} />
+          <TraceReadout label="jitter" value={cadence?.cadenceJitterSeconds === null || !cadence ? "pending" : `${cadence.cadenceJitterSeconds.toFixed(2)}s`} />
+          <TraceReadout label="transitions" value={String(transitions.length)} />
+        </div>
+      </div>
+      <div className="border border-[#101b15] bg-[#050806]/60 p-3">
+        <div className="mb-3 font-mono text-[0.62rem] uppercase text-signal-green/70">continuity markers</div>
+        <div className="grid gap-2 md:grid-cols-2">
+          {recentTransitions.length ? (
+            recentTransitions.map((transition) => (
+              <div key={`${transition.timestamp}-${transition.index}`} className="border-l border-[#273d2f] bg-[#030403]/45 px-3 py-2">
+                <div className="font-mono text-[0.56rem] uppercase text-signal-green/65">
+                  frame {transition.index + 1} / {transition.kind.replace("-", " ")}
+                </div>
+                <p className="mt-1 text-xs leading-relaxed text-signal-muted">
+                  {transition.previousCount} to {transition.currentCount} detections
+                  {transition.lostClasses.length ? ` / lost ${transition.lostClasses.join(" / ")}` : ""}
+                  {transition.gainedClasses.length ? ` / gained ${transition.gainedClasses.join(" / ")}` : ""}
+                </p>
+              </div>
+            ))
+          ) : (
+            <div className="font-mono text-[0.6rem] uppercase text-signal-dim">no continuity transition recorded in the current window</div>
+          )}
+        </div>
       </div>
       <div className="grid gap-3 md:grid-cols-2">
         {metrics.map((metric) => (
@@ -48,6 +77,15 @@ export function TemporalTrace({ frames, metrics }: { frames: DetectionFrame[]; m
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+function TraceReadout({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-center justify-between gap-3 border-b border-[#101b15] pb-1">
+      <span>{label}</span>
+      <span className="text-signal-muted">{value}</span>
     </div>
   );
 }

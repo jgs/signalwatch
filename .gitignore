@@ -13,3 +13,4 @@ signalwatch.db
 *.sqlite
 .env
 .DS_Store
+AGENTS.md

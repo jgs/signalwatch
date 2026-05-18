@@ -1,6 +1,6 @@
 "use client";
 
-import { buildEvidencePacket, buildOperationalObservations, observationCadence, type DetectionFrame } from "@/components/labs/inference/temporal-analysis";
+import { buildContinuityTransitions, buildEvidencePacket, buildOperationalObservations, observationCadence, type DetectionFrame } from "@/components/labs/inference/temporal-analysis";
 import type { DegradationState } from "@/components/labs/degradation/degradation-controls";
 
 export function EvidencePacketPanel({
@@ -17,6 +17,7 @@ export function EvidencePacketPanel({
   const packet = buildEvidencePacket(frames);
   const notes = buildOperationalObservations(frames);
   const cadence = observationCadence(frames);
+  const transitions = buildContinuityTransitions(frames);
   const confidence = packet.meanConfidence === null ? "unavailable" : `${Math.round(packet.meanConfidence * 100)}%`;
 
   function exportEvidence() {
@@ -32,11 +33,23 @@ export function EvidencePacketPanel({
       packet,
       observationWindow: cadence
         ? {
+            startedAt: new Date(cadence.startedAt).toISOString(),
+            endedAt: new Date(cadence.endedAt).toISOString(),
             durationSeconds: Number(cadence.durationSeconds.toFixed(3)),
             cadenceSeconds: Number(cadence.cadenceSeconds.toFixed(3)),
+            cadenceJitterSeconds: cadence.cadenceJitterSeconds === null ? null : Number(cadence.cadenceJitterSeconds.toFixed(3)),
           }
         : null,
       operationalObservations: notes,
+      continuityTransitions: transitions.map((transition) => ({
+        timestamp: new Date(transition.timestamp).toISOString(),
+        index: transition.index,
+        kind: transition.kind,
+        previousCount: transition.previousCount,
+        currentCount: transition.currentCount,
+        lostClasses: transition.lostClasses,
+        gainedClasses: transition.gainedClasses,
+      })),
       frames: frames.map((frame) => ({
         timestamp: new Date(frame.timestamp).toISOString(),
         detections: frame.detections.map((detection) => ({
@@ -79,6 +92,8 @@ export function EvidencePacketPanel({
         <Readout label="mean confidence" value={confidence} />
         <Readout label="drop events" value={String(packet.detectionDropEvents)} />
         <Readout label="continuity breaks" value={String(packet.classContinuityBreaks)} />
+        <Readout label="window" value={cadence ? `${cadence.durationSeconds.toFixed(1)}s` : "pending"} />
+        <Readout label="cadence jitter" value={cadence?.cadenceJitterSeconds === null || !cadence ? "pending" : `${cadence.cadenceJitterSeconds.toFixed(2)}s`} />
       </div>
       <div className="mt-3 border-l border-[#24392c] px-3 py-2 text-sm leading-relaxed text-signal-muted">
         {packet.observedClasses.length
@@ -92,6 +107,19 @@ export function EvidencePacketPanel({
             <p className="mt-1 text-xs leading-relaxed text-signal-muted">{note.text}</p>
           </div>
         ))}
+      </div>
+      <div className="mt-3 border border-[#101b15] bg-[#030403]/35 p-3">
+        <div className="font-mono text-[0.56rem] uppercase text-signal-green/65">continuity transitions</div>
+        <div className="mt-2 grid gap-2 md:grid-cols-2">
+          {transitions.slice(-4).reverse().map((transition) => (
+            <div key={`${transition.timestamp}-${transition.index}`} className="font-mono text-[0.56rem] uppercase text-signal-dim">
+              frame {transition.index + 1} / {transition.kind.replace("-", " ")} / {transition.previousCount} to {transition.currentCount}
+            </div>
+          ))}
+          {!transitions.length ? (
+            <div className="font-mono text-[0.56rem] uppercase text-signal-dim">no transition recorded</div>
+          ) : null}
+        </div>
       </div>
       <div className="mt-3 font-mono text-[0.56rem] uppercase text-signal-dim">
         export boundary / model outputs, timestamps, degradation settings, derived notes, and evidence packet only
