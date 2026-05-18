@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { ConsoleEntry } from "@/components/landing/console-entry";
+import { LandingVisualField } from "@/components/landing/landing-visual-field";
 import { OrientationStrip } from "@/components/landing/orientation-strip";
 
 const words = ["Real sources.", "Clear evidence.", "Model behavior.", "Failure visibility."];
@@ -19,7 +20,7 @@ export default function LandingPage() {
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-16">
+      <section className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-12 md:py-16">
         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <div className="font-mono text-[0.72rem] uppercase tracking-[0.22em] text-signal-green/80">SIGNALWATCH</div>
           <h1 className="mt-8 max-w-4xl text-4xl font-semibold leading-tight text-signal-text md:text-6xl">
@@ -49,6 +50,10 @@ export default function LandingPage() {
           ))}
         </motion.div>
 
+        <div className="mt-8">
+          <LandingVisualField />
+        </div>
+
         <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55, duration: 0.7 }} className="mt-8">
           <OrientationStrip />
         </motion.div>
@@ -61,7 +66,7 @@ export default function LandingPage() {
           <ConsoleEntry />
         </motion.div>
 
-        <div className="absolute bottom-8 left-6 right-6 flex flex-wrap items-center justify-between gap-3 border-t border-signal-line/55 pt-4 font-mono text-[0.64rem] uppercase text-signal-dim md:left-6 md:right-6">
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-signal-line/55 pt-4 font-mono text-[0.64rem] uppercase text-signal-dim">
           <Link href="/start" className="transition hover:text-signal-muted">start here</Link>
           <Link href="/safety" className="transition hover:text-signal-muted">AI safety</Link>
           <Link href="/evaluations" className="transition hover:text-signal-muted">evaluations</Link>

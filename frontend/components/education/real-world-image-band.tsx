@@ -1,5 +1,6 @@
 import { ExternalLink } from "lucide-react";
 import { REAL_WORLD_IMAGES, type RealWorldImage } from "@/lib/real-world-images";
+import { VisualProvenanceStrip } from "@/components/education/visual-provenance-strip";
 
 type RealWorldImageBandProps = {
   compact?: boolean;
@@ -28,6 +29,9 @@ export function RealWorldImageBand({
       <p className="mt-4 max-w-3xl text-sm leading-relaxed text-signal-muted">
         {description}
       </p>
+      <div className="mt-4">
+        <VisualProvenanceStrip compact />
+      </div>
       <div className={`mt-5 grid gap-3 ${compact ? "md:grid-cols-3" : "md:grid-cols-2 xl:grid-cols-4"}`}>
         {images.map((image) => (
           <article key={image.id} className="overflow-hidden border border-signal-line/70 bg-signal-panel2/52">
