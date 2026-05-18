@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import { Camera, FlaskConical, LineChart, Network, ScanEye, type LucideIcon } from "lucide-react";
 import { fetchCvStatus, fetchLabDemos } from "@/lib/api";
+import { OperationalNav } from "@/components/layout/operational-nav";
 import { OperationalNote } from "@/components/labs/overlays/operational-note";
 import { RealDetectionLab } from "@/components/labs/perception/real-detection-lab";
 import { PoseStabilityPanel } from "@/components/labs/pose/pose-stability-panel";
@@ -34,7 +35,7 @@ export default function LabsPage() {
     <main className="relative min-h-screen overflow-hidden bg-[#030403] text-signal-text">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_68%_12%,rgba(71,108,81,0.10),transparent_30rem)]" />
       <section className="relative mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-12">
-        <Nav />
+        <OperationalNav active="labs" />
         <header className="py-12 md:py-16">
           <div className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-signal-green/80">labs</div>
           <h1 className="mt-9 max-w-4xl text-4xl font-semibold leading-tight text-[#eef4ef] md:text-6xl">
@@ -145,21 +146,6 @@ export default function LabsPage() {
         </section>
       </section>
     </main>
-  );
-}
-
-function Nav() {
-  return (
-    <nav className="flex items-center justify-between border-b border-[#101b15] pb-4 font-mono text-[0.68rem] uppercase text-signal-dim">
-      <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">SIGNALWATCH</Link>
-      <div className="flex flex-wrap items-center justify-end gap-4">
-        <Link href="/console" className="transition hover:text-signal-text">console</Link>
-        <Link href="/safety" className="transition hover:text-signal-text">safety</Link>
-        <Link href="/labs" className="text-signal-green/80 transition hover:text-signal-green">labs</Link>
-        <Link href="/labs/perception" className="transition hover:text-signal-text">perception</Link>
-        <Link href="/timeline" className="transition hover:text-signal-text">timeline</Link>
-      </div>
-    </nav>
   );
 }
 

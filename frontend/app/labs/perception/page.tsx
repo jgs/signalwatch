@@ -7,6 +7,7 @@ import { fetchCvStatus } from "@/lib/api";
 import { EvidencePacketPreview } from "@/components/education/evidence-packet-preview";
 import { OperationalCallouts } from "@/components/education/operational-callouts";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
+import { OperationalNav } from "@/components/layout/operational-nav";
 import { OperationalNote } from "@/components/labs/overlays/operational-note";
 import { RealDetectionLab } from "@/components/labs/perception/real-detection-lab";
 import { RealOnlyBoundary } from "@/components/labs/perception/real-only-boundary";
@@ -25,7 +26,7 @@ export default function SafetyCriticalPerceptionPage() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_62%_10%,rgba(155,216,179,0.10),transparent_30rem)]" />
       <div className="absolute inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(155,216,179,.24)_1px,transparent_1px),linear-gradient(90deg,rgba(155,216,179,.16)_1px,transparent_1px)] [background-size:40px_40px]" />
       <section className="relative mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-12">
-        <Nav />
+        <OperationalNav active="perception" />
         <header className="py-12 md:py-16">
           <div className="font-mono text-[0.72rem] uppercase tracking-[0.22em] text-signal-green/80">perception lab</div>
           <h1 className="mt-8 max-w-5xl text-4xl font-semibold leading-tight text-signal-text md:text-5xl">
@@ -100,24 +101,6 @@ export default function SafetyCriticalPerceptionPage() {
         </div>
       </section>
     </main>
-  );
-}
-
-function Nav() {
-  return (
-    <nav className="flex items-center justify-between border-b border-[#101b15] pb-4 font-mono text-[0.68rem] uppercase text-signal-dim">
-      <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">SIGNALWATCH</Link>
-      <div className="flex flex-wrap items-center justify-end gap-4">
-        <Link href="/console" className="transition hover:text-signal-text">console</Link>
-        <Link href="/safety" className="transition hover:text-signal-text">safety</Link>
-        <Link href="/evaluations" className="transition hover:text-signal-text">evaluations</Link>
-        <Link href="/labs" className="transition hover:text-signal-text">labs</Link>
-        <Link href="/labs/perception" className="text-signal-green/80 transition hover:text-signal-green">perception</Link>
-        <Link href="/case-studies" className="transition hover:text-signal-text">case studies</Link>
-        <Link href="/methodology" className="transition hover:text-signal-text">methodology</Link>
-        <Link href="/timeline" className="transition hover:text-signal-text">timeline</Link>
-      </div>
-    </nav>
   );
 }
 

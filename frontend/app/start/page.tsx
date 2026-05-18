@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Eye, FileSearch, Gauge, ShieldCheck } from "lucide-react";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
+import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
+import { OperationalCallouts } from "@/components/education/operational-callouts";
+import { OperationalNav } from "@/components/layout/operational-nav";
 
 export const metadata: Metadata = {
   title: "Start Here",
@@ -53,7 +56,7 @@ export default function StartPage() {
     <main className="relative min-h-screen overflow-hidden bg-signal-black text-signal-text">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_10%,rgba(155,216,179,0.10),transparent_30rem)]" />
       <section className="relative mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-12">
-        <Nav />
+        <OperationalNav active="start" />
 
         <header className="py-12 md:py-16">
           <div className="font-mono text-[0.72rem] uppercase tracking-[0.22em] text-signal-green/80">start here</div>
@@ -65,6 +68,9 @@ export default function StartPage() {
           <p className="mt-7 max-w-3xl text-sm leading-relaxed text-signal-muted">
             SIGNALWATCH is an evidence-first interface for understanding AI safety signals, model behavior, perception failures, and operational monitoring. This page gives a simple route through the system.
           </p>
+          <div className="mt-6">
+            <OperationalCallouts compact />
+          </div>
         </header>
 
         <section className="grid gap-4 lg:grid-cols-[1fr_.75fr]">
@@ -100,24 +106,13 @@ export default function StartPage() {
         </section>
 
         <div className="mt-5">
-          <RealWorldImageBand />
+          <OperationalBoundaryPanel title="start-page evidence boundary" />
+        </div>
+
+        <div className="mt-5">
+          <RealWorldImageBand compact ids={["control-room", "cctv-camera", "low-light-hallway"]} />
         </div>
       </section>
     </main>
-  );
-}
-
-function Nav() {
-  return (
-    <nav className="flex items-center justify-between border-b border-signal-line/60 pb-4 font-mono text-[0.68rem] uppercase text-signal-dim">
-      <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">SIGNALWATCH</Link>
-      <div className="flex flex-wrap items-center justify-end gap-4">
-        <Link href="/start" className="text-signal-green/80 transition hover:text-signal-green">start</Link>
-        <Link href="/console" className="transition hover:text-signal-text">console</Link>
-        <Link href="/learn/glossary" className="transition hover:text-signal-text">glossary</Link>
-        <Link href="/learn/llm-training" className="transition hover:text-signal-text">LLM guide</Link>
-        <Link href="/labs/perception" className="transition hover:text-signal-text">perception</Link>
-      </div>
-    </nav>
   );
 }

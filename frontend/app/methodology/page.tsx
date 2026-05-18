@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { CircuitBoard, Database, FlaskConical, Radio, ShieldCheck, Waves, type LucideIcon } from "lucide-react";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
+import { OperationalNav } from "@/components/layout/operational-nav";
 
 const layers = [
   {
@@ -62,7 +63,7 @@ export default function MethodologyPage() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_66%_12%,rgba(71,108,81,0.11),transparent_30rem)]" />
       <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(rgba(137,227,173,.28)_1px,transparent_1px),linear-gradient(90deg,rgba(137,227,173,.18)_1px,transparent_1px)] [background-size:36px_36px]" />
       <section className="relative mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-12">
-        <Nav />
+        <OperationalNav active="methodology" />
         <header className="py-12 md:py-16">
           <div className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-signal-green/80">methodology</div>
           <h1 className="mt-9 max-w-4xl text-4xl font-semibold leading-tight text-[#eef4ef] md:text-6xl">
@@ -133,23 +134,6 @@ export default function MethodologyPage() {
         </section>
       </section>
     </main>
-  );
-}
-
-function Nav() {
-  return (
-    <nav className="flex items-center justify-between border-b border-[#101b15] pb-4 font-mono text-[0.68rem] uppercase text-signal-dim">
-      <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">SIGNALWATCH</Link>
-      <div className="flex flex-wrap items-center justify-end gap-4">
-        <Link href="/console" className="transition hover:text-signal-text">console</Link>
-        <Link href="/safety" className="transition hover:text-signal-text">safety</Link>
-        <Link href="/evaluations" className="transition hover:text-signal-text">evaluations</Link>
-        <Link href="/labs/perception" className="transition hover:text-signal-text">perception</Link>
-        <Link href="/case-studies" className="transition hover:text-signal-text">case studies</Link>
-        <Link href="/methodology" className="text-signal-green/80 transition hover:text-signal-green">methodology</Link>
-        <Link href="/learn/glossary" className="transition hover:text-signal-text">glossary</Link>
-      </div>
-    </nav>
   );
 }
 

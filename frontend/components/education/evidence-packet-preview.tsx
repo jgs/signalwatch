@@ -34,7 +34,7 @@ export function EvidencePacketPreview({ title = "evidence packet preview" }: { t
       <div className="mt-5 grid gap-5 lg:grid-cols-[.95fr_1.05fr]">
         <div className="grid gap-2">
           {packetRows.map(([field, rule]) => (
-            <div key={field} className="grid grid-cols-[9.5rem_1fr] gap-3 border-l border-[#24392c] bg-[#050806]/62 px-3 py-2">
+            <div key={field} className="grid gap-1 border-l border-[#24392c] bg-[#050806]/62 px-3 py-2 sm:grid-cols-[9.5rem_1fr] sm:gap-3">
               <div className="font-mono text-[0.58rem] uppercase text-signal-green/72">{field}</div>
               <div className="text-sm leading-relaxed text-signal-muted">{rule}</div>
             </div>
@@ -45,7 +45,7 @@ export function EvidencePacketPreview({ title = "evidence packet preview" }: { t
             <Braces className="h-3.5 w-3.5 text-signal-green/70" />
             non-populated export shape
           </div>
-          <pre className="overflow-x-auto whitespace-pre-wrap font-mono text-[0.68rem] leading-relaxed text-signal-muted">
+          <pre className="overflow-x-auto whitespace-pre-wrap break-words font-mono text-[0.62rem] leading-relaxed text-signal-muted sm:text-[0.68rem]">
             {packetShape}
           </pre>
         </div>

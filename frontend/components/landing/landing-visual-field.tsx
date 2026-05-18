@@ -28,7 +28,7 @@ export function LandingVisualField() {
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,11,9,0.96)_0%,rgba(8,11,9,0.78)_42%,rgba(8,11,9,0.42)_100%)]" />
       <div className="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(rgba(155,216,179,.26)_1px,transparent_1px),linear-gradient(90deg,rgba(155,216,179,.18)_1px,transparent_1px)] [background-size:34px_34px]" />
-      <div className="relative flex min-h-[24rem] flex-col justify-between p-5 md:min-h-[34rem] md:p-7">
+      <div className="relative flex min-h-[24rem] flex-col justify-between gap-10 p-5 md:min-h-[34rem] md:p-7">
         <div className="max-w-xl">
           <div className="font-mono text-[0.62rem] uppercase tracking-[0.18em] text-signal-green/80">visual operating boundary</div>
           <h2 className="mt-5 max-w-lg text-2xl font-semibold leading-tight text-signal-text md:text-4xl">
@@ -45,7 +45,7 @@ export function LandingVisualField() {
             {traceRows.map(([label, value], index) => (
               <motion.div
                 key={label}
-                className="grid grid-cols-[7.5rem_1fr] gap-3 border-l border-signal-line/80 bg-[#050806]/70 px-3 py-2 font-mono text-[0.58rem] uppercase"
+                className="grid gap-1 border-l border-signal-line/80 bg-[#050806]/70 px-3 py-2 font-mono text-[0.58rem] uppercase sm:grid-cols-[7.5rem_1fr] sm:gap-3"
                 initial={{ opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.46 + index * 0.07, duration: 0.28 }}

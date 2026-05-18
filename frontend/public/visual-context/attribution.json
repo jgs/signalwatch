@@ -1,0 +1,44 @@
+[
+  {
+    "id": "low-light-hallway",
+    "file": "/visual-context/low-light-hallway.jpg",
+    "source": "Wikimedia Commons / Hallway in low-light",
+    "url": "https://commons.wikimedia.org/wiki/File:Hallway_in_low-light.jpg",
+    "role": "illustrative visual context; not model evidence"
+  },
+  {
+    "id": "cctv-camera",
+    "file": "/visual-context/outdoor-cctv.jpg",
+    "source": "Wikimedia Commons / Outdoor CCTV",
+    "url": "https://commons.wikimedia.org/wiki/File:Outdoor_cctv_(Unsplash).jpg",
+    "role": "illustrative visual context; not model evidence"
+  },
+  {
+    "id": "motion-blur",
+    "file": "/visual-context/motion-blur.jpg",
+    "source": "Wikimedia Commons / Motion blur",
+    "url": "https://commons.wikimedia.org/wiki/File:Motion_blur_(1325070316).jpg",
+    "role": "illustrative visual context; not model evidence"
+  },
+  {
+    "id": "control-room",
+    "file": "/visual-context/cctv-control-room.jpg",
+    "source": "Wikimedia Commons / CCTV control room",
+    "url": "https://commons.wikimedia.org/wiki/File:Ian_Berry_install_CCTV_Control_Room.jpg",
+    "role": "illustrative visual context; not model evidence"
+  },
+  {
+    "id": "thermal-camera",
+    "file": "/visual-context/thermal-camera.jpg",
+    "source": "Wikimedia Commons / Thermal camera",
+    "url": "https://commons.wikimedia.org/wiki/File:Thermal_camera.jpg",
+    "role": "illustrative visual context; not model evidence"
+  },
+  {
+    "id": "camera-cluster",
+    "file": "/visual-context/cctv-security-cameras.jpg",
+    "source": "Wikimedia Commons / CCTV security cameras",
+    "url": "https://commons.wikimedia.org/wiki/File:CCTV_Security_cameras.jpg",
+    "role": "illustrative visual context; not model evidence"
+  }
+]

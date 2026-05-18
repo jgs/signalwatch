@@ -42,13 +42,13 @@ export function OperationalBoundaryPanel({ title = "operational evidence boundar
       </div>
       <div className="mt-5 grid gap-3 md:grid-cols-2">
         {boundaryRows.map(({ icon: Icon, label, value, state }) => (
-          <div key={label} className="grid grid-cols-[auto_1fr_auto] items-start gap-3 border border-[#101b15] bg-[#050806]/66 p-3">
+          <div key={label} className="grid grid-cols-[auto_1fr] items-start gap-3 border border-[#101b15] bg-[#050806]/66 p-3 sm:grid-cols-[auto_1fr_auto]">
             <Icon className="mt-0.5 h-3.5 w-3.5 text-signal-green/72" />
             <div className="min-w-0">
               <div className="font-mono text-[0.58rem] uppercase text-signal-green/75">{label}</div>
               <p className="mt-2 text-sm leading-relaxed text-signal-muted">{value}</p>
             </div>
-            <div className="border border-signal-line/70 px-1.5 py-0.5 font-mono text-[0.5rem] uppercase text-signal-dim">{state}</div>
+            <div className="col-start-2 w-fit border border-signal-line/70 px-1.5 py-0.5 font-mono text-[0.5rem] uppercase text-signal-dim sm:col-start-auto">{state}</div>
           </div>
         ))}
       </div>

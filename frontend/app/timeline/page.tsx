@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Activity, Clock, Database, Radio } from "lucide-react";
 import { fetchTimeline } from "@/lib/api";
+import { OperationalNav } from "@/components/layout/operational-nav";
 import type { OperationalTimeline } from "@/lib/types";
 
 const driftLabels: Record<string, string> = {
@@ -32,14 +32,7 @@ export default function TimelinePage() {
     <main className="relative min-h-screen overflow-hidden bg-[#030403] text-signal-text">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_12%,rgba(71,108,81,0.10),transparent_30rem)]" />
       <section className="relative mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-12">
-        <nav className="flex items-center justify-between border-b border-[#101b15] pb-4 font-mono text-[0.68rem] uppercase text-signal-dim">
-          <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">SIGNALWATCH</Link>
-          <div className="flex items-center gap-4">
-            <Link href="/console" className="transition hover:text-signal-text">console</Link>
-            <Link href="/systems" className="transition hover:text-signal-text">systems</Link>
-            <span>timeline</span>
-          </div>
-        </nav>
+        <OperationalNav active="timeline" />
 
         <header className="grid gap-10 py-16 lg:grid-cols-[1.1fr_.9fr]">
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>

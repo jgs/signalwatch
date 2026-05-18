@@ -7,6 +7,7 @@ import { fetchSafetySources } from "@/lib/api";
 import { EvidencePacketPreview } from "@/components/education/evidence-packet-preview";
 import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
+import { OperationalNav } from "@/components/layout/operational-nav";
 import { PERCEPTION_DATASET_SEQUENCES, perceptionDatasetSummary } from "@/lib/perception-datasets";
 import type { SafetySource } from "@/lib/types";
 
@@ -71,7 +72,7 @@ export default function EvaluationsPage() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_10%,rgba(155,216,179,0.09),transparent_30rem)]" />
       <div className="absolute inset-0 opacity-[0.032] [background-image:linear-gradient(rgba(155,216,179,.24)_1px,transparent_1px),linear-gradient(90deg,rgba(155,216,179,.16)_1px,transparent_1px)] [background-size:40px_40px]" />
       <section className="relative mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-12">
-        <Nav />
+        <OperationalNav active="evaluations" />
         <header className="py-12 md:py-16">
           <div className="font-mono text-[0.72rem] uppercase tracking-[0.22em] text-signal-green/80">evaluation</div>
           <h1 className="mt-8 max-w-4xl text-4xl font-semibold leading-tight text-signal-text md:text-5xl">
@@ -188,23 +189,6 @@ export default function EvaluationsPage() {
         </section>
       </section>
     </main>
-  );
-}
-
-function Nav() {
-  return (
-    <nav className="flex items-center justify-between border-b border-[#101b15] pb-4 font-mono text-[0.68rem] uppercase text-signal-dim">
-      <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">SIGNALWATCH</Link>
-      <div className="flex flex-wrap items-center justify-end gap-4">
-        <Link href="/console" className="transition hover:text-signal-text">console</Link>
-        <Link href="/safety" className="transition hover:text-signal-text">safety</Link>
-        <Link href="/evaluations" className="text-signal-green/80 transition hover:text-signal-green">evaluations</Link>
-        <Link href="/case-studies" className="transition hover:text-signal-text">case studies</Link>
-        <Link href="/labs/perception" className="transition hover:text-signal-text">perception</Link>
-        <Link href="/learn/glossary" className="transition hover:text-signal-text">glossary</Link>
-        <Link href="/methodology" className="transition hover:text-signal-text">methodology</Link>
-      </div>
-    </nav>
   );
 }
 

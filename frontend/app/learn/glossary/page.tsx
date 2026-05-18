@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { BookOpen, Search, ShieldCheck } from "lucide-react";
+import { OperationalNav } from "@/components/layout/operational-nav";
 
 export const metadata: Metadata = {
   title: "AI Glossary",
@@ -55,7 +56,7 @@ export default function GlossaryPage() {
     <main className="relative min-h-screen overflow-hidden bg-signal-black text-signal-text">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_10%,rgba(155,216,179,0.10),transparent_30rem)]" />
       <section className="relative mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-12">
-        <Nav />
+        <OperationalNav active="glossary" />
 
         <header className="py-12 md:py-16">
           <div className="font-mono text-[0.72rem] uppercase tracking-[0.22em] text-signal-green/80">learn</div>
@@ -105,21 +106,6 @@ export default function GlossaryPage() {
         </section>
       </section>
     </main>
-  );
-}
-
-function Nav() {
-  return (
-    <nav className="flex items-center justify-between border-b border-signal-line/60 pb-4 font-mono text-[0.68rem] uppercase text-signal-dim">
-      <Link href="/" className="text-signal-green/80 transition hover:text-signal-green">SIGNALWATCH</Link>
-      <div className="flex flex-wrap items-center justify-end gap-4">
-        <Link href="/console" className="transition hover:text-signal-text">console</Link>
-        <Link href="/safety" className="transition hover:text-signal-text">safety</Link>
-        <Link href="/evaluations" className="transition hover:text-signal-text">evaluations</Link>
-        <Link href="/learn/llm-training" className="transition hover:text-signal-text">LLM guide</Link>
-        <Link href="/learn/glossary" className="text-signal-green/80 transition hover:text-signal-green">glossary</Link>
-      </div>
-    </nav>
   );
 }
 
