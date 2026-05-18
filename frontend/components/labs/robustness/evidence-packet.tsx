@@ -1,35 +1,59 @@
 "use client";
 
-import { buildContinuityTransitions, buildEvidencePacket, buildOperationalObservations, observationCadence, type DetectionFrame } from "@/components/labs/inference/temporal-analysis";
+import { buildClassPersistenceWindows, buildContinuityTransitions, buildEvidencePacket, buildOperationalObservations, observationCadence, type DetectionFrame } from "@/components/labs/inference/temporal-analysis";
 import type { DegradationState } from "@/components/labs/degradation/degradation-controls";
+import type { PerceptionDatasetSequence } from "@/lib/perception-datasets";
 
 export function EvidencePacketPanel({
   frames,
   preset,
   mode,
   degradation,
+  sequence,
 }: {
   frames: DetectionFrame[];
   preset: string;
   mode: string;
   degradation: DegradationState;
+  sequence?: PerceptionDatasetSequence | null;
 }) {
   const packet = buildEvidencePacket(frames);
   const notes = buildOperationalObservations(frames);
   const cadence = observationCadence(frames);
   const transitions = buildContinuityTransitions(frames);
+  const persistenceWindows = buildClassPersistenceWindows(frames);
   const confidence = packet.meanConfidence === null ? "unavailable" : `${Math.round(packet.meanConfidence * 100)}%`;
 
   function exportEvidence() {
     const generatedAt = new Date().toISOString();
     const payload = {
-      schema: "signalwatch.perception.evidence.v1",
+      schema: "signalwatch.perception.evidence.v2",
       generatedAt,
       model: "browser-side COCO-SSD",
       inferenceBoundary: "local browser inference; no backend GPU; no synthesized detections",
       mode,
       preset,
       degradation,
+      datasetSequence: sequence
+        ? {
+            id: sequence.id,
+            title: sequence.title,
+            scenarioType: sequence.scenarioType,
+            assetStatus: sequence.assetStatus,
+            datasetPath: sequence.datasetPath,
+            frameUris: sequence.frameUris,
+            degradationPresetId: sequence.degradationPresetId,
+            degradationMatchesSelectedPreset: preset === sequence.degradationPresetId,
+            lighting: sequence.lighting,
+            temporalProperties: sequence.temporalProperties,
+            inspectionTargets: sequence.inspectionTargets,
+            operationalRelevance: sequence.operationalRelevance,
+            safetyCriticalRelevance: sequence.safetyCriticalRelevance,
+            reproducibilityLevel: sequence.reproducibilityLevel,
+            reproducibilityNotes: sequence.reproducibilityNotes,
+            evidenceRequirements: sequence.evidenceRequirements,
+          }
+        : null,
       packet,
       observationWindow: cadence
         ? {
@@ -49,6 +73,15 @@ export function EvidencePacketPanel({
         currentCount: transition.currentCount,
         lostClasses: transition.lostClasses,
         gainedClasses: transition.gainedClasses,
+      })),
+      classPersistenceWindows: persistenceWindows.map((window) => ({
+        className: window.className,
+        firstFrameIndex: window.firstFrameIndex,
+        lastFrameIndex: window.lastFrameIndex,
+        frameCount: window.frameCount,
+        startedAt: new Date(window.startedAt).toISOString(),
+        endedAt: new Date(window.endedAt).toISOString(),
+        meanConfidence: window.meanConfidence === null ? null : Number(window.meanConfidence.toFixed(6)),
       })),
       frames: frames.map((frame) => ({
         timestamp: new Date(frame.timestamp).toISOString(),
@@ -84,6 +117,8 @@ export function EvidencePacketPanel({
         export json
       </button>
       <div className="mt-3 grid gap-2 font-mono text-[0.58rem] uppercase text-signal-dim sm:grid-cols-2 lg:grid-cols-4">
+        <Readout label="sequence" value={sequence?.id ?? "none"} />
+        <Readout label="asset status" value={sequence?.assetStatus.replace("-", " ") ?? "ad hoc"} />
         <Readout label="mode" value={mode} />
         <Readout label="preset" value={preset} />
         <Readout label="frames" value={String(packet.frameCount)} />
@@ -92,8 +127,14 @@ export function EvidencePacketPanel({
         <Readout label="mean confidence" value={confidence} />
         <Readout label="drop events" value={String(packet.detectionDropEvents)} />
         <Readout label="continuity breaks" value={String(packet.classContinuityBreaks)} />
+        <Readout label="persistence windows" value={String(persistenceWindows.length)} />
         <Readout label="window" value={cadence ? `${cadence.durationSeconds.toFixed(1)}s` : "pending"} />
         <Readout label="cadence jitter" value={cadence?.cadenceJitterSeconds === null || !cadence ? "pending" : `${cadence.cadenceJitterSeconds.toFixed(2)}s`} />
+      </div>
+      <div className="mt-3 border-l border-[#24392c] px-3 py-2 text-sm leading-relaxed text-signal-muted">
+        {sequence
+          ? `${sequence.title}: ${sequence.reproducibilityLevel} / ${sequence.assetStatus.replace("-", " ")}. ${sequence.reproducibilityNotes[0]}`
+          : "No dataset sequence is selected. The export will record this as an ad hoc browser inference run."}
       </div>
       <div className="mt-3 border-l border-[#24392c] px-3 py-2 text-sm leading-relaxed text-signal-muted">
         {packet.observedClasses.length

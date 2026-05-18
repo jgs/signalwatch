@@ -1,0 +1,11 @@
+{
+  "schema": "signalwatch.perception.sequence.manifest.v1",
+  "id": "compression-artifact-protocol",
+  "scenario_type": "compression",
+  "asset_status": "capture-required",
+  "frames": [],
+  "provenance_notes": [
+    "No real frames are bundled yet.",
+    "Add captured or imported compression-stressed frames here only with source and timing notes."
+  ]
+}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Activity, AlertTriangle, Eye, Gauge, Network, ScanSearch, ShieldCheck, type LucideIcon } from "lucide-react";
 import { fetchSafetySources } from "@/lib/api";
+import { PERCEPTION_DATASET_SEQUENCES, perceptionDatasetSummary } from "@/lib/perception-datasets";
 import type { SafetySource } from "@/lib/types";
 
 const evaluationLayers = [
@@ -56,6 +57,7 @@ const failureModes = [
 export default function EvaluationsPage() {
   const [sources, setSources] = useState<SafetySource[]>([]);
   const sourceMap = useMemo(() => new Map(sources.map((source) => [source.id, source])), [sources]);
+  const datasetSummary = useMemo(() => perceptionDatasetSummary(), []);
 
   useEffect(() => {
     fetchSafetySources().then(setSources).catch(() => setSources([]));
@@ -123,6 +125,26 @@ export default function EvaluationsPage() {
           <Link href="/case-studies" className="mt-5 inline-flex border border-[#203528] bg-[#07100b] px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-[#3e654c]">
             open case studies
           </Link>
+        </section>
+
+        <section className="mt-5 console-panel p-5">
+          <div className="flex flex-col justify-between gap-3 border-b border-[#101b15] pb-3 md:flex-row md:items-center">
+            <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">perception dataset registry</div>
+            <div className="font-mono text-[0.6rem] uppercase text-signal-dim">
+              {datasetSummary.total} protocols / {datasetSummary.assetBacked} asset-backed
+            </div>
+          </div>
+          <p className="mt-5 max-w-3xl text-sm leading-relaxed text-signal-muted">
+            The current registry defines real capture/import protocols for robustness sequences. It does not ship fabricated detections, expected confidence values, or precomputed continuity claims.
+          </p>
+          <div className="mt-5 grid gap-2 font-mono text-[0.58rem] uppercase text-signal-dim md:grid-cols-5">
+            {PERCEPTION_DATASET_SEQUENCES.map((sequence) => (
+              <div key={sequence.id} className="border-l border-[#24392c] bg-[#050806]/62 px-3 py-2">
+                <div className="text-signal-green/70">{sequence.scenarioType}</div>
+                <div className="mt-1">{sequence.assetStatus.replace("-", " ")}</div>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section className="mt-5 console-panel p-5">

@@ -48,6 +48,16 @@ export type ContinuityTransition = {
   gainedClasses: string[];
 };
 
+export type ClassPersistenceWindow = {
+  className: string;
+  firstFrameIndex: number;
+  lastFrameIndex: number;
+  frameCount: number;
+  startedAt: number;
+  endedAt: number;
+  meanConfidence: number | null;
+};
+
 export function meanConfidence(detections: Detection[]) {
   if (!detections.length) return null;
   return detections.reduce((total, detection) => total + detection.score, 0) / detections.length;
@@ -145,6 +155,53 @@ export function buildContinuityTransitions(frames: DetectionFrame[]): Continuity
       } satisfies ContinuityTransition;
     })
     .filter((transition): transition is ContinuityTransition => transition !== null);
+}
+
+export function buildClassPersistenceWindows(frames: DetectionFrame[]): ClassPersistenceWindow[] {
+  const active = new Map<string, { firstFrameIndex: number; startedAt: number; scores: number[] }>();
+  const windows: ClassPersistenceWindow[] = [];
+
+  frames.forEach((frame, frameIndex) => {
+    const presentClasses = uniqueClasses(frame.detections);
+    for (const className of presentClasses) {
+      const scores = frame.detections.filter((detection) => detection.class === className).map((detection) => detection.score);
+      const current = active.get(className);
+      if (current) {
+        current.scores.push(...scores);
+      } else {
+        active.set(className, { firstFrameIndex: frameIndex, startedAt: frame.timestamp, scores });
+      }
+    }
+
+    for (const [className, current] of active) {
+      if (presentClasses.includes(className)) continue;
+      windows.push({
+        className,
+        firstFrameIndex: current.firstFrameIndex,
+        lastFrameIndex: frameIndex - 1,
+        frameCount: frameIndex - current.firstFrameIndex,
+        startedAt: current.startedAt,
+        endedAt: frames[frameIndex - 1]?.timestamp ?? current.startedAt,
+        meanConfidence: current.scores.length ? average(current.scores) : null,
+      });
+      active.delete(className);
+    }
+  });
+
+  for (const [className, current] of active) {
+    const lastIndex = Math.max(0, frames.length - 1);
+    windows.push({
+      className,
+      firstFrameIndex: current.firstFrameIndex,
+      lastFrameIndex: lastIndex,
+      frameCount: frames.length - current.firstFrameIndex,
+      startedAt: current.startedAt,
+      endedAt: frames[lastIndex]?.timestamp ?? current.startedAt,
+      meanConfidence: current.scores.length ? average(current.scores) : null,
+    });
+  }
+
+  return windows.sort((a, b) => b.endedAt - a.endedAt || b.frameCount - a.frameCount);
 }
 
 export function buildOperationalObservations(frames: DetectionFrame[]): OperationalObservation[] {

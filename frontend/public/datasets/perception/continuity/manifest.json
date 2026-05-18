@@ -1,0 +1,11 @@
+{
+  "schema": "signalwatch.perception.sequence.manifest.v1",
+  "id": "overlap-continuity-protocol",
+  "scenario_type": "continuity",
+  "asset_status": "capture-required",
+  "frames": [],
+  "provenance_notes": [
+    "No real frames are bundled yet.",
+    "Add captured or imported overlapping-object frames here only with source and timing notes."
+  ]
+}

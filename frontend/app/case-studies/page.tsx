@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Camera, FileSearch, Gauge, ListChecks, ShieldCheck, type LucideIcon } from "lucide-react";
+import { PERCEPTION_DATASET_SEQUENCES } from "@/lib/perception-datasets";
 
 const cases = [
   {
@@ -92,6 +93,33 @@ export default function CaseStudiesPage() {
           {cases.map((item) => (
             <CaseCard key={item.id} {...item} />
           ))}
+        </section>
+
+        <section className="mt-5 console-panel p-5">
+          <div className="flex flex-col justify-between gap-3 border-b border-[#101b15] pb-3 md:flex-row md:items-center">
+            <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80">
+              <FileSearch className="h-3.5 w-3.5" />
+              dataset sequence registry
+            </div>
+            <div className="font-mono text-[0.6rem] uppercase text-signal-dim">protocols only until real frames are imported</div>
+          </div>
+          <div className="mt-5 grid gap-3 lg:grid-cols-2">
+            {PERCEPTION_DATASET_SEQUENCES.map((sequence) => (
+              <div key={sequence.id} className="border border-[#101b15] bg-[#050806]/62 p-4">
+                <div className="flex flex-col justify-between gap-2 md:flex-row md:items-center">
+                  <div className="font-mono text-[0.62rem] uppercase text-signal-green/75">{sequence.scenarioType} / {sequence.assetStatus.replace("-", " ")}</div>
+                  <div className="font-mono text-[0.56rem] uppercase text-signal-dim">{sequence.temporalProperties.minimumFrames} frame minimum</div>
+                </div>
+                <div className="mt-3 text-sm font-semibold text-signal-text">{sequence.title}</div>
+                <p className="mt-2 text-sm leading-relaxed text-signal-muted">{sequence.operationalRelevance}</p>
+                <div className="mt-3 grid gap-1 font-mono text-[0.56rem] uppercase text-signal-dim sm:grid-cols-2">
+                  {sequence.evidenceRequirements.slice(0, 4).map((item) => (
+                    <div key={item} className="border-b border-[#101b15] pb-1">{item}</div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section className="mt-5 grid gap-5 lg:grid-cols-[.9fr_1.1fr]">

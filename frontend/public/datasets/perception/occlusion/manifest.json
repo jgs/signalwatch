@@ -1,0 +1,11 @@
+{
+  "schema": "signalwatch.perception.sequence.manifest.v1",
+  "id": "partial-visibility-occlusion-protocol",
+  "scenario_type": "occlusion",
+  "asset_status": "capture-required",
+  "frames": [],
+  "provenance_notes": [
+    "No real frames are bundled yet.",
+    "Add captured or imported occlusion frames here only with source and timing notes."
+  ]
+}

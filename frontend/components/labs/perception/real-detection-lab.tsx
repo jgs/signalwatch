@@ -8,11 +8,13 @@ import { DegradationControls, type DegradationState } from "@/components/labs/de
 import { DegradationPresets, type DegradationPreset } from "@/components/labs/degradation/degradation-presets";
 import { useCocoSsd, type Detection } from "@/components/labs/inference/use-coco-ssd";
 import { CalibrationSamples } from "@/components/labs/perception/calibration-samples";
+import { DatasetSequenceRegistry } from "@/components/labs/perception/dataset-sequence-registry";
 import { ConfidenceRail } from "@/components/labs/telemetry/confidence-rail";
 import { ReplayTimeline } from "@/components/labs/replay/replay-timeline";
 import { EvidencePacketPanel } from "@/components/labs/robustness/evidence-packet";
 import { TemporalTrace } from "@/components/labs/telemetry/temporal-trace";
 import { WebcamStatus, type WebcamState } from "@/components/labs/webcam/webcam-status";
+import type { PerceptionDatasetSequence } from "@/lib/perception-datasets";
 
 const MAX_FRAME_WIDTH = 960;
 const REALTIME_INFERENCE_INTERVAL = 820;
@@ -47,6 +49,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
   const [baselineDetections, setBaselineDetections] = useState<Detection[]>([]);
   const [frames, setFrames] = useState<DetectionFrame[]>([]);
   const [running, setRunning] = useState(false);
+  const [activeSequence, setActiveSequence] = useState<PerceptionDatasetSequence | null>(null);
 
   const inputIntegrity = useMemo(() => {
     const score =
@@ -237,8 +240,18 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
   function applyPreset(preset: DegradationPreset) {
     setActivePreset(preset.id);
     setDegradation(preset.value);
+    setActiveSequence(null);
     setFrames([]);
     setDetections([]);
+  }
+
+  function applySequence(sequence: PerceptionDatasetSequence) {
+    setActiveSequence(sequence);
+    setActivePreset(sequence.degradationPresetId);
+    setDegradation(sequence.degradation);
+    setFrames([]);
+    setDetections([]);
+    setBaselineDetections([]);
   }
 
   function updateDegradation(next: DegradationState) {
@@ -295,6 +308,11 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
           <div className="border border-[#101b15] bg-[#050806]/70 p-3 font-mono text-[0.62rem] uppercase text-signal-dim">
             sample route / {sampleId ?? "none"} / detections remain model-reported only
           </div>
+          <div className="grid gap-2 border border-[#101b15] bg-[#050806]/70 p-3 font-mono text-[0.58rem] uppercase text-signal-dim">
+            <Readout label="sequence" value={activeSequence?.id ?? "none selected"} />
+            <Readout label="asset state" value={activeSequence?.assetStatus.replace("-", " ") ?? "ad hoc input"} />
+            <Readout label="min frames" value={activeSequence ? String(activeSequence.temporalProperties.minimumFrames) : "unbounded"} />
+          </div>
           <WebcamStatus state={webcamState} message={webcamMessage} />
           <ConfidenceRail label="input condition control" value={inputIntegrity / 100} />
           <ConfidenceRail label="mean detection confidence" value={confidence} unavailable={!detections.length} />
@@ -318,11 +336,12 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
           </button>
         </div>
       </div>
+      <DatasetSequenceRegistry activeId={activeSequence?.id} onSelect={applySequence} />
       <CalibrationSamples onSelect={selectSample} />
       <DegradationPresets active={activePreset} onSelect={applyPreset} />
       <DegradationControls value={degradation} onChange={updateDegradation} />
       <TemporalTrace frames={frames} metrics={temporalMetrics} />
-      <EvidencePacketPanel frames={frames} preset={activePreset} mode={mode} degradation={degradation} />
+      <EvidencePacketPanel frames={frames} preset={activePreset} mode={mode} degradation={degradation} sequence={activeSequence} />
       <ReplayTimeline frames={frames} />
       <ExplainabilityPanel frames={frames} detections={detections} />
       <DetectionReadout mode={mode} detections={detections} baselineDetections={baselineDetections} />

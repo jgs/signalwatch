@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { DetectionFrame, TemporalMetric } from "@/components/labs/inference/temporal-analysis";
-import { buildContinuityTransitions, meanConfidence, observationCadence } from "@/components/labs/inference/temporal-analysis";
+import { buildClassPersistenceWindows, buildContinuityTransitions, meanConfidence, observationCadence } from "@/components/labs/inference/temporal-analysis";
 import { ConfidenceRail } from "@/components/labs/telemetry/confidence-rail";
 
 export function TemporalTrace({ frames, metrics }: { frames: DetectionFrame[]; metrics: TemporalMetric[] }) {
@@ -12,6 +12,7 @@ export function TemporalTrace({ frames, metrics }: { frames: DetectionFrame[]; m
   const recentFrames = frames.slice(-28);
   const transitions = buildContinuityTransitions(frames);
   const recentTransitions = transitions.slice(-5).reverse();
+  const persistenceWindows = buildClassPersistenceWindows(frames).slice(0, 4);
 
   return (
     <div className="space-y-4">
@@ -66,6 +67,23 @@ export function TemporalTrace({ frames, metrics }: { frames: DetectionFrame[]; m
             ))
           ) : (
             <div className="font-mono text-[0.6rem] uppercase text-signal-dim">no continuity transition recorded in the current window</div>
+          )}
+        </div>
+      </div>
+      <div className="border border-[#101b15] bg-[#050806]/60 p-3">
+        <div className="mb-3 font-mono text-[0.62rem] uppercase text-signal-green/70">class persistence windows</div>
+        <div className="grid gap-2 md:grid-cols-2">
+          {persistenceWindows.length ? (
+            persistenceWindows.map((window) => (
+              <div key={`${window.className}-${window.firstFrameIndex}-${window.lastFrameIndex}`} className="border-l border-[#273d2f] bg-[#030403]/45 px-3 py-2">
+                <div className="font-mono text-[0.56rem] uppercase text-signal-green/65">{window.className}</div>
+                <p className="mt-1 text-xs leading-relaxed text-signal-muted">
+                  frames {window.firstFrameIndex + 1}-{window.lastFrameIndex + 1} / {window.frameCount} observed / confidence {window.meanConfidence === null ? "unavailable" : Math.round(window.meanConfidence * 100)}
+                </p>
+              </div>
+            ))
+          ) : (
+            <div className="font-mono text-[0.6rem] uppercase text-signal-dim">no emitted class has persisted across this window</div>
           )}
         </div>
       </div>

@@ -1,0 +1,11 @@
+{
+  "schema": "signalwatch.perception.sequence.manifest.v1",
+  "id": "low-light-hallway-protocol",
+  "scenario_type": "low-light",
+  "asset_status": "capture-required",
+  "frames": [],
+  "provenance_notes": [
+    "No real frames are bundled yet.",
+    "Add captured or imported low-light frames here only with source and timing notes."
+  ]
+}

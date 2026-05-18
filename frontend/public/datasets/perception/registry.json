@@ -1,0 +1,42 @@
+{
+  "schema": "signalwatch.perception.dataset.registry.v1",
+  "updated_at": "2026-05-18T00:00:00.000Z",
+  "asset_boundary": "No detections, confidence values, continuity markers, or operational observations are stored in this registry. They are generated only from real browser-side inference outputs during a run.",
+  "sequences": [
+    {
+      "id": "low-light-hallway-protocol",
+      "scenario_type": "low-light",
+      "asset_status": "capture-required",
+      "dataset_path": "/datasets/perception/low-light/",
+      "frame_uris": []
+    },
+    {
+      "id": "partial-visibility-occlusion-protocol",
+      "scenario_type": "occlusion",
+      "asset_status": "capture-required",
+      "dataset_path": "/datasets/perception/occlusion/",
+      "frame_uris": []
+    },
+    {
+      "id": "webcam-motion-instability-protocol",
+      "scenario_type": "motion",
+      "asset_status": "capture-required",
+      "dataset_path": "/datasets/perception/motion/",
+      "frame_uris": []
+    },
+    {
+      "id": "compression-artifact-protocol",
+      "scenario_type": "compression",
+      "asset_status": "capture-required",
+      "dataset_path": "/datasets/perception/compression/",
+      "frame_uris": []
+    },
+    {
+      "id": "overlap-continuity-protocol",
+      "scenario_type": "continuity",
+      "asset_status": "capture-required",
+      "dataset_path": "/datasets/perception/continuity/",
+      "frame_uris": []
+    }
+  ]
+}

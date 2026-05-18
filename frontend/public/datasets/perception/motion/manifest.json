@@ -1,0 +1,11 @@
+{
+  "schema": "signalwatch.perception.sequence.manifest.v1",
+  "id": "webcam-motion-instability-protocol",
+  "scenario_type": "motion",
+  "asset_status": "capture-required",
+  "frames": [],
+  "provenance_notes": [
+    "No real frames are bundled yet.",
+    "Use webcam inference sessions or imported motion frames to create asset-backed records."
+  ]
+}
