@@ -72,6 +72,12 @@ export default function MethodologyPage() {
           <p className="mt-8 max-w-3xl text-sm leading-relaxed text-signal-muted">
             The system is designed to feel alive without fabricating intelligence. This page defines the boundaries between source-backed ecosystem data, derived operational signals, runtime telemetry, and educational simulations.
           </p>
+          <Link
+            href="/learn/glossary"
+            className="mt-5 inline-flex border border-signal-line bg-signal-panel2/60 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-signal-green/50"
+          >
+            plain glossary
+          </Link>
         </header>
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -131,6 +137,7 @@ function Nav() {
         <Link href="/labs/perception" className="transition hover:text-signal-text">perception</Link>
         <Link href="/case-studies" className="transition hover:text-signal-text">case studies</Link>
         <Link href="/methodology" className="text-signal-green/80 transition hover:text-signal-green">methodology</Link>
+        <Link href="/learn/glossary" className="transition hover:text-signal-text">glossary</Link>
       </div>
     </nav>
   );

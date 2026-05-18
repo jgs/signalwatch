@@ -70,6 +70,12 @@ export default function LlmTrainingPage() {
           <p className="mt-7 max-w-3xl text-sm leading-relaxed text-signal-muted">
             A large language model, or LLM, is trained by learning patterns from text and then being evaluated, tuned, stress-tested, and monitored. This page explains the process in plain language.
           </p>
+          <Link
+            href="/learn/glossary"
+            className="mt-5 inline-flex border border-signal-line bg-signal-panel2/60 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-signal-green/50"
+          >
+            open glossary
+          </Link>
         </header>
 
         <section className="console-panel overflow-hidden p-3">
@@ -142,6 +148,7 @@ function Nav() {
         <Link href="/evaluations" className="transition hover:text-signal-text">evaluations</Link>
         <Link href="/labs/perception" className="transition hover:text-signal-text">perception</Link>
         <Link href="/learn/llm-training" className="text-signal-green/80 transition hover:text-signal-green">LLM guide</Link>
+        <Link href="/learn/glossary" className="transition hover:text-signal-text">glossary</Link>
       </div>
     </nav>
   );

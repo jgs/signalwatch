@@ -61,6 +61,7 @@ export default function LandingPage() {
           <Link href="/evaluations" className="transition hover:text-signal-muted">evaluations</Link>
           <Link href="/labs/perception" className="transition hover:text-signal-muted">perception lab</Link>
           <Link href="/learn/llm-training" className="transition hover:text-signal-muted">LLM guide</Link>
+          <Link href="/learn/glossary" className="transition hover:text-signal-muted">glossary</Link>
           <Link href="/case-studies" className="transition hover:text-signal-muted">case studies</Link>
           <Link href="/methodology" className="transition hover:text-signal-muted">methodology</Link>
           <Link href="/timeline" className="transition hover:text-signal-muted">timeline</Link>

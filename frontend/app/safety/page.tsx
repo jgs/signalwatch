@@ -40,6 +40,12 @@ export default function SafetyPage() {
           <p className="mt-7 max-w-2xl text-sm leading-relaxed text-signal-muted">
             This page explains alignment, governance, frontier risk, and job transition pressure in plain language. Claims are tied to source registry entries or clearly marked as conceptual examples.
           </p>
+          <Link
+            href="/learn/glossary"
+            className="mt-5 inline-flex border border-signal-line bg-signal-panel2/60 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-signal-green/50"
+          >
+            glossary for terms
+          </Link>
         </header>
 
         <SafetyBridge />
@@ -141,6 +147,7 @@ function Nav() {
         <Link href="/labs" className="transition hover:text-signal-text">labs</Link>
         <Link href="/labs/perception" className="transition hover:text-signal-text">perception</Link>
         <Link href="/methodology" className="transition hover:text-signal-text">methodology</Link>
+        <Link href="/learn/glossary" className="transition hover:text-signal-text">glossary</Link>
         <Link href="/timeline" className="transition hover:text-signal-text">timeline</Link>
       </div>
     </nav>
