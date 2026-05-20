@@ -24,7 +24,7 @@ export function RelationshipGraph({ graph }: { graph: RelationshipGraphType }) {
 
   return (
     <Panel>
-      <PanelHeader title="semantic topology" meta={`${graph.nodes.length} nodes / ${graph.edges.length} links`} />
+      <PanelHeader title="topic map" meta={`${graph.nodes.length} items / ${graph.edges.length} links`} />
       <svg viewBox="0 0 340 252" className="h-[276px] w-full overflow-visible">
         <rect width="340" height="252" fill="#ffffff" stroke="#d8e0d8" />
         <defs>

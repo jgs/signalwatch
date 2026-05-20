@@ -103,7 +103,7 @@ export default function SafetyPage() {
         </section>
 
         <section className="mt-5 grid gap-5 lg:grid-cols-[1.1fr_.9fr]">
-          <Panel title="job displacement" icon={Wrench} meta="source-backed">
+          <Panel title="job displacement" icon={Wrench} meta="sources attached">
             <div className="space-y-3">
               {jobs.map((item) => (
                 <Block key={item.id} title={item.area} meta={item.pressure}>

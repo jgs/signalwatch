@@ -75,7 +75,7 @@ function DriftPanel({ timeline }: { timeline: OperationalTimeline | null }) {
   const drift = timeline?.drift ?? {};
   return (
     <div className="console-panel p-5">
-      <SectionLabel icon={Activity} label="ecosystem drift" meta="temporal pressure" />
+      <SectionLabel icon={Activity} label="what changed over time" meta="recent movement" />
       <div className="mt-5 space-y-4">
         {Object.entries(driftLabels).map(([key, label]) => {
           const value = Number(drift[key as keyof typeof drift] ?? 0);

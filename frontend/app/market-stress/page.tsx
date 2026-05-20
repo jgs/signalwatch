@@ -98,7 +98,7 @@ const sourceFrames = [
 const boundaries = [
   ["can show", "which public signals would support or weaken the idea that AI is financially overheated"],
   ["can show", "where spending, real customer value, and production adoption do not line up"],
-  ["cannot claim", "that the entire AI industry is or is not a bubble without source-backed data and a defined method"],
+  ["cannot claim", "that the entire AI industry is or is not a bubble without real source data and a defined method"],
   ["cannot infer", "private margins, real chip utilization, customer churn, or long-term cash flow without disclosures"],
 ];
 
@@ -151,7 +151,7 @@ export default function MarketStressPage() {
               <span className="text-signal-muted">without theatrical certainty.</span>
             </h1>
             <p className="mt-8 max-w-3xl text-sm leading-relaxed text-signal-muted">
-              This surface treats the AI bubble debate as an evidence problem. It separates financial overheating, infrastructure durability, real deployment value, and unknowns that should remain unknown until source-backed data exists.
+              This page treats the AI bubble debate as an evidence problem. It separates financial overheating, infrastructure durability, real deployment value, and unknowns that should remain unknown until real source data exists.
             </p>
             <div className="mt-6 grid max-w-3xl gap-3 md:grid-cols-3">
               {bubbleVsInfrastructure.map(([label, text]) => (

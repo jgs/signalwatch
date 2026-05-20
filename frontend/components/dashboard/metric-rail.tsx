@@ -21,7 +21,7 @@ export function MetricRail({
   collectorLatency: number;
 }) {
   const metrics = [
-    metric("items shown", signalCount, "source-backed updates", (value) => String(Math.round(value)).padStart(3, "0")),
+    metric("items shown", signalCount, "updates with sources", (value) => String(Math.round(value)).padStart(3, "0")),
     metric("source groups", sourceCount, "places being watched", (value) => String(Math.round(value)).padStart(2, "0")),
     metric("new item rate", signalsPerMinute, "items per minute", (value) => value.toFixed(1)),
     metric("response time", collectorLatency, "median collector delay", (value) => `${Math.round(value)}ms`),

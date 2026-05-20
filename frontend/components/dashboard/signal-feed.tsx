@@ -20,7 +20,7 @@ export function SignalFeed({ signals }: { signals: Signal[] }) {
           <div className="border border-signal-line bg-signal-panel/70 p-5">
             <div className="font-mono text-[0.68rem] uppercase text-signal-green/75">waiting for real source items</div>
             <p className="mt-3 text-sm leading-relaxed text-signal-muted">
-              The console only shows source-backed content here. System heartbeats and connection updates stay separate so they are not confused with evidence.
+              The console only shows items with real sources here. System heartbeats and connection updates stay separate so they are not confused with evidence.
             </p>
           </div>
         ) : null}

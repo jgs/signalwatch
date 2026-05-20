@@ -18,6 +18,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
+import { RealDegradationExamples } from "@/components/education/real-degradation-examples";
 import { VisualEvidenceLegend } from "@/components/education/visual-evidence-legend";
 import { OperationalSurfaceMap } from "@/components/landing/operational-surface-map";
 import { SystemStatusBar } from "@/components/layout/system-status-bar";
@@ -51,15 +52,15 @@ const audiencePaths = [
   {
     icon: ShieldCheck,
     label: "Safety and governance",
-    title: "Inspect source-backed risk",
-    text: "See alignment, frontier risk, job transition pressure, and governance references with sources attached.",
+    title: "Inspect risk with sources",
+    text: "See safety risks, policy references, and job transition pressure with links back to the original sources.",
     href: "/safety",
   },
   {
     icon: ScanSearch,
     label: "Builders and evaluators",
     title: "Run perception checks",
-    text: "Use browser-side model outputs to inspect degradation, confidence, empty frames, and continuity failures.",
+    text: "Upload images or use a webcam to see how blur, darkness, crops, and motion change real model outputs.",
     href: "/labs/perception",
   },
   {
@@ -72,14 +73,14 @@ const audiencePaths = [
 ];
 
 const trustRules = [
-  ["No fake telemetry", "Metrics, confidence, detections, and incidents must come from real data or real model outputs."],
+  ["No fake readings", "Metrics, confidence, detections, and incidents must come from real data or real model outputs."],
   ["Visible uncertainty", "Unavailable models, missing sources, and unknown values stay visible instead of being filled in."],
   ["Source-first explanations", "Every serious claim should point to a source, a run, a timestamp, or a methodology boundary."],
   ["Readable by design", "Technical surfaces should remain useful to experts while still explaining the meaning for everyone else."],
 ];
 
 const capabilityRows = [
-  ["Source monitoring", "Research, safety, policy, releases, and ecosystem movement with provenance attached."],
+  ["Source monitoring", "Research, safety, policy, releases, and AI news with links and timestamps attached."],
   ["Perception robustness", "Real browser-side model behavior under blur, low light, occlusion, compression, and motion."],
   ["Market stress analysis", "AI investment and bubble-risk context separated from operational evidence."],
   ["Evidence boundaries", "Clear distinction between source photo, generated context, diagram, and model output."],
@@ -108,8 +109,8 @@ export default function LandingPage() {
           <div>
             <SectionHeader
               eyebrow="Why this exists"
-              title="AI is moving faster than ordinary interfaces can explain."
-              text="Most dashboards either simplify too much or bury people in technical noise. SIGNALWATCH gives every reader a path: understand the concept, inspect the evidence, then decide what the claim can actually support."
+              title="AI is moving faster than ordinary people can inspect."
+              text="Most tools either oversimplify the story or bury people in technical noise. SIGNALWATCH gives every reader a path: understand the idea, inspect the evidence, then decide what the claim can actually support."
             />
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
               {trustRules.map(([label, text]) => (
@@ -124,6 +125,18 @@ export default function LandingPage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-6xl px-5 pb-12 md:px-8 md:pb-16">
+        <div className="border border-[#d8e0d8] bg-white p-5 md:p-7">
+          <div className="font-mono text-[0.68rem] uppercase tracking-[0.18em] text-[#3f6f4d]">The reason behind it</div>
+          <h2 className="mt-4 max-w-3xl text-3xl font-semibold leading-tight text-[#111b16] md:text-4xl">
+            The promise of AI is real. So is the confusion around it.
+          </h2>
+          <p className="mt-5 max-w-3xl text-base leading-relaxed text-[#526057]">
+            SIGNALWATCH is built around a simple belief: people should not need to be insiders to ask good questions about AI. A useful system should explain what it knows, show where that knowledge came from, and stay honest when it does not know enough.
+          </p>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-6xl px-5 py-12 md:px-8 md:py-16">
         <SectionHeader
           eyebrow="Choose your path"
@@ -135,6 +148,10 @@ export default function LandingPage() {
             <PathCard key={path.title} {...path} />
           ))}
         </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-12 md:px-8 md:pb-16">
+        <RealDegradationExamples />
       </section>
 
       <section className="bg-[#101711] py-12 text-signal-text md:py-16">
@@ -260,7 +277,7 @@ function EvidencePreview() {
 
   return (
     <div className="border border-[#d8e0d8] bg-[#f6f8f4] p-5">
-      <div className="border-b border-[#d8e0d8] pb-3 font-mono text-[0.66rem] uppercase text-[#3f6f4d]">evidence packet mindset</div>
+      <div className="border-b border-[#d8e0d8] pb-3 font-mono text-[0.66rem] uppercase text-[#3f6f4d]">how SIGNALWATCH reads claims</div>
       <div className="mt-5 space-y-3">
         {rows.map(([label, value, Icon]) => (
           <div key={label} className="grid grid-cols-[1.4rem_6.5rem_1fr] items-center gap-3 border border-[#dfe6de] bg-white px-3 py-3 font-mono text-[0.62rem] uppercase">
@@ -271,7 +288,7 @@ function EvidencePreview() {
         ))}
       </div>
       <p className="mt-5 text-sm leading-relaxed text-[#526057]">
-        The interface is designed so a reader can tell the difference between a helpful image, a source-backed claim, a conceptual diagram, and real model behavior.
+        The interface is designed so a reader can tell the difference between a helpful image, a claim with a source, a diagram, and real model behavior.
       </p>
     </div>
   );

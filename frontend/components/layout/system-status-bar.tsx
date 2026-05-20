@@ -2,7 +2,7 @@ const items = [
   "evidence-first",
   "no fabricated telemetry",
   "local perception inference",
-  "source-backed registry",
+  "source-linked registry",
   "unavailable states visible",
 ];
 

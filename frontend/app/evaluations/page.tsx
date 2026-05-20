@@ -6,6 +6,7 @@ import { Activity, AlertTriangle, Eye, Gauge, Network, ScanSearch, ShieldCheck, 
 import { fetchSafetySources } from "@/lib/api";
 import { EvidencePacketPreview } from "@/components/education/evidence-packet-preview";
 import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
+import { RealDegradationExamples } from "@/components/education/real-degradation-examples";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { SourceRegistryVisual } from "@/components/education/source-registry-visual";
 import { UnavailableStatesGallery } from "@/components/education/unavailable-states-gallery";
@@ -24,25 +25,25 @@ const evaluationLayers = [
   {
     icon: Gauge,
     title: "Evaluation reliability",
-    body: "Evaluation is not only a benchmark score. It includes coverage, deployment conditions, monitoring, failure visibility, and whether tests match real operating environments.",
+    body: "Evaluation is not only a score. It asks whether tests look like the real places where the AI system will be used.",
     evidence: ["OpenAI Preparedness Framework", "NIST AI RMF"],
   },
   {
     icon: Network,
-    title: "Distribution shift",
-    body: "Models can behave differently when inputs, tasks, users, tools, or operating contexts change from the conditions used during development and evaluation.",
+    title: "When the real world changes",
+    body: "Models can behave differently when images, tasks, users, tools, or settings are different from the examples used during development.",
     evidence: ["NIST AI RMF", "frontier-risk frameworks"],
   },
   {
     icon: AlertTriangle,
-    title: "Failure visibility",
-    body: "A robust system should expose missed detections, unstable confidence, disappearing objects, source drift, and uncertainty instead of hiding failure states.",
-    evidence: ["perception telemetry", "provenance surfaces"],
+    title: "Visible failures",
+    body: "A robust system should show missed detections, unstable confidence, disappearing objects, stale sources, and uncertainty instead of hiding them.",
+    evidence: ["model output history", "source links"],
   },
   {
     icon: Activity,
     title: "Monitoring requirements",
-    body: "Operational systems need instrumentation: source timestamps, collector health, confidence history, traceability, provenance, and observable degradation paths.",
+    body: "Real systems need timestamps, source links, model-output history, confidence history, and clear examples of what changed.",
     evidence: ["SIGNALWATCH console", "methodology boundary"],
   },
   {
@@ -84,7 +85,7 @@ export default function EvaluationsPage() {
             <span className="text-signal-muted">before they matter in the real world.</span>
           </h1>
           <p className="mt-7 max-w-3xl text-sm leading-relaxed text-signal-muted">
-            This page explains what SIGNALWATCH checks: degraded inputs, missed detections, unstable confidence, source provenance, and whether results are traceable to real evidence.
+            This page explains what SIGNALWATCH checks: degraded images, missed detections, unstable confidence, source links, and whether results trace back to real evidence.
           </p>
           <Link
             href="/learn/glossary"
@@ -101,13 +102,20 @@ export default function EvaluationsPage() {
         </section>
 
         <div className="mt-5">
+          <RealDegradationExamples
+            title="before and after: why evaluation gets hard"
+            description="These examples use real source photos to show how ordinary image quality problems can make AI behavior less reliable. They are visual examples only; detection boxes and confidence must still come from an actual model run."
+          />
+        </div>
+
+        <div className="mt-5">
           <OperationalBoundaryPanel title="evaluation evidence boundary" />
         </div>
 
         <section className="mt-5 grid gap-5 lg:grid-cols-[1.05fr_.95fr]">
           <Panel title="perception robustness interface" icon={ScanSearch} meta="real outputs only">
             <p className="text-sm leading-relaxed text-signal-muted">
-              The perception lab applies degradation to webcam or uploaded frames before browser-side COCO-SSD inference. Detection boxes, confidence traces, persistence, replay, and frame integrity are computed only from model outputs.
+              The perception lab changes webcam or uploaded frames before running browser-side COCO-SSD. Boxes, confidence, replay, and empty-frame counts are computed only from what the model actually reports.
             </p>
             <div className="mt-4 grid gap-2 font-mono text-[0.62rem] uppercase text-signal-dim sm:grid-cols-2">
               {["blur", "low light", "occlusion", "compression", "crop instability", "motion blur"].map((item) => (

@@ -52,7 +52,7 @@ export function OperationalSidebar({
     <aside className="border-b border-signal-line bg-signal-panel/95 px-4 py-5 backdrop-blur lg:fixed lg:inset-y-0 lg:left-0 lg:z-20 lg:w-[286px] lg:border-b-0 lg:border-r">
       <div className="border-b border-signal-line pb-4">
         <div className="text-lg font-semibold text-signal-text">SIGNALWATCH</div>
-        <div className="mt-1 text-sm leading-relaxed text-signal-muted">A live, source-backed view of AI safety, releases, policy, and robustness signals.</div>
+        <div className="mt-1 text-sm leading-relaxed text-signal-muted">A live view of AI safety, releases, policy, and robustness signals with sources attached.</div>
         <div className="mt-4 grid grid-cols-3 gap-2 font-mono text-[0.62rem] uppercase">
           <Link href="/start" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">start</Link>
           <Link href="/console" className="border border-signal-line px-2 py-1 text-signal-green/80 transition hover:border-signal-green/45">console</Link>

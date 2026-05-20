@@ -14,9 +14,9 @@ const surfaces: Array<{
   {
     icon: Activity,
     label: "1 / live console",
-    detail: "collector state, source movement, system rhythm",
+    detail: "what sources are updating and whether the system is healthy",
     href: "/console",
-    state: "runtime",
+    state: "live view",
   },
   {
     icon: Eye,
@@ -28,16 +28,16 @@ const surfaces: Array<{
   {
     icon: FileSearch,
     label: "3 / case studies",
-    detail: "repeatable degradation protocols and proof boundaries",
+    detail: "repeatable tests for blur, darkness, crops, and missed detections",
     href: "/case-studies",
     state: "protocol",
   },
   {
     icon: ShieldCheck,
     label: "4 / safety registry",
-    detail: "framework-backed safety and governance references",
+    detail: "safety and governance references with source links",
     href: "/safety",
-    state: "source-backed",
+    state: "sources",
   },
   {
     icon: Scale,

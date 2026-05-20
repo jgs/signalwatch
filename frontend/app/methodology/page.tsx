@@ -11,23 +11,23 @@ import { SystemStatusBar } from "@/components/layout/system-status-bar";
 const layers = [
   {
     icon: Database,
-    title: "real ecosystem data",
-    meta: "source-derived",
-    body: "Research papers, release movement, policy updates, safety posts, and alignment discourse are collected through explicit ingestion pipelines and normalized before becoming operational signals.",
-    examples: ["arXiv", "Anthropic / OpenAI releases", "Alignment Forum / LessWrong", "source-backed safety registry"],
+    title: "real AI source data",
+    meta: "from sources",
+    body: "Research papers, product releases, policy updates, safety posts, and forum discussions are collected with links and timestamps before they appear in the interface.",
+    examples: ["arXiv", "Anthropic / OpenAI releases", "Alignment Forum / LessWrong", "safety registry with sources"],
   },
   {
     icon: CircuitBoard,
-    title: "derived intelligence",
+    title: "summaries from real sources",
     meta: "computed from sources",
-    body: "High-level context is generated from aggregated source activity, tag frequency, source overlap, observation windows, confidence, and provenance. It is not invented headline generation.",
+    body: "Higher-level context is built from source activity, repeated topics, overlapping sources, time windows, and source links. It is not invented headline generation.",
     examples: ["source overlap", "tag frequency", "observation windows", "source traceability"],
   },
   {
     icon: Radio,
-    title: "operational telemetry",
-    meta: "runtime surface",
-    body: "Infrastructure telemetry describes the system's operational state. Latency, collector health, reconnects, heartbeats, and pressure rhythms may be simulated when they represent runtime behavior rather than factual ecosystem claims.",
+    title: "system health readings",
+    meta: "runtime state",
+    body: "System health readings describe whether SIGNALWATCH itself is connected and responding. Latency, collector health, reconnects, and heartbeats describe the app, not facts about the AI industry.",
     examples: ["collector latency", "websocket heartbeat", "retry counters", "system pressure"],
   },
   {
@@ -41,7 +41,7 @@ const layers = [
     icon: Waves,
     title: "browser-side perception",
     meta: "real model outputs",
-    body: "Computer vision confidence, detection boxes, temporal consistency, replay, evidence packets, and persistence telemetry come from browser-side COCO-SSD outputs. Missing detections remain missing.",
+    body: "Computer vision confidence, detection boxes, frame history, replay, and missing detections come from browser-side COCO-SSD outputs. Missing detections remain missing.",
     examples: ["webcam inference", "upload inference", "evidence packet", "confidence history"],
   },
   {
@@ -56,7 +56,7 @@ const layers = [
     title: "claim boundary",
     meta: "credibility rule",
     body: "SIGNALWATCH separates real data, derived context, conceptual explanation, and infrastructure telemetry so the interface can stay alive without fabricating intelligence.",
-    examples: ["source registry", "provenance panels", "evidence chains", "unavailable states"],
+    examples: ["source registry", "source labels", "evidence trail", "unavailable states"],
   },
 ];
 
@@ -75,7 +75,7 @@ export default function MethodologyPage() {
             <span className="text-signal-muted">derived, simulated, or conceptual.</span>
           </h1>
           <p className="mt-8 max-w-3xl text-sm leading-relaxed text-signal-muted">
-            The system is designed to feel alive without fabricating intelligence. This page defines the boundaries between source-backed ecosystem data, derived operational signals, runtime telemetry, and educational simulations.
+            The system is designed to feel useful without pretending to know more than it does. This page explains the difference between real source data, summaries built from sources, app health readings, and educational examples.
           </p>
           <Link
             href="/learn/glossary"
@@ -108,7 +108,7 @@ export default function MethodologyPage() {
             <div className="font-mono text-[0.6rem] uppercase text-signal-dim">real data stays traceable / missing data stays visible</div>
           </div>
           <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            <Boundary title="Ecosystem claims" text="Must be source-backed or derived from source-backed activity." />
+            <Boundary title="Claims about AI" text="Must come from a real source or from activity collected from real sources." />
             <Boundary title="Model confidence" text="Must come from actual browser-side inference outputs." />
             <Boundary title="Case studies" text="Must be reproducible from protocols and evidence packets, not prewritten analytics." />
             <Boundary title="Observation windows" text="Must describe timestamped collection, source overlap, recurrence, or model-output history." />
@@ -131,7 +131,7 @@ export default function MethodologyPage() {
             <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">plain-language guide</div>
             <h2 className="mt-4 text-2xl font-semibold text-signal-text">How LLM training fits this system</h2>
             <p className="mt-4 text-sm leading-relaxed text-signal-muted">
-              SIGNALWATCH monitors what happens after models are trained: real sources, outputs, failures, and evidence trails. The LLM guide explains the training path in simple terms.
+              SIGNALWATCH monitors what happens after models are trained: real sources, outputs, failures, and source trails. The LLM guide explains the training path in simple terms.
             </p>
             <Link
               href="/learn/llm-training"

@@ -33,7 +33,7 @@ const registry = [
     icon: ShieldCheck,
     label: "claim boundary",
     state: "enforced",
-    detail: "The system separates source-backed facts, derived context, conceptual demos, and unavailable states.",
+    detail: "The system separates facts with sources, summaries, conceptual demos, and unavailable states.",
     traces: ["no fabricated detections", "no prefilled metrics", "unavailable states"],
   },
 ];
