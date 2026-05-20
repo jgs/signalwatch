@@ -106,7 +106,7 @@ export function EvidencePacketPanel({
   return (
     <details className="border border-signal-line bg-signal-panel/70 p-3" open={frames.length > 0}>
       <summary className="cursor-pointer list-none font-mono text-[0.62rem] uppercase text-signal-green/75">
-        operational evidence packet
+        4 operational evidence packet
       </summary>
       <button
         type="button"

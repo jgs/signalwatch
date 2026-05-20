@@ -200,6 +200,7 @@ export default function LandingPage() {
           </div>
           <div className="flex flex-wrap gap-3 font-mono text-[0.62rem] uppercase text-[#526057]">
             <Link href="/methodology" className="transition hover:text-[#111b16]">methodology</Link>
+            <Link href="/evidence" className="transition hover:text-[#111b16]">evidence</Link>
             <Link href="/evaluations" className="transition hover:text-[#111b16]">evaluations</Link>
             <Link href="/safety" className="transition hover:text-[#111b16]">safety</Link>
             <Link href="/console" className="transition hover:text-[#111b16]">console</Link>
@@ -232,6 +233,7 @@ function Hero() {
             <Link href="/learn/glossary" className="transition hover:text-white">AI basics</Link>
             <Link href="/safety" className="transition hover:text-white">safety</Link>
             <Link href="/evaluations" className="transition hover:text-white">evaluations</Link>
+            <Link href="/evidence" className="transition hover:text-white">evidence</Link>
             <Link href="/market-stress" className="transition hover:text-white">market stress</Link>
             <Link href="/console" className="transition hover:text-white">console</Link>
           </div>

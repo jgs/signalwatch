@@ -17,7 +17,8 @@ export function DegradationControls({
   onChange: (value: DegradationState) => void;
 }) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 border border-signal-line bg-signal-panel/70 p-3">
+      <div className="font-mono text-[0.62rem] uppercase text-signal-green/75">2 apply operating stress</div>
       <Control label="blur" value={value.blur} setValue={(blur) => onChange({ ...value, blur })} max={8} />
       <Control label="low light" value={value.brightness} setValue={(brightness) => onChange({ ...value, brightness })} min={35} max={120} />
       <Control label="occlusion" value={value.occlusion} setValue={(occlusion) => onChange({ ...value, occlusion })} max={52} />

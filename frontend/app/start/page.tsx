@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Eye, FileSearch, Gauge, ShieldCheck } from "lucide-react";
+import { Activity, ArrowRight, BookOpen, Eye, FileSearch, Gauge, RadioTower, ShieldCheck, type LucideIcon } from "lucide-react";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
 import { OperationalCallouts } from "@/components/education/operational-callouts";
@@ -45,6 +45,51 @@ const route = [
   },
 ];
 
+const intents = [
+  {
+    href: "/console",
+    label: "Monitor live AI signals",
+    text: "Open source-backed updates, collector health, and runtime state.",
+    action: "open console",
+    icon: Activity,
+  },
+  {
+    href: "/evidence",
+    label: "Inspect provenance",
+    text: "Review source claims, runtime frames, telemetry snapshots, and unavailable states.",
+    action: "open ledger",
+    icon: FileSearch,
+  },
+  {
+    href: "/labs/perception",
+    label: "Test perception robustness",
+    text: "Upload an image, apply degradation, run real browser-side detection, and export a packet.",
+    action: "run lab",
+    icon: Eye,
+  },
+  {
+    href: "/safety",
+    label: "Review safety context",
+    text: "Read risks, alignment concepts, and policy references with sources attached.",
+    action: "review safety",
+    icon: ShieldCheck,
+  },
+  {
+    href: "/learn/glossary",
+    label: "Understand AI basics",
+    text: "Start with definitions before entering the operational surfaces.",
+    action: "learn terms",
+    icon: BookOpen,
+  },
+  {
+    href: "/systems",
+    label: "Check system boundaries",
+    text: "See what the runtime observes, what it derives, and what stays unavailable.",
+    action: "open systems",
+    icon: RadioTower,
+  },
+];
+
 const rules = [
   "SIGNALWATCH does not invent detections, confidence, incidents, or source claims.",
   "If a model emits no output, the interface shows that absence directly.",
@@ -62,21 +107,27 @@ export default function StartPage() {
         <header className="py-12 md:py-16">
           <div className="font-mono text-[0.72rem] uppercase tracking-[0.22em] text-signal-green/80">start here</div>
           <h1 className="mt-8 max-w-4xl text-4xl font-semibold leading-tight text-signal-text md:text-5xl">
-            New to SIGNALWATCH?
+            What do you want to inspect?
             <br />
-            <span className="text-signal-muted">Follow this path first.</span>
+            <span className="text-signal-muted">Choose the surface that matches the job.</span>
           </h1>
           <p className="mt-7 max-w-3xl text-sm leading-relaxed text-signal-muted">
-            SIGNALWATCH is an evidence-first interface for understanding AI safety signals, model behavior, perception failures, and operational monitoring. This page gives a simple route through the system.
+            SIGNALWATCH is easier to use when you enter with intent: monitor live signals, inspect evidence, test perception, or learn the underlying concepts.
           </p>
           <div className="mt-6">
             <OperationalCallouts compact />
           </div>
         </header>
 
-        <section className="grid gap-4 lg:grid-cols-[1fr_.75fr]">
+        <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+          {intents.map((intent) => (
+            <IntentCard key={intent.href} {...intent} />
+          ))}
+        </section>
+
+        <section className="mt-5 grid gap-4 lg:grid-cols-[1fr_.75fr]">
           <div className="console-panel p-5">
-            <div className="border-b border-signal-line/60 pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">recommended path</div>
+            <div className="border-b border-signal-line/60 pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">guided route for first-time users</div>
             <div className="mt-5 space-y-3">
               {route.map((item) => (
                 <Link key={item.href} href={item.href} className="group grid gap-3 border border-signal-line/70 bg-signal-panel2/52 p-4 transition hover:border-signal-green/45 md:grid-cols-[2rem_1fr_auto] md:items-center">
@@ -100,8 +151,8 @@ export default function StartPage() {
                 </div>
               ))}
             </div>
-            <Link href="/console" className="mt-5 inline-flex border border-signal-line bg-signal-panel2/60 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-signal-green/50">
-              open live console
+            <Link href="/evidence" className="mt-5 inline-flex border border-signal-line bg-signal-panel2/60 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-signal-green/50">
+              inspect evidence ledger
             </Link>
           </div>
         </section>
@@ -116,5 +167,34 @@ export default function StartPage() {
         <SystemStatusBar />
       </section>
     </main>
+  );
+}
+
+function IntentCard({
+  href,
+  label,
+  text,
+  action,
+  icon: Icon,
+}: {
+  href: string;
+  label: string;
+  text: string;
+  action: string;
+  icon: LucideIcon;
+}) {
+  return (
+    <Link href={href} className="group block border border-signal-line bg-signal-panel/78 p-5 transition hover:border-signal-green/45 hover:bg-signal-panel2/70">
+      <div className="flex items-start justify-between gap-4">
+        <Icon className="h-5 w-5 text-signal-green/75" />
+        <span className="font-mono text-[0.58rem] uppercase text-signal-dim transition group-hover:text-signal-green/80">{action}</span>
+      </div>
+      <h2 className="mt-6 text-lg font-semibold leading-snug text-signal-text">{label}</h2>
+      <p className="mt-3 text-sm leading-relaxed text-signal-muted">{text}</p>
+      <div className="mt-5 inline-flex items-center gap-2 font-mono text-[0.6rem] uppercase text-signal-green/75">
+        continue
+        <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-1" />
+      </div>
+    </Link>
   );
 }

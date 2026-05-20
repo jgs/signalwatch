@@ -56,10 +56,12 @@ export function OperationalSidebar({
         <div className="mt-4 grid grid-cols-3 gap-2 font-mono text-[0.62rem] uppercase">
           <Link href="/start" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">start</Link>
           <Link href="/console" className="border border-signal-line px-2 py-1 text-signal-green/80 transition hover:border-signal-green/45">console</Link>
+          <Link href="/evidence" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">ledger</Link>
+          <Link href="/timeline" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">timeline</Link>
+          <Link href="/labs/perception" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">vision</Link>
           <Link href="/safety" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">safety</Link>
           <Link href="/evaluations" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">tests</Link>
           <Link href="/labs" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">labs</Link>
-          <Link href="/timeline" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">timeline</Link>
           <Link href="/learn/llm-training" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">learn</Link>
           <Link href="/learn/glossary" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">glossary</Link>
           <Link href="/methodology" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">method</Link>

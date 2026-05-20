@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } from "react";
 import { motion } from "framer-motion";
-import { Camera, ImageIcon } from "lucide-react";
+import { Camera, FileJson, ImageIcon, Play, SlidersHorizontal, type LucideIcon } from "lucide-react";
 import { appendDetectionFrame, analyzeTemporalDetections, buildContinuityTransitions, observationWindow, type DetectionFrame } from "@/components/labs/inference/temporal-analysis";
 import { DegradationControls, type DegradationState } from "@/components/labs/degradation/degradation-controls";
 import { DegradationPresets, type DegradationPreset } from "@/components/labs/degradation/degradation-presets";
@@ -261,6 +261,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
 
   return (
     <div className="space-y-4">
+      <WorkflowStrip />
       <div className="grid gap-4 md:grid-cols-[1fr_.9fr]">
         <div className="relative min-h-72 overflow-hidden border border-signal-line bg-signal-panel2 md:min-h-[26rem]">
           <img ref={imageRef} src={imageUrl ?? ""} alt="" className="hidden" onLoad={() => void runInference()} />
@@ -303,7 +304,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
           </div>
           <label className="block border border-signal-line bg-signal-panel/70 p-4 font-mono text-[0.68rem] uppercase text-signal-dim transition hover:border-signal-green/45">
             <input className="sr-only" type="file" accept="image/*" onChange={(event) => onImageUpload(event.target.files?.[0])} />
-            upload image / real COCO-SSD inference
+            1 upload image / real COCO-SSD inference
           </label>
           <div className="border border-signal-line bg-signal-panel/70 p-3 font-mono text-[0.62rem] uppercase text-signal-dim">
             sample route / {sampleId ?? "none"} / detections remain model-reported only
@@ -332,7 +333,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
             disabled={state !== "ready" || (mode === "upload" && !imageUrl) || running}
             className="w-full border border-signal-line bg-signal-panel2 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-signal-green/60 disabled:cursor-not-allowed disabled:text-signal-dim"
           >
-            run inference frame
+            3 run inference frame
           </button>
         </div>
       </div>
@@ -353,6 +354,29 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
             : cvMessage ?? "Model inference remains unavailable until the browser model finishes loading."}{" "}
         Confidence values shown here come only from real model outputs.
       </div>
+    </div>
+  );
+}
+
+function WorkflowStrip() {
+  const steps = [
+    [ImageIcon, "1 input", "Upload an image or enable webcam."],
+    [SlidersHorizontal, "2 stress", "Apply blur, low light, crop, motion, or compression-like noise."],
+    [Play, "3 infer", "Run COCO-SSD locally and inspect only reported detections."],
+    [FileJson, "4 export", "Open the evidence packet and export JSON after real frames exist."],
+  ] satisfies Array<[LucideIcon, string, string]>;
+
+  return (
+    <div className="grid gap-2 md:grid-cols-4">
+      {steps.map(([Icon, label, text]) => (
+        <div key={label} className="border border-signal-line bg-signal-panel/70 p-3">
+          <div className="flex items-center gap-2 font-mono text-[0.6rem] uppercase text-signal-green/75">
+            <Icon className="h-3.5 w-3.5" />
+            {label}
+          </div>
+          <p className="mt-2 text-xs leading-relaxed text-signal-muted">{text}</p>
+        </div>
+      ))}
     </div>
   );
 }

@@ -8,27 +8,27 @@ const navGroups = [
       { href: "/console", label: "Live console", key: "console" },
       { href: "/timeline", label: "Timeline", key: "timeline" },
       { href: "/evidence", label: "Evidence ledger", key: "evidence" },
-    ],
-  },
-  {
-    label: "Learn",
-    key: "learn",
-    items: [
-      { href: "/learn/glossary", label: "AI basics", key: "glossary" },
-      { href: "/learn/llm-training", label: "LLM guide", key: "llm-training" },
-      { href: "/methodology", label: "Methodology", key: "methodology" },
-      { href: "/systems", label: "Systems", key: "systems" },
+      { href: "/systems", label: "Runtime systems", key: "systems" },
     ],
   },
   {
     label: "Evaluate",
     key: "evaluate",
     items: [
-      { href: "/evaluations", label: "Evaluations", key: "evaluations" },
-      { href: "/safety", label: "AI safety", key: "safety" },
-      { href: "/labs", label: "Labs", key: "labs" },
       { href: "/labs/perception", label: "Perception lab", key: "perception" },
+      { href: "/evaluations", label: "Evaluations", key: "evaluations" },
       { href: "/case-studies", label: "Case studies", key: "case-studies" },
+      { href: "/labs", label: "Labs", key: "labs" },
+    ],
+  },
+  {
+    label: "Understand",
+    key: "understand",
+    items: [
+      { href: "/learn/glossary", label: "AI basics", key: "glossary" },
+      { href: "/learn/llm-training", label: "LLM guide", key: "llm-training" },
+      { href: "/safety", label: "AI safety", key: "safety" },
+      { href: "/methodology", label: "Methodology", key: "methodology" },
     ],
   },
 ];
