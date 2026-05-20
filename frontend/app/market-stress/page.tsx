@@ -11,7 +11,6 @@ import {
   Scale,
   ServerCog,
   ShieldCheck,
-  TrendingUp,
   type LucideIcon,
 } from "lucide-react";
 import { OperationalNav } from "@/components/layout/operational-nav";
@@ -21,29 +20,33 @@ const stressSignals = [
   {
     icon: ServerCog,
     title: "infrastructure intensity",
+    plain: "How much money and energy is being spent to build the AI stack.",
     state: "watch",
-    body: "AI buildout pressure should be evaluated through disclosed cloud and data-center capex, accelerator supply, power availability, depreciation schedules, and utilization evidence.",
+    body: "Heavy spending is not automatically bad, but it becomes fragile if new data centers, chips, and power contracts are built faster than real demand appears.",
     evidence: ["hyperscaler capex", "data-center capacity", "accelerator supply", "power constraints"],
   },
   {
     icon: Banknote,
     title: "revenue conversion",
+    plain: "Whether AI usage turns into durable revenue and margin.",
     state: "unresolved",
-    body: "A bubble-risk view needs real revenue, renewal behavior, gross margin, inference cost, and customer retention. Product attention alone is not operational evidence.",
+    body: "The important question is simple: are customers paying enough, for long enough, to cover the cost of running the systems?",
     evidence: ["reported AI revenue", "gross margin", "renewals", "inference unit cost"],
   },
   {
     icon: Scale,
     title: "valuation pressure",
+    plain: "Whether market prices assume success before it is proven.",
     state: "external",
-    body: "Market pricing can outrun deployment reality. SIGNALWATCH should treat valuation stress as financial context, not as proof that the technology is useless or durable.",
+    body: "A company can be useful and still be overpriced. This page keeps financial excitement separate from evidence that AI is working in production.",
     evidence: ["multiples", "credit spreads", "funding rounds", "cash-flow visibility"],
   },
   {
     icon: Gauge,
     title: "deployment reality",
+    plain: "Whether AI is actually helping real workflows, not just demos.",
     state: "source-bound",
-    body: "Durability depends on whether AI systems move from pilots into measurable workflows with reproducible productivity, reliability, safety, and cost outcomes.",
+    body: "Durability improves when AI moves from pilot projects into repeatable work with measured productivity, reliability, safety, and cost outcomes.",
     evidence: ["production use", "audit trails", "error rates", "measured productivity"],
   },
 ];
@@ -53,6 +56,9 @@ const sourceFrames = [
     label: "IMF",
     title: "boom or bubble framing",
     date: "2026",
+    checked: "2026-05-20",
+    sourceType: "macro analysis",
+    confidence: "external framing",
     href: "https://www.imf.org/en/publications/fandd/issues/2026/03/point-of-view-ai-can-lift-global-growth-marcello-estevao",
     detail: "Frames the macro question as whether current AI investment becomes a lasting productivity boom or a short-lived investment bubble.",
   },
@@ -60,6 +66,9 @@ const sourceFrames = [
     label: "IEA",
     title: "hyperscaler capex context",
     date: "2026",
+    checked: "2026-05-20",
+    sourceType: "infrastructure data",
+    confidence: "source disclosed",
     href: "https://www.iea.org/data-and-statistics/charts/capital-expenditures-by-hyperscalers",
     detail: "Tracks hyperscaler capital expenditure as part of the wider energy and data-center infrastructure context around AI.",
   },
@@ -67,6 +76,9 @@ const sourceFrames = [
     label: "S&P Global",
     title: "inference economics",
     date: "2026",
+    checked: "2026-05-20",
+    sourceType: "market analysis",
+    confidence: "external analysis",
     href: "https://www.spglobal.com/market-intelligence/en/news-insights/research/2026/03/hyperscaler-earnings-quarterly-what-price-inference",
     detail: "Highlights that inference can become a large revenue source while still carrying significant infrastructure and operating costs.",
   },
@@ -74,31 +86,50 @@ const sourceFrames = [
     label: "Allianz Research",
     title: "AI bubble pressure monitor",
     date: "2026",
+    checked: "2026-05-20",
+    sourceType: "risk analysis",
+    confidence: "external analysis",
     href: "https://www.allianz.com/en/economic_research/insights/publications/specials_fmo/260325_ai-capex-cycle.html",
     detail: "Uses a market-risk lens for capex, sentiment, revenue trajectory, cash-flow visibility, and balance-sheet sensitivity.",
   },
 ];
 
 const boundaries = [
-  ["can show", "which public signals would support or weaken an AI bubble-risk thesis"],
-  ["can show", "where infrastructure spending, revenue conversion, and deployment evidence diverge"],
-  ["cannot claim", "that the industry is or is not a bubble without source-backed data and a defined method"],
-  ["cannot infer", "private model margins, utilization, customer outcomes, or cash-flow durability without real disclosures"],
+  ["can show", "which public signals would support or weaken the idea that AI is financially overheated"],
+  ["can show", "where spending, real customer value, and production adoption do not line up"],
+  ["cannot claim", "that the entire AI industry is or is not a bubble without source-backed data and a defined method"],
+  ["cannot infer", "private margins, real chip utilization, customer churn, or long-term cash flow without disclosures"],
 ];
 
 const decisionMatrix = [
   {
     title: "bubble pressure rises",
-    conditions: ["capex grows faster than monetization evidence", "inference costs remain opaque", "pilots do not become audited production workflows"],
+    simple: "Money is being spent faster than proof of durable value appears.",
+    conditions: ["spending grows faster than revenue evidence", "running costs remain unclear", "pilots do not become audited production workflows"],
   },
   {
     title: "durability improves",
-    conditions: ["AI workloads show repeatable productivity gains", "inference economics become transparent", "infrastructure utilization is backed by disclosed demand"],
+    simple: "The technology keeps being useful after the hype cools down.",
+    conditions: ["AI workloads show repeatable productivity gains", "running costs become transparent", "infrastructure use is backed by disclosed demand"],
   },
   {
     title: "mixed regime",
-    conditions: ["core infrastructure remains useful", "some vendors fail to convert usage into margin", "financial losses coexist with real technical adoption"],
+    simple: "Some AI infrastructure is real, while some business models may still break.",
+    conditions: ["core infrastructure remains useful", "some vendors fail to turn usage into profit", "financial losses coexist with real adoption"],
   },
+];
+
+const plainTerms = [
+  ["capex", "Money spent on long-lived assets such as data centers, chips, servers, and power infrastructure."],
+  ["inference", "The cost of running an AI model after it has been trained, such as answering prompts or analyzing images."],
+  ["margin", "The money left after paying the cost of delivering the product or service."],
+  ["utilization", "How much of the expensive AI infrastructure is actually being used by paying demand."],
+];
+
+const bubbleVsInfrastructure = [
+  ["bubble signal", "Prices, promises, and infrastructure spending run ahead of proven customer value."],
+  ["infrastructure signal", "Even if some companies are overpriced, the underlying systems keep solving real problems."],
+  ["unknown", "Private margins, customer retention, real productivity gains, and future demand are often not visible."],
 ];
 
 export default function MarketStressPage() {
@@ -121,9 +152,29 @@ export default function MarketStressPage() {
             <p className="mt-8 max-w-3xl text-sm leading-relaxed text-signal-muted">
               This surface treats the AI bubble debate as an evidence problem. It separates financial overheating, infrastructure durability, real deployment value, and unknowns that should remain unknown until source-backed data exists.
             </p>
+            <div className="mt-6 grid max-w-3xl gap-3 md:grid-cols-3">
+              {bubbleVsInfrastructure.map(([label, text]) => (
+                <div key={label} className="border-l border-[#24392c] bg-[#050806]/62 px-3 py-3">
+                  <div className="font-mono text-[0.58rem] uppercase text-signal-green/70">{label}</div>
+                  <p className="mt-2 text-sm leading-relaxed text-signal-muted">{text}</p>
+                </div>
+              ))}
+            </div>
           </div>
           <MarketStressGauge />
         </header>
+
+        <section className="mb-5 console-panel p-5">
+          <SectionLabel icon={FileSearch} label="plain-language lens" meta="for non-specialist readers" />
+          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {plainTerms.map(([term, definition]) => (
+              <div key={term} className="border border-[#101b15] bg-[#050806]/66 p-4">
+                <div className="font-mono text-[0.6rem] uppercase text-signal-green/70">{term}</div>
+                <p className="mt-2 text-sm leading-relaxed text-signal-muted">{definition}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {stressSignals.map((signal) => (
@@ -142,6 +193,11 @@ export default function MarketStressPage() {
                 </div>
                 <h2 className="mt-3 text-base font-semibold text-signal-text">{source.title}</h2>
                 <p className="mt-2 text-sm leading-relaxed text-signal-muted">{source.detail}</p>
+                <div className="mt-4 grid gap-2 font-mono text-[0.55rem] uppercase text-signal-dim sm:grid-cols-3">
+                  <span className="border-b border-[#101b15] pb-1">last checked / {source.checked}</span>
+                  <span className="border-b border-[#101b15] pb-1">source type / {source.sourceType}</span>
+                  <span className="border-b border-[#101b15] pb-1">status / {source.confidence}</span>
+                </div>
               </a>
             ))}
           </div>
@@ -166,6 +222,7 @@ export default function MarketStressPage() {
               {decisionMatrix.map((scenario) => (
                 <div key={scenario.title} className="border border-[#101b15] bg-[#050806]/68 p-4">
                   <div className="font-mono text-[0.62rem] uppercase text-signal-green/75">{scenario.title}</div>
+                  <p className="mt-2 text-sm leading-relaxed text-signal-muted">{scenario.simple}</p>
                   <div className="mt-3 grid gap-1 text-sm leading-relaxed text-signal-muted md:grid-cols-3">
                     {scenario.conditions.map((condition) => (
                       <div key={condition} className="border-b border-[#101b15] pb-1">{condition}</div>
@@ -235,12 +292,14 @@ function MarketStressGauge() {
 function SignalCard({
   icon: Icon,
   title,
+  plain,
   state,
   body,
   evidence,
 }: {
   icon: LucideIcon;
   title: string;
+  plain: string;
   state: string;
   body: string;
   evidence: string[];
@@ -254,6 +313,7 @@ function SignalCard({
         </div>
         <span className="border border-[#1a2b21] px-2 py-1 font-mono text-[0.54rem] uppercase text-signal-olive">{state}</span>
       </div>
+      <p className="mt-3 border-l border-[#24392c] bg-[#050806]/62 px-3 py-2 text-sm leading-relaxed text-signal-muted">{plain}</p>
       <p className="mt-4 text-sm leading-relaxed text-signal-muted">{body}</p>
       <div className="mt-4 space-y-1 font-mono text-[0.56rem] uppercase text-signal-dim">
         {evidence.map((item) => (
