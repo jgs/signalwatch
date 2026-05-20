@@ -44,7 +44,7 @@ export function SafetyCriticalContext() {
   return (
     <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
       {contexts.map(({ icon: Icon, label, text }) => (
-        <div key={label} className="border border-[#101b15] bg-[#050806]/70 p-4">
+        <div key={label} className="border border-signal-line bg-signal-panel/70 p-4">
           <div className="flex items-center gap-2 font-mono text-[0.64rem] uppercase text-signal-green/75">
             <Icon className="h-3.5 w-3.5" />
             {label}

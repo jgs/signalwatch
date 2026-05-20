@@ -71,7 +71,7 @@ export function OperationalSurfaceMap() {
             viewport={{ once: true }}
             transition={{ delay: index * 0.04, duration: 0.24 }}
           >
-            <Link href={href} className="block h-full border border-[#101b15] bg-[#050806]/66 p-3 transition hover:border-[#2f4a39]">
+            <Link href={href} className="block h-full border border-signal-line bg-signal-panel/66 p-3 transition hover:border-signal-green/45">
               <div className="flex items-center justify-between gap-2">
                 <Icon className="h-3.5 w-3.5 text-signal-green/72" />
                 <span className="border border-signal-line/70 px-1.5 py-0.5 font-mono text-[0.48rem] uppercase text-signal-dim">{state}</span>

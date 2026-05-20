@@ -38,11 +38,11 @@ export function MetricRail({
           animate={{
             opacity: 1,
             y: 0,
-            borderColor: pulseKey ? ["#1a2b21", "#2f4a39", "#1a2b21"] : "#1a2b21",
-            boxShadow: pulseKey ? ["0 24px 90px rgba(0,0,0,.28)", "0 0 28px rgba(137,227,173,.055)", "0 24px 90px rgba(0,0,0,.28)"] : "0 24px 90px rgba(0,0,0,.28)"
+            borderColor: pulseKey ? ["#d8e0d8", "#9ab39f", "#d8e0d8"] : "#d8e0d8",
+            boxShadow: pulseKey ? ["0 18px 70px rgba(17,27,22,.08)", "0 0 28px rgba(79,126,92,.08)", "0 18px 70px rgba(17,27,22,.08)"] : "0 18px 70px rgba(17,27,22,.08)"
           }}
           transition={{ delay: index * 0.025, duration: 0.9 }}
-          className="console-panel relative overflow-hidden p-3.5 transition hover:border-[#2f4a39]"
+          className="console-panel relative overflow-hidden p-3.5 transition hover:border-signal-green/45"
         >
           <motion.div
             className="absolute inset-x-0 top-0 h-px bg-signal-green/25"

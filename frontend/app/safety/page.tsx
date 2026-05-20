@@ -87,11 +87,11 @@ export default function SafetyPage() {
                   initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.04 }}
-                  className="border border-[#101b15] bg-[#050806]/70 p-4"
+                  className="border border-signal-line bg-signal-panel/70 p-4"
                 >
                   <div className="font-mono text-[0.72rem] uppercase text-signal-green/80">{risk.name}</div>
                   <p className="mt-3 text-sm leading-relaxed text-signal-muted">{risk.summary}</p>
-                  <p className="mt-3 text-sm leading-relaxed text-[#aeb8b1]">{risk.why_it_matters}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-signal-muted">{risk.why_it_matters}</p>
                   <div className="mt-4 space-y-1 font-mono text-[0.62rem] uppercase text-signal-dim">
                     {risk.mitigations.map((mitigation) => <div key={mitigation}>mitigation / {mitigation}</div>)}
                   </div>
@@ -122,7 +122,7 @@ export default function SafetyPage() {
             <div className="space-y-3 text-sm leading-relaxed text-signal-muted">
               <p>AI systems can become dangerous when the measured objective differs from what humans actually intended.</p>
               <p>Conceptual failure modes include specification gaming, reward hacking, deceptive behavior risk, autonomous tool use, evaluation gaps, and distribution shift.</p>
-              <p className="border-l border-[#24392c] bg-[#050806]/62 px-3 py-2 font-mono text-[0.68rem] uppercase text-signal-dim">
+              <p className="border-l border-signal-green/40 bg-signal-panel/62 px-3 py-2 font-mono text-[0.68rem] uppercase text-signal-dim">
                 These examples are educational abstractions, not claims about a specific deployed system.
               </p>
             </div>
@@ -134,7 +134,7 @@ export default function SafetyPage() {
           <SourceGraph sources={sources} />
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             {sources.map((source) => (
-              <a key={source.id} href={source.url} target="_blank" className="border border-[#101b15] bg-[#050806]/70 p-4 transition hover:border-[#2f4a39]">
+              <a key={source.id} href={source.url} target="_blank" className="border border-signal-line bg-signal-panel/70 p-4 transition hover:border-signal-green/45">
                 <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">{source.publisher} / {source.reliability}</div>
                 <div className="mt-3 text-sm font-semibold text-signal-text">{source.title}</div>
                 <p className="mt-2 text-sm leading-relaxed text-signal-muted">{source.summary}</p>
@@ -150,7 +150,7 @@ export default function SafetyPage() {
 function Panel({ title, icon: Icon, meta, children }: { title: string; icon: typeof Shield; meta: string; children: React.ReactNode }) {
   return (
     <section className="console-panel p-5">
-      <div className="flex items-center justify-between border-b border-[#101b15] pb-3">
+      <div className="flex items-center justify-between border-b border-signal-line pb-3">
         <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80"><Icon className="h-3.5 w-3.5" />{title}</div>
         <span className="font-mono text-[0.62rem] uppercase text-signal-dim">{meta}</span>
       </div>
@@ -161,7 +161,7 @@ function Panel({ title, icon: Icon, meta, children }: { title: string; icon: typ
 
 function Block({ title, meta, children }: { title: string; meta?: string; children: React.ReactNode }) {
   return (
-    <div className="border border-[#101b15] bg-[#050806]/70 p-4">
+    <div className="border border-signal-line bg-signal-panel/70 p-4">
       <div className="flex items-center justify-between gap-3">
         <h2 className="font-mono text-[0.74rem] uppercase text-signal-green/80">{title}</h2>
         {meta ? <span className="font-mono text-[0.62rem] uppercase text-signal-dim">{meta}</span> : null}
@@ -177,7 +177,7 @@ function Evidence({ evidence, sources }: { evidence: Array<{ source_id: string; 
       {evidence.map((item) => {
         const source = sources.get(item.source_id);
         return (
-          <details key={`${item.source_id}-${item.note}`} className="border-l border-[#1a2b21] pl-2">
+          <details key={`${item.source_id}-${item.note}`} className="border-l border-signal-line pl-2">
             <summary className="cursor-pointer list-none text-signal-dim">source / {source?.publisher ?? item.source_id} / {source?.reliability ?? "registry"}</summary>
             <div className="mt-1 text-signal-muted">{item.note}</div>
             {source ? <a href={source.url} target="_blank" className="mt-1 block text-signal-olive">{source.title}</a> : null}
@@ -201,7 +201,7 @@ function WhyPanel({ text, source }: { text: string; source: string }) {
 function SourceGraph({ sources }: { sources: SafetySource[] }) {
   if (!sources.length) return null;
   return (
-    <div className="mt-5 h-40 overflow-hidden border border-[#101b15] bg-[#050806]/70">
+    <div className="mt-5 h-40 overflow-hidden border border-signal-line bg-signal-panel/70">
       <svg viewBox="0 0 720 160" className="h-full w-full">
         <path d="M60 80H660" stroke="#1f3a2b" strokeWidth="1" strokeDasharray="4 10" />
         {sources.map((source, index) => {
@@ -216,7 +216,7 @@ function SourceGraph({ sources }: { sources: SafetySource[] }) {
           );
         })}
         <circle cx="360" cy="80" r="8" fill="#9aa56f" opacity="0.78" />
-        <text x="374" y="84" fill="#aeb8b1" fontSize="10" fontFamily="Consolas, monospace">SAFETY REGISTRY</text>
+        <text x="374" y="84" fill="#526057" fontSize="10" fontFamily="Consolas, monospace">SAFETY REGISTRY</text>
       </svg>
     </div>
   );
@@ -235,7 +235,7 @@ function List({ title, items }: { title: string; items: string[] }) {
 
 function SectionTitle({ title, meta }: { title: string; meta: string }) {
   return (
-    <div className="flex items-center justify-between border-b border-[#101b15] pb-3">
+    <div className="flex items-center justify-between border-b border-signal-line pb-3">
       <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">{title}</div>
       <span className="font-mono text-[0.62rem] uppercase text-signal-dim">{meta}</span>
     </div>

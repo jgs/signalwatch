@@ -20,7 +20,7 @@ export function CollectorHealth({ health }: { health: CollectorHealthType[] }) {
               initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.025 }}
-              className="border border-[#101b15] bg-[#050806] px-3 py-2"
+              className="border border-signal-line bg-signal-panel px-3 py-2"
             >
               <div className="flex items-center justify-between gap-3 font-mono text-[0.7rem]">
                 <span className="flex items-center gap-2 text-signal-muted">

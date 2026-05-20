@@ -50,7 +50,7 @@ export function UnavailableStatesGallery({ title = "unavailable states gallery" 
     <OperationalSection title={title} meta="absence is observable / absence is not guessed">
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {unavailableStates.map(({ icon: Icon, label, surface, detail }) => (
-          <article key={label} className="border border-[#101b15] bg-[#050806]/66 p-4">
+          <article key={label} className="border border-signal-line bg-signal-panel/66 p-4">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-2 font-mono text-[0.62rem] uppercase text-signal-green/78">
                 <Icon className="h-3.5 w-3.5" />

@@ -54,7 +54,7 @@ const principles = [
 
 export default function SystemsPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#030403] text-signal-text">
+    <main className="relative min-h-screen overflow-hidden bg-signal-black text-signal-text">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(71,108,81,0.10),transparent_28rem)]" />
       <div className="absolute inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(137,227,173,.28)_1px,transparent_1px),linear-gradient(90deg,rgba(137,227,173,.18)_1px,transparent_1px)] [background-size:44px_44px]" />
 
@@ -64,12 +64,12 @@ export default function SystemsPage() {
         <header className="grid gap-10 py-12 md:py-16 lg:grid-cols-[1.08fr_.92fr]">
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <div className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-signal-green/80">systems registry</div>
-            <h1 className="mt-9 max-w-4xl text-4xl font-semibold leading-tight text-[#eef4ef] md:text-6xl">
+            <h1 className="mt-9 max-w-4xl text-4xl font-semibold leading-tight text-signal-text md:text-6xl">
               Infrastructure surfaces
               <br />
               for evidence-aware
               <br />
-              <span className="text-[#aeb8b1]">AI observability.</span>
+              <span className="text-signal-muted">AI observability.</span>
             </h1>
             <p className="mt-8 max-w-2xl text-sm leading-relaxed text-signal-muted">
               This registry describes SIGNALWATCH architecture boundaries: what is ingested, what is observed at runtime, what is derived, and what must remain unavailable until real data exists.
@@ -90,7 +90,7 @@ export default function SystemsPage() {
           <SectionLabel icon={Boxes} label="technical substrate" meta="implementation registry" />
           <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {stack.map(([group, values]) => (
-              <div key={group} className="border border-[#101b15] bg-[#050806]/70 p-4">
+              <div key={group} className="border border-signal-line bg-signal-panel/70 p-4">
                 <div className="font-mono text-[0.66rem] uppercase text-signal-green/80">{group}</div>
                 <p className="mt-4 text-sm leading-relaxed text-signal-muted">{values}</p>
               </div>
@@ -106,7 +106,7 @@ export default function SystemsPage() {
           <SectionLabel icon={GitBranch} label="operating principles" meta="design constraints" />
           <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {principles.map(([title, text]) => (
-              <div key={title} className="border-l border-[#24392c] bg-[#050806]/62 px-3 py-3">
+              <div key={title} className="border-l border-signal-green/40 bg-signal-panel/62 px-3 py-3">
                 <div className="font-mono text-[0.6rem] uppercase text-signal-green/70">{title}</div>
                 <p className="mt-2 text-sm leading-relaxed text-signal-muted">{text}</p>
               </div>
@@ -140,19 +140,19 @@ function RegistryCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.05 }}
-      className="border border-[#101b15] bg-[#050806]/72 p-5 transition hover:border-[#2f4a39]"
+      className="border border-signal-line bg-signal-panel/72 p-5 transition hover:border-signal-green/45"
     >
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80">
           <Icon className="h-3.5 w-3.5" />
           {label}
         </div>
-        <div className="border border-[#1a2b21] px-2 py-1 font-mono text-[0.56rem] uppercase text-signal-olive">{state}</div>
+        <div className="border border-signal-line px-2 py-1 font-mono text-[0.56rem] uppercase text-signal-olive">{state}</div>
       </div>
       <p className="mt-4 text-sm leading-relaxed text-signal-muted">{detail}</p>
       <div className="mt-4 grid gap-1 font-mono text-[0.56rem] uppercase text-signal-dim sm:grid-cols-3">
         {traces.map((trace) => (
-          <div key={trace} className="border-b border-[#101b15] pb-1">trace / {trace}</div>
+          <div key={trace} className="border-b border-signal-line pb-1">trace / {trace}</div>
         ))}
       </div>
     </motion.article>
@@ -187,7 +187,7 @@ function Node({ x, y, r, label }: { x: number; y: number; r: number; label: stri
 
 function SectionLabel({ icon: Icon, label, meta }: { icon: LucideIcon; label: string; meta: string }) {
   return (
-    <div className="flex items-center justify-between gap-4 border-b border-[#101b15] pb-3">
+    <div className="flex items-center justify-between gap-4 border-b border-signal-line pb-3">
       <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80">
         <Icon className="h-3.5 w-3.5" />
         {label}

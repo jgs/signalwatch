@@ -26,15 +26,15 @@ export function RelationshipGraph({ graph }: { graph: RelationshipGraphType }) {
     <Panel>
       <PanelHeader title="semantic topology" meta={`${graph.nodes.length} nodes / ${graph.edges.length} links`} />
       <svg viewBox="0 0 340 252" className="h-[276px] w-full overflow-visible">
-        <rect width="340" height="252" fill="#050706" stroke="#101b15" />
+        <rect width="340" height="252" fill="#ffffff" stroke="#d8e0d8" />
         <defs>
           <radialGradient id="topologyWell" cx="50%" cy="48%" r="64%">
-            <stop offset="0%" stopColor="#102016" stopOpacity="0.34" />
-            <stop offset="100%" stopColor="#050706" stopOpacity="0" />
+            <stop offset="0%" stopColor="#e8f0e7" stopOpacity="0.72" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
           </radialGradient>
         </defs>
         <rect width="340" height="252" fill="url(#topologyWell)" />
-        <path d="M32 126 H308 M170 24 V226" stroke="#101b15" strokeWidth="0.6" strokeDasharray="2 8" opacity="0.72" />
+        <path d="M32 126 H308 M170 24 V226" stroke="#d8e0d8" strokeWidth="0.6" strokeDasharray="2 8" opacity="0.9" />
         {edges.map((edge, index) => {
           const source = byId.get(edge.source);
           const target = byId.get(edge.target);
@@ -47,7 +47,7 @@ export function RelationshipGraph({ graph }: { graph: RelationshipGraphType }) {
               y1={source.y}
               x2={target.x}
               y2={target.y}
-              stroke={active ? "#89e3ad" : "#1f3a2b"}
+              stroke={active ? "#3f6f4d" : "#9ab39f"}
               strokeOpacity={active ? 0.62 : 0.28}
               strokeWidth={active ? 0.9 : 0.55}
               initial={{ pathLength: 0.08, opacity: 0.12 }}
@@ -70,24 +70,24 @@ export function RelationshipGraph({ graph }: { graph: RelationshipGraphType }) {
               cy={node.y}
               r={nodeRadius(node.type)}
               fill={nodeFill(node.type)}
-              stroke={hovered?.id === node.id ? "#89e3ad" : "#2f4a39"}
+              stroke={hovered?.id === node.id ? "#3f6f4d" : "#9ab39f"}
               strokeWidth="1"
               opacity="0.92"
               animate={{ opacity: hovered?.id === node.id ? 1 : [0.72, 0.96, 0.72] }}
               transition={{ duration: node.type === "cluster" ? 3.8 : 5.8, repeat: Infinity, ease: "easeInOut" }}
             />
-            {node.type === "cluster" ? <circle cx={node.x} cy={node.y} r={nodeRadius(node.type) + 6} fill="none" stroke="#89e3ad" strokeOpacity="0.12" strokeDasharray="2 4" /> : null}
+            {node.type === "cluster" ? <circle cx={node.x} cy={node.y} r={nodeRadius(node.type) + 6} fill="none" stroke="#3f6f4d" strokeOpacity="0.22" strokeDasharray="2 4" /> : null}
           </motion.g>
         ))}
         {positioned.filter((node) => node.type === "cluster").slice(0, 3).map((node) => (
-          <text key={`${node.id}-label`} x={node.x + 9} y={node.y - 8} fill="#7f8b83" fontSize="9" fontFamily="Consolas, monospace">
+          <text key={`${node.id}-label`} x={node.x + 9} y={node.y - 8} fill="#526057" fontSize="9" fontFamily="Consolas, monospace">
             {node.label.slice(0, 22)}
           </text>
         ))}
         {hovered ? (
           <g>
-            <rect x="12" y="216" width="226" height="24" fill="#07100b" stroke="#1a2b21" />
-            <text x="20" y="231" fill="#aeb8b1" fontSize="9" fontFamily="Consolas, monospace">
+            <rect x="12" y="216" width="226" height="24" fill="#f6f8f4" stroke="#d8e0d8" />
+            <text x="20" y="231" fill="#526057" fontSize="9" fontFamily="Consolas, monospace">
               {hovered.type.toUpperCase()} :: {hovered.label.slice(0, 32)}
             </text>
           </g>

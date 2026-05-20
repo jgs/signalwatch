@@ -49,7 +49,7 @@ export function SignalCharts({
               </defs>
               <XAxis dataKey="slot" hide />
               <YAxis hide />
-              <Tooltip contentStyle={{ background: "#070a08", border: "1px solid #1a2b21", color: "#d8ded9" }} />
+              <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #d8e0d8", color: "#111b16" }} />
               <Area type="monotone" dataKey="value" stroke="#89e3ad" strokeWidth={2} fill="url(#signalFlow)" isAnimationActive />
               <Area type="monotone" dataKey="throughput" stroke="#9aa56f" strokeWidth={1.4} fill="transparent" isAnimationActive />
             </AreaChart>
@@ -69,7 +69,7 @@ export function SignalCharts({
             <LineChart data={acceleration}>
               <XAxis dataKey="slot" hide />
               <YAxis hide />
-              <Tooltip contentStyle={{ background: "#070a08", border: "1px solid #1a2b21", color: "#d8ded9" }} />
+              <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #d8e0d8", color: "#111b16" }} />
               <Line type="monotone" dataKey="value" stroke="#b6a16d" strokeWidth={2} dot={false} isAnimationActive />
             </LineChart>
           </ResponsiveContainer>
@@ -90,8 +90,8 @@ function SmallBarChart({ title, meta, data, dataKey }: { title: string; meta: st
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data} layout="vertical" margin={{ left: 0, right: 8, top: 0, bottom: 0 }}>
             <XAxis type="number" hide />
-            <YAxis type="category" dataKey={dataKey} width={88} tick={{ fill: "#7f8b83", fontSize: 11 }} axisLine={false} tickLine={false} />
-            <Tooltip contentStyle={{ background: "#070a08", border: "1px solid #1a2b21", color: "#d8ded9" }} />
+            <YAxis type="category" dataKey={dataKey} width={88} tick={{ fill: "#526057", fontSize: 11 }} axisLine={false} tickLine={false} />
+            <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #d8e0d8", color: "#111b16" }} />
             <Bar dataKey="value" fill="#9aa56f" radius={[0, 2, 2, 0]} isAnimationActive />
           </BarChart>
         </ResponsiveContainer>

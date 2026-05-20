@@ -56,7 +56,7 @@ export function DegradationPresets({
           key={preset.id}
           type="button"
           onClick={() => onSelect(preset)}
-          className={`border p-3 text-left transition ${active === preset.id ? "border-[#3e654c] bg-signal-green/10" : "border-[#101b15] bg-[#050806]/70 hover:border-[#2f4a39]"}`}
+          className={`border p-3 text-left transition ${active === preset.id ? "border-signal-green/60 bg-signal-green/10" : "border-signal-line bg-signal-panel/70 hover:border-signal-green/45"}`}
         >
           <div className="font-mono text-[0.6rem] uppercase text-signal-green/75">{preset.label}</div>
           <div className="mt-2 text-xs leading-relaxed text-signal-dim">{preset.summary}</div>

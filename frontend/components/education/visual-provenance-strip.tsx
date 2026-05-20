@@ -22,7 +22,7 @@ export function VisualProvenanceStrip({ compact = false }: { compact?: boolean }
   return (
     <div className={`grid gap-2 ${compact ? "md:grid-cols-3" : "sm:grid-cols-3"}`}>
       {provenanceItems.map(({ icon: Icon, label, value }) => (
-        <div key={label} className="flex min-w-0 items-center gap-2 border border-signal-line/70 bg-[#050806]/64 px-3 py-2">
+        <div key={label} className="flex min-w-0 items-center gap-2 border border-signal-line/70 bg-signal-panel/64 px-3 py-2">
           <Icon className="h-3.5 w-3.5 shrink-0 text-signal-green/70" />
           <div className="min-w-0">
             <div className="font-mono text-[0.52rem] uppercase text-signal-dim">{label}</div>

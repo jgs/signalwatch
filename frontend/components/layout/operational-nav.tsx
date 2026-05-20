@@ -81,7 +81,7 @@ function NavGroup({
         <span>{group.label}</span>
         {activeItem ? <span className="hidden text-[0.5rem] text-signal-dim/80 sm:inline">/ {activeItem.label}</span> : null}
       </summary>
-      <div className="absolute left-0 top-full z-30 mt-2 hidden min-w-56 border border-signal-line/80 bg-[#050806]/98 p-2 shadow-console group-open:grid">
+      <div className="absolute left-0 top-full z-30 mt-2 hidden min-w-56 border border-signal-line/80 bg-signal-panel/98 p-2 shadow-console group-open:grid">
         {group.items.map((item) => (
           <Link
             key={item.key}

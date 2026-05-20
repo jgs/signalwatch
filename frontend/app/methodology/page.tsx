@@ -62,17 +62,17 @@ const layers = [
 
 export default function MethodologyPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#030403] text-signal-text">
+    <main className="relative min-h-screen overflow-hidden bg-signal-black text-signal-text">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_66%_12%,rgba(71,108,81,0.11),transparent_30rem)]" />
       <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(rgba(137,227,173,.28)_1px,transparent_1px),linear-gradient(90deg,rgba(137,227,173,.18)_1px,transparent_1px)] [background-size:36px_36px]" />
       <section className="relative mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-12">
         <OperationalNav active="methodology" />
         <header className="py-12 md:py-16">
           <div className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-signal-green/80">methodology</div>
-          <h1 className="mt-9 max-w-4xl text-4xl font-semibold leading-tight text-[#eef4ef] md:text-6xl">
+          <h1 className="mt-9 max-w-4xl text-4xl font-semibold leading-tight text-signal-text md:text-6xl">
             What SIGNALWATCH treats as real,
             <br />
-            <span className="text-[#aeb8b1]">derived, simulated, or conceptual.</span>
+            <span className="text-signal-muted">derived, simulated, or conceptual.</span>
           </h1>
           <p className="mt-8 max-w-3xl text-sm leading-relaxed text-signal-muted">
             The system is designed to feel alive without fabricating intelligence. This page defines the boundaries between source-backed ecosystem data, derived operational signals, runtime telemetry, and educational simulations.
@@ -103,7 +103,7 @@ export default function MethodologyPage() {
         </div>
 
         <section className="mt-5 console-panel p-5">
-          <div className="flex flex-col justify-between gap-3 border-b border-[#101b15] pb-3 md:flex-row md:items-center">
+          <div className="flex flex-col justify-between gap-3 border-b border-signal-line pb-3 md:flex-row md:items-center">
             <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">operational rule</div>
             <div className="font-mono text-[0.6rem] uppercase text-signal-dim">real data stays traceable / missing data stays visible</div>
           </div>
@@ -135,7 +135,7 @@ export default function MethodologyPage() {
             </p>
             <Link
               href="/learn/llm-training"
-              className="mt-5 inline-flex border border-[#203528] bg-[#07100b] px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-[#3e654c]"
+              className="mt-5 inline-flex border border-signal-line bg-signal-panel2 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-signal-green/60"
             >
               open LLM guide
             </Link>
@@ -161,7 +161,7 @@ function MethodCard({
   examples: string[];
 }) {
   return (
-    <article className="border border-[#101b15] bg-[#050806]/70 p-5">
+    <article className="border border-signal-line bg-signal-panel/70 p-5">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80">
           <Icon className="h-3.5 w-3.5" />
@@ -181,7 +181,7 @@ function MethodCard({
 
 function Boundary({ title, text }: { title: string; text: string }) {
   return (
-    <div className="border-l border-[#24392c] bg-[#050806]/62 px-3 py-2">
+    <div className="border-l border-signal-green/40 bg-signal-panel/62 px-3 py-2">
       <div className="font-mono text-[0.6rem] uppercase text-signal-green/70">{title}</div>
       <p className="mt-1 text-sm leading-relaxed text-signal-muted">{text}</p>
     </div>

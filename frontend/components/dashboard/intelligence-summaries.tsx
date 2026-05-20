@@ -18,7 +18,7 @@ export function IntelligenceSummaries({ clusters, events }: { clusters: TrendClu
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.035 }}
-            className="border-l border-[#2f4a39] bg-[#050806] px-3 py-2"
+            className="border-l border-signal-green/45 bg-signal-panel px-3 py-2"
           >
             <div className="font-mono text-[0.66rem] uppercase text-signal-olive">{summary.title}</div>
             <div className="mt-1 text-[0.74rem] leading-relaxed text-signal-muted">{summary.body}</div>

@@ -7,17 +7,17 @@ const config: Config = {
     extend: {
       colors: {
         signal: {
-          black: "#080b09",
-          panel: "#0d120f",
-          panel2: "#111813",
-          line: "#243329",
-          text: "#edf3ee",
-          muted: "#a7b2aa",
-          dim: "#77857d",
-          green: "#9bd8b3",
-          olive: "#b7c49b",
-          amber: "#c8b77b",
-          danger: "#d08a8a"
+          black: "#f4f7f2",
+          panel: "#ffffff",
+          panel2: "#f6f8f4",
+          line: "#d8e0d8",
+          text: "#111b16",
+          muted: "#526057",
+          dim: "#748176",
+          green: "#3f6f4d",
+          olive: "#4f7e5c",
+          amber: "#9b7a2f",
+          danger: "#a85b5b"
         }
       },
       fontFamily: {
@@ -25,8 +25,8 @@ const config: Config = {
         sans: ["var(--font-sans)", "Inter", "system-ui", "sans-serif"]
       },
       boxShadow: {
-        console: "0 18px 70px rgba(0, 0, 0, 0.22)",
-        glow: "0 0 28px rgba(155, 216, 179, 0.08)"
+        console: "0 18px 70px rgba(17, 27, 22, 0.08)",
+        glow: "0 0 28px rgba(79, 126, 92, 0.08)"
       },
       keyframes: {
         breathe: {

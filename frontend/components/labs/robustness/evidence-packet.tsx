@@ -104,7 +104,7 @@ export function EvidencePacketPanel({
   }
 
   return (
-    <details className="border border-[#101b15] bg-[#050806]/70 p-3" open={frames.length > 0}>
+    <details className="border border-signal-line bg-signal-panel/70 p-3" open={frames.length > 0}>
       <summary className="cursor-pointer list-none font-mono text-[0.62rem] uppercase text-signal-green/75">
         operational evidence packet
       </summary>
@@ -112,7 +112,7 @@ export function EvidencePacketPanel({
         type="button"
         onClick={exportEvidence}
         disabled={!frames.length}
-        className="mt-3 border border-[#203528] bg-[#07100b] px-2 py-1 font-mono text-[0.58rem] uppercase text-signal-green/75 transition hover:border-[#3e654c] disabled:cursor-not-allowed disabled:border-[#101b15] disabled:text-signal-dim"
+        className="mt-3 border border-signal-line bg-signal-panel2 px-2 py-1 font-mono text-[0.58rem] uppercase text-signal-green/75 transition hover:border-signal-green/60 disabled:cursor-not-allowed disabled:border-signal-line disabled:text-signal-dim"
       >
         export json
       </button>
@@ -131,25 +131,25 @@ export function EvidencePacketPanel({
         <Readout label="window" value={cadence ? `${cadence.durationSeconds.toFixed(1)}s` : "pending"} />
         <Readout label="cadence jitter" value={cadence?.cadenceJitterSeconds === null || !cadence ? "pending" : `${cadence.cadenceJitterSeconds.toFixed(2)}s`} />
       </div>
-      <div className="mt-3 border-l border-[#24392c] px-3 py-2 text-sm leading-relaxed text-signal-muted">
+      <div className="mt-3 border-l border-signal-green/40 px-3 py-2 text-sm leading-relaxed text-signal-muted">
         {sequence
           ? `${sequence.title}: ${sequence.reproducibilityLevel} / ${sequence.assetStatus.replace("-", " ")}. ${sequence.reproducibilityNotes[0]}`
           : "No dataset sequence is selected. The export will record this as an ad hoc browser inference run."}
       </div>
-      <div className="mt-3 border-l border-[#24392c] px-3 py-2 text-sm leading-relaxed text-signal-muted">
+      <div className="mt-3 border-l border-signal-green/40 px-3 py-2 text-sm leading-relaxed text-signal-muted">
         {packet.observedClasses.length
           ? `Observed classes: ${packet.observedClasses.join(" / ")}. Values are derived from real model outputs in this session.`
           : "No model detections have been emitted yet. The packet remains empty instead of synthesizing evidence."}
       </div>
       <div className="mt-3 grid gap-2 md:grid-cols-3">
         {notes.map((note) => (
-          <div key={`${note.label}-${note.text}`} className="border-l border-[#18271d] bg-[#030403]/48 px-3 py-2">
+          <div key={`${note.label}-${note.text}`} className="border-l border-signal-line bg-signal-black/48 px-3 py-2">
             <div className="font-mono text-[0.56rem] uppercase text-signal-green/65">{note.label}</div>
             <p className="mt-1 text-xs leading-relaxed text-signal-muted">{note.text}</p>
           </div>
         ))}
       </div>
-      <div className="mt-3 border border-[#101b15] bg-[#030403]/35 p-3">
+      <div className="mt-3 border border-signal-line bg-signal-black/35 p-3">
         <div className="font-mono text-[0.56rem] uppercase text-signal-green/65">continuity transitions</div>
         <div className="mt-2 grid gap-2 md:grid-cols-2">
           {transitions.slice(-4).reverse().map((transition) => (
@@ -171,7 +171,7 @@ export function EvidencePacketPanel({
 
 function Readout({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-3 border-b border-[#101b15] pb-1">
+    <div className="flex items-center justify-between gap-3 border-b border-signal-line pb-1">
       <span>{label}</span>
       <span className="text-signal-muted">{value}</span>
     </div>

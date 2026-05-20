@@ -45,7 +45,7 @@ export function LandingVisualField() {
             {traceRows.map(([label, value], index) => (
               <motion.div
                 key={label}
-                className="grid gap-1 border-l border-signal-line/80 bg-[#050806]/70 px-3 py-2 font-mono text-[0.58rem] uppercase sm:grid-cols-[7.5rem_1fr] sm:gap-3"
+                className="grid gap-1 border-l border-signal-line/80 bg-signal-panel/70 px-3 py-2 font-mono text-[0.58rem] uppercase sm:grid-cols-[7.5rem_1fr] sm:gap-3"
                 initial={{ opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.46 + index * 0.07, duration: 0.28 }}

@@ -114,7 +114,7 @@ export default function CaseStudiesPage() {
           <OperationalSection title="case-study run sheet" meta="checklist structure / no prefilled run result" icon={ListChecks}>
             <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-5">
             {runSheet.map(([label, detail], index) => (
-              <div key={label} className="border border-[#101b15] bg-[#050806]/66 p-3">
+              <div key={label} className="border border-signal-line bg-signal-panel/66 p-3">
                 <div className="font-mono text-[0.56rem] uppercase text-signal-green/70">{String(index + 1).padStart(2, "0")} / {label}</div>
                 <p className="mt-2 text-xs leading-relaxed text-signal-muted">{detail}</p>
               </div>
@@ -132,7 +132,7 @@ export default function CaseStudiesPage() {
         </div>
 
         <section className="mt-5 console-panel p-5">
-          <div className="flex flex-col justify-between gap-3 border-b border-[#101b15] pb-3 md:flex-row md:items-center">
+          <div className="flex flex-col justify-between gap-3 border-b border-signal-line pb-3 md:flex-row md:items-center">
             <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80">
               <FileSearch className="h-3.5 w-3.5" />
               dataset sequence registry
@@ -141,7 +141,7 @@ export default function CaseStudiesPage() {
           </div>
           <div className="mt-5 grid gap-3 lg:grid-cols-2">
             {PERCEPTION_DATASET_SEQUENCES.map((sequence) => (
-              <div key={sequence.id} className="border border-[#101b15] bg-[#050806]/62 p-4">
+              <div key={sequence.id} className="border border-signal-line bg-signal-panel/62 p-4">
                 <div className="flex flex-col justify-between gap-2 md:flex-row md:items-center">
                   <div className="font-mono text-[0.62rem] uppercase text-signal-green/75">{sequence.scenarioType} / {sequence.assetStatus.replace("-", " ")}</div>
                   <div className="font-mono text-[0.56rem] uppercase text-signal-dim">{sequence.temporalProperties.minimumFrames} frame minimum</div>
@@ -150,7 +150,7 @@ export default function CaseStudiesPage() {
                 <p className="mt-2 text-sm leading-relaxed text-signal-muted">{sequence.operationalRelevance}</p>
                 <div className="mt-3 grid gap-1 font-mono text-[0.56rem] uppercase text-signal-dim sm:grid-cols-2">
                   {sequence.evidenceRequirements.slice(0, 4).map((item) => (
-                    <div key={item} className="border-b border-[#101b15] pb-1">{item}</div>
+                    <div key={item} className="border-b border-signal-line pb-1">{item}</div>
                   ))}
                 </div>
               </div>
@@ -160,13 +160,13 @@ export default function CaseStudiesPage() {
 
         <section className="mt-5 grid gap-5 lg:grid-cols-[.9fr_1.1fr]">
           <div className="console-panel p-5">
-            <div className="flex items-center gap-2 border-b border-[#101b15] pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">
+            <div className="flex items-center gap-2 border-b border-signal-line pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">
               <ListChecks className="h-3.5 w-3.5" />
               evidence protocol
             </div>
             <div className="mt-5 space-y-2">
               {protocol.map((step, index) => (
-                <div key={step} className="grid grid-cols-[2.2rem_1fr] gap-3 border-l border-[#18271d] bg-[#050806]/62 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-muted">
+                <div key={step} className="grid grid-cols-[2.2rem_1fr] gap-3 border-l border-signal-line bg-signal-panel/62 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-muted">
                   <span className="text-signal-green/70">{String(index + 1).padStart(2, "0")}</span>
                   <span>{step}</span>
                 </div>
@@ -175,13 +175,13 @@ export default function CaseStudiesPage() {
           </div>
 
           <div className="console-panel p-5">
-            <div className="flex items-center gap-2 border-b border-[#101b15] pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">
+            <div className="flex items-center gap-2 border-b border-signal-line pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">
               <ShieldCheck className="h-3.5 w-3.5" />
               proof boundary
             </div>
             <div className="mt-5 grid gap-3 md:grid-cols-2">
               {proofBoundary.map(([label, text]) => (
-                <div key={`${label}-${text}`} className="border border-[#101b15] bg-[#050806]/62 p-3">
+                <div key={`${label}-${text}`} className="border border-signal-line bg-signal-panel/62 p-3">
                   <div className="font-mono text-[0.58rem] uppercase text-signal-green/70">{label}</div>
                   <p className="mt-2 text-sm leading-relaxed text-signal-muted">{text}</p>
                 </div>
@@ -199,7 +199,7 @@ export default function CaseStudiesPage() {
         </div>
 
         <section className="mt-5 console-panel p-5">
-          <div className="flex items-center gap-2 border-b border-[#101b15] pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">
+          <div className="flex items-center gap-2 border-b border-signal-line pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">
             <ShieldCheck className="h-3.5 w-3.5" />
             reproducibility boundary
           </div>
@@ -208,7 +208,7 @@ export default function CaseStudiesPage() {
           </p>
           <div className="mt-5 grid gap-2 font-mono text-[0.6rem] uppercase text-signal-dim sm:grid-cols-2 lg:grid-cols-4">
             {packetFields.map((field) => (
-              <div key={field} className="border-b border-[#101b15] pb-1">{field}</div>
+              <div key={field} className="border-b border-signal-line pb-1">{field}</div>
             ))}
           </div>
         </section>
@@ -234,7 +234,7 @@ function CaseCard({
   evidence: string[];
 }) {
   return (
-    <article className="border border-[#101b15] bg-[#050806]/70 p-5 transition hover:border-[#24392c]">
+    <article className="border border-signal-line bg-signal-panel/70 p-5 transition hover:border-signal-green/40">
       <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80">
         <FileSearch className="h-3.5 w-3.5" />
         {scenario}
@@ -246,16 +246,16 @@ function CaseCard({
       <div className="mt-4">
         <Block icon={ListChecks} title="required record" items={record} />
       </div>
-      <div className="mt-4 border-l border-[#24392c] bg-[#050806]/62 px-3 py-2">
+      <div className="mt-4 border-l border-signal-green/40 bg-signal-panel/62 px-3 py-2">
         <div className="font-mono text-[0.6rem] uppercase text-signal-green/70">proof boundary</div>
         <p className="mt-1 text-sm leading-relaxed text-signal-muted">{boundary}</p>
       </div>
       <div className="mt-4 flex flex-wrap gap-1.5 font-mono text-[0.58rem] uppercase text-signal-dim">
         {evidence.map((item) => (
-          <span key={item} className="border border-[#101b15] bg-[#07100b]/70 px-1.5 py-1">{item}</span>
+          <span key={item} className="border border-signal-line bg-signal-panel2/70 px-1.5 py-1">{item}</span>
         ))}
       </div>
-      <Link href="/labs/perception" className="mt-5 inline-flex border border-[#203528] bg-[#07100b] px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-[#3e654c]">
+      <Link href="/labs/perception" className="mt-5 inline-flex border border-signal-line bg-signal-panel2 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-signal-green/60">
         run protocol
       </Link>
     </article>

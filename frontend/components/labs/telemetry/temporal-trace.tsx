@@ -16,12 +16,12 @@ export function TemporalTrace({ frames, metrics }: { frames: DetectionFrame[]; m
 
   return (
     <div className="space-y-4">
-      <div className="border border-[#101b15] bg-[#050806]/70 p-3">
+      <div className="border border-signal-line bg-signal-panel/70 p-3">
         <div className="mb-3 flex items-center justify-between font-mono text-[0.62rem] uppercase text-signal-dim">
           <span>temporal confidence trace</span>
           <span>{frames.length} frames{cadence ? ` / ${cadence.cadenceSeconds.toFixed(1)}s cadence` : ""}</span>
         </div>
-        <div className="flex h-16 items-end gap-1 border border-[#122219] bg-[#030403] p-2">
+        <div className="flex h-16 items-end gap-1 border border-signal-line bg-signal-black p-2">
           {recentFrames.map((frame, index) => {
             const point = meanConfidence(frame.detections);
             const previous = recentFrames[index - 1];
@@ -49,12 +49,12 @@ export function TemporalTrace({ frames, metrics }: { frames: DetectionFrame[]; m
           <TraceReadout label="transitions" value={String(transitions.length)} />
         </div>
       </div>
-      <div className="border border-[#101b15] bg-[#050806]/60 p-3">
+      <div className="border border-signal-line bg-signal-panel/60 p-3">
         <div className="mb-3 font-mono text-[0.62rem] uppercase text-signal-green/70">continuity markers</div>
         <div className="grid gap-2 md:grid-cols-2">
           {recentTransitions.length ? (
             recentTransitions.map((transition) => (
-              <div key={`${transition.timestamp}-${transition.index}`} className="border-l border-[#273d2f] bg-[#030403]/45 px-3 py-2">
+              <div key={`${transition.timestamp}-${transition.index}`} className="border-l border-signal-green/40 bg-signal-black/45 px-3 py-2">
                 <div className="font-mono text-[0.56rem] uppercase text-signal-green/65">
                   frame {transition.index + 1} / {transition.kind.replace("-", " ")}
                 </div>
@@ -70,12 +70,12 @@ export function TemporalTrace({ frames, metrics }: { frames: DetectionFrame[]; m
           )}
         </div>
       </div>
-      <div className="border border-[#101b15] bg-[#050806]/60 p-3">
+      <div className="border border-signal-line bg-signal-panel/60 p-3">
         <div className="mb-3 font-mono text-[0.62rem] uppercase text-signal-green/70">class persistence windows</div>
         <div className="grid gap-2 md:grid-cols-2">
           {persistenceWindows.length ? (
             persistenceWindows.map((window) => (
-              <div key={`${window.className}-${window.firstFrameIndex}-${window.lastFrameIndex}`} className="border-l border-[#273d2f] bg-[#030403]/45 px-3 py-2">
+              <div key={`${window.className}-${window.firstFrameIndex}-${window.lastFrameIndex}`} className="border-l border-signal-green/40 bg-signal-black/45 px-3 py-2">
                 <div className="font-mono text-[0.56rem] uppercase text-signal-green/65">{window.className}</div>
                 <p className="mt-1 text-xs leading-relaxed text-signal-muted">
                   frames {window.firstFrameIndex + 1}-{window.lastFrameIndex + 1} / {window.frameCount} observed / confidence {window.meanConfidence === null ? "unavailable" : Math.round(window.meanConfidence * 100)}
@@ -89,7 +89,7 @@ export function TemporalTrace({ frames, metrics }: { frames: DetectionFrame[]; m
       </div>
       <div className="grid gap-3 md:grid-cols-2">
         {metrics.map((metric) => (
-          <div key={metric.label} title={metric.detail} className="border border-[#101b15] bg-[#050806]/52 p-3">
+          <div key={metric.label} title={metric.detail} className="border border-signal-line bg-signal-panel/52 p-3">
             <ConfidenceRail label={metric.label} value={metric.value ?? 0} unavailable={metric.value === null} />
             <div className="mt-2 font-mono text-[0.56rem] uppercase text-signal-dim">{metric.detail}</div>
           </div>
@@ -101,7 +101,7 @@ export function TemporalTrace({ frames, metrics }: { frames: DetectionFrame[]; m
 
 function TraceReadout({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-3 border-b border-[#101b15] pb-1">
+    <div className="flex items-center justify-between gap-3 border-b border-signal-line pb-1">
       <span>{label}</span>
       <span className="text-signal-muted">{value}</span>
     </div>

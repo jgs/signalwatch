@@ -54,16 +54,16 @@ export function OperationalSidebar({
         <div className="text-lg font-semibold text-signal-text">SIGNALWATCH</div>
         <div className="mt-1 text-sm leading-relaxed text-signal-muted">A live, source-backed view of AI safety, releases, policy, and robustness signals.</div>
         <div className="mt-4 grid grid-cols-3 gap-2 font-mono text-[0.62rem] uppercase">
-          <Link href="/start" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">start</Link>
-          <Link href="/console" className="border border-[#101b15] px-2 py-1 text-signal-green/80 transition hover:border-[#2f4a39]">console</Link>
-          <Link href="/safety" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">safety</Link>
-          <Link href="/evaluations" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">tests</Link>
-          <Link href="/labs" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">labs</Link>
-          <Link href="/timeline" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">timeline</Link>
-          <Link href="/learn/llm-training" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">learn</Link>
-          <Link href="/learn/glossary" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">glossary</Link>
-          <Link href="/methodology" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">method</Link>
-          <Link href="/systems" className="border border-[#101b15] px-2 py-1 text-signal-muted transition hover:border-[#2f4a39] hover:text-signal-text">systems</Link>
+          <Link href="/start" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">start</Link>
+          <Link href="/console" className="border border-signal-line px-2 py-1 text-signal-green/80 transition hover:border-signal-green/45">console</Link>
+          <Link href="/safety" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">safety</Link>
+          <Link href="/evaluations" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">tests</Link>
+          <Link href="/labs" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">labs</Link>
+          <Link href="/timeline" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">timeline</Link>
+          <Link href="/learn/llm-training" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">learn</Link>
+          <Link href="/learn/glossary" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">glossary</Link>
+          <Link href="/methodology" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">method</Link>
+          <Link href="/systems" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">systems</Link>
         </div>
       </div>
 
@@ -83,7 +83,7 @@ export function OperationalSidebar({
               >
                 <span className="flex min-w-0 items-center gap-2">
                   <motion.span
-                    className={cn("relative h-2 w-2 rounded-full border border-[#213629] bg-[#07100b]", count > 0 && "border-signal-green/50 bg-signal-green/80")}
+                    className={cn("relative h-2 w-2 rounded-full border border-signal-line bg-signal-panel2", count > 0 && "border-signal-green/50 bg-signal-green/80")}
                     animate={count > 0 ? { opacity: [0.48, 1, 0.48], scale: [0.92, 1, 0.92] } : { opacity: 0.42, scale: 0.86 }}
                     transition={{ duration: 2.8 + (source.length % 4) * 0.35, repeat: count > 0 ? Infinity : 0, ease: "easeInOut" }}
                   />
@@ -94,7 +94,7 @@ export function OperationalSidebar({
             );
           })}
         </div>
-        <details className="mt-3 border-t border-[#101b15] pt-3 font-mono text-[0.64rem] text-signal-dim">
+        <details className="mt-3 border-t border-signal-line pt-3 font-mono text-[0.64rem] text-signal-dim">
           <summary className="cursor-pointer list-none text-signal-muted">more sources / {activeSources.length} monitored</summary>
           <div className="mt-2 space-y-1">
             {activeSources.slice(6).map((source) => (
@@ -149,7 +149,7 @@ function SidebarSection({
   children: ReactNode;
 }) {
   return (
-    <section className="mt-4 border-t border-[#101b15] pt-3">
+    <section className="mt-4 border-t border-signal-line pt-3">
       <div className="mb-2 flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-dim">
         <Icon className="h-3.5 w-3.5 text-signal-olive" />
         {title}
@@ -176,8 +176,8 @@ function TopicPill({ active, children, onClick }: { active: boolean; children: R
     <button
       onClick={onClick}
       className={cn(
-        "border border-[#101b15] bg-[#050806] px-1.5 py-1 font-mono text-[0.6rem] text-signal-dim transition hover:border-[#2f4a39] hover:text-signal-text",
-        active && "border-[#2f4a39] text-signal-green"
+        "border border-signal-line bg-signal-panel px-1.5 py-1 font-mono text-[0.6rem] text-signal-dim transition hover:border-signal-green/45 hover:text-signal-text",
+        active && "border-signal-green/45 text-signal-green"
       )}
     >
       {children}

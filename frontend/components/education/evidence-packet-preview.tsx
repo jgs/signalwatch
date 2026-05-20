@@ -28,14 +28,14 @@ export function EvidencePacketPreview({ title = "evidence packet preview" }: { t
       <div className="grid gap-5 lg:grid-cols-[.95fr_1.05fr]">
         <div className="grid gap-2">
           {packetRows.map(([field, rule]) => (
-            <div key={field} className="grid gap-1 border-l border-[#24392c] bg-[#050806]/62 px-3 py-2 sm:grid-cols-[9.5rem_1fr] sm:gap-3">
+            <div key={field} className="grid gap-1 border-l border-signal-green/40 bg-signal-panel/62 px-3 py-2 sm:grid-cols-[9.5rem_1fr] sm:gap-3">
               <div className="font-mono text-[0.58rem] uppercase text-signal-green/72">{field}</div>
               <div className="text-sm leading-relaxed text-signal-muted">{rule}</div>
             </div>
           ))}
         </div>
-        <div className="relative overflow-hidden border border-[#101b15] bg-[#030503] p-4">
-          <div className="mb-3 flex items-center gap-2 border-b border-[#101b15] pb-3 font-mono text-[0.58rem] uppercase text-signal-dim">
+        <div className="relative overflow-hidden border border-signal-line bg-[#030503] p-4">
+          <div className="mb-3 flex items-center gap-2 border-b border-signal-line pb-3 font-mono text-[0.58rem] uppercase text-signal-dim">
             <Braces className="h-3.5 w-3.5 text-signal-green/70" />
             non-populated export shape
           </div>

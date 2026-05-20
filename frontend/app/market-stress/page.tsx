@@ -135,7 +135,7 @@ const bubbleVsInfrastructure = [
 
 export default function MarketStressPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#030403] text-signal-text">
+    <main className="relative min-h-screen overflow-hidden bg-signal-black text-signal-text">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_12%,rgba(71,108,81,0.12),transparent_30rem)]" />
       <div className="absolute inset-0 opacity-[0.04] [background-image:linear-gradient(rgba(137,227,173,.22)_1px,transparent_1px),linear-gradient(90deg,rgba(137,227,173,.14)_1px,transparent_1px)] [background-size:42px_42px]" />
 
@@ -145,17 +145,17 @@ export default function MarketStressPage() {
         <header className="grid gap-8 py-12 md:py-16 lg:grid-cols-[1.08fr_.92fr]">
           <div>
             <div className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-signal-green/80">market stress</div>
-            <h1 className="mt-9 max-w-4xl text-4xl font-semibold leading-tight text-[#eef4ef] md:text-6xl">
+            <h1 className="mt-9 max-w-4xl text-4xl font-semibold leading-tight text-signal-text md:text-6xl">
               AI bubble risk,
               <br />
-              <span className="text-[#aeb8b1]">without theatrical certainty.</span>
+              <span className="text-signal-muted">without theatrical certainty.</span>
             </h1>
             <p className="mt-8 max-w-3xl text-sm leading-relaxed text-signal-muted">
               This surface treats the AI bubble debate as an evidence problem. It separates financial overheating, infrastructure durability, real deployment value, and unknowns that should remain unknown until source-backed data exists.
             </p>
             <div className="mt-6 grid max-w-3xl gap-3 md:grid-cols-3">
               {bubbleVsInfrastructure.map(([label, text]) => (
-                <div key={label} className="border-l border-[#24392c] bg-[#050806]/62 px-3 py-3">
+                <div key={label} className="border-l border-signal-green/40 bg-signal-panel/62 px-3 py-3">
                   <div className="font-mono text-[0.58rem] uppercase text-signal-green/70">{label}</div>
                   <p className="mt-2 text-sm leading-relaxed text-signal-muted">{text}</p>
                 </div>
@@ -169,7 +169,7 @@ export default function MarketStressPage() {
           <SectionLabel icon={FileSearch} label="plain-language lens" meta="for non-specialist readers" />
           <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {plainTerms.map(([term, definition]) => (
-              <div key={term} className="border border-[#101b15] bg-[#050806]/66 p-4">
+              <div key={term} className="border border-signal-line bg-signal-panel/66 p-4">
                 <div className="font-mono text-[0.6rem] uppercase text-signal-green/70">{term}</div>
                 <p className="mt-2 text-sm leading-relaxed text-signal-muted">{definition}</p>
               </div>
@@ -182,7 +182,7 @@ export default function MarketStressPage() {
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-signal-muted">
             The AI bubble debate is not only software. It touches buildings, chips, electricity, cooling, financing, and ordinary workflows. This image is visual context only: it does not report SIGNALWATCH telemetry, market data, utilization, or model performance.
           </p>
-          <div className="mt-5 overflow-hidden border border-[#101b15] bg-[#050806]/70">
+          <div className="mt-5 overflow-hidden border border-signal-line bg-signal-panel/70">
             <img
               src="/visual-context/ai-infrastructure-context.png"
               alt="Operational AI infrastructure context showing a data center, server racks, power equipment, and workplace monitors."
@@ -191,10 +191,10 @@ export default function MarketStressPage() {
             />
           </div>
           <div className="mt-3 grid gap-2 font-mono text-[0.56rem] uppercase text-signal-dim sm:grid-cols-4">
-            <span className="border-b border-[#101b15] pb-1">context / data center</span>
-            <span className="border-b border-[#101b15] pb-1">context / compute rack</span>
-            <span className="border-b border-[#101b15] pb-1">context / power grid</span>
-            <span className="border-b border-[#101b15] pb-1">context / workflow</span>
+            <span className="border-b border-signal-line pb-1">context / data center</span>
+            <span className="border-b border-signal-line pb-1">context / compute rack</span>
+            <span className="border-b border-signal-line pb-1">context / power grid</span>
+            <span className="border-b border-signal-line pb-1">context / workflow</span>
           </div>
         </section>
 
@@ -212,7 +212,7 @@ export default function MarketStressPage() {
           <SectionLabel icon={FileSearch} label="reference frame" meta="external sources / not live telemetry" />
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             {sourceFrames.map((source) => (
-              <a key={source.title} href={source.href} target="_blank" rel="noreferrer" className="block border border-[#101b15] bg-[#050806]/70 p-4 transition hover:border-[#2f4a39]">
+              <a key={source.title} href={source.href} target="_blank" rel="noreferrer" className="block border border-signal-line bg-signal-panel/70 p-4 transition hover:border-signal-green/45">
                 <div className="flex items-center justify-between gap-3">
                   <div className="font-mono text-[0.62rem] uppercase text-signal-green/75">{source.label} / {source.date}</div>
                   <span className="font-mono text-[0.56rem] uppercase text-signal-dim">inspect source</span>
@@ -220,9 +220,9 @@ export default function MarketStressPage() {
                 <h2 className="mt-3 text-base font-semibold text-signal-text">{source.title}</h2>
                 <p className="mt-2 text-sm leading-relaxed text-signal-muted">{source.detail}</p>
                 <div className="mt-4 grid gap-2 font-mono text-[0.55rem] uppercase text-signal-dim sm:grid-cols-3">
-                  <span className="border-b border-[#101b15] pb-1">last checked / {source.checked}</span>
-                  <span className="border-b border-[#101b15] pb-1">source type / {source.sourceType}</span>
-                  <span className="border-b border-[#101b15] pb-1">status / {source.confidence}</span>
+                  <span className="border-b border-signal-line pb-1">last checked / {source.checked}</span>
+                  <span className="border-b border-signal-line pb-1">source type / {source.sourceType}</span>
+                  <span className="border-b border-signal-line pb-1">status / {source.confidence}</span>
                 </div>
               </a>
             ))}
@@ -234,7 +234,7 @@ export default function MarketStressPage() {
             <SectionLabel icon={ShieldCheck} label="claim boundary" meta="no fabricated conclusion" />
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               {boundaries.map(([label, text]) => (
-                <div key={`${label}-${text}`} className="border-l border-[#24392c] bg-[#050806]/62 px-3 py-3">
+                <div key={`${label}-${text}`} className="border-l border-signal-green/40 bg-signal-panel/62 px-3 py-3">
                   <div className="font-mono text-[0.58rem] uppercase text-signal-green/70">{label}</div>
                   <p className="mt-2 text-sm leading-relaxed text-signal-muted">{text}</p>
                 </div>
@@ -246,12 +246,12 @@ export default function MarketStressPage() {
             <SectionLabel icon={Landmark} label="interpretation matrix" meta="scenario discipline" />
             <div className="mt-5 space-y-3">
               {decisionMatrix.map((scenario) => (
-                <div key={scenario.title} className="border border-[#101b15] bg-[#050806]/68 p-4">
+                <div key={scenario.title} className="border border-signal-line bg-signal-panel/68 p-4">
                   <div className="font-mono text-[0.62rem] uppercase text-signal-green/75">{scenario.title}</div>
                   <p className="mt-2 text-sm leading-relaxed text-signal-muted">{scenario.simple}</p>
                   <div className="mt-3 grid gap-1 text-sm leading-relaxed text-signal-muted md:grid-cols-3">
                     {scenario.conditions.map((condition) => (
-                      <div key={condition} className="border-b border-[#101b15] pb-1">{condition}</div>
+                      <div key={condition} className="border-b border-signal-line pb-1">{condition}</div>
                     ))}
                   </div>
                 </div>
@@ -268,8 +268,8 @@ export default function MarketStressPage() {
             <Requirement title="confidence labels" text="Unknown, contested, estimated, disclosed, and computed values should be visually distinct." />
             <Requirement title="time windows" text="Trend claims require explicit comparison windows and must not imply live monitoring without ingestion." />
           </div>
-          <div className="mt-5 border-t border-[#101b15] pt-4">
-            <Link href="/methodology" className="inline-flex border border-[#203528] bg-[#07100b] px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-[#3e654c]">
+          <div className="mt-5 border-t border-signal-line pt-4">
+            <Link href="/methodology" className="inline-flex border border-signal-line bg-signal-panel2 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-signal-green/60">
               review methodology boundary
             </Link>
           </div>
@@ -289,7 +289,7 @@ function MarketStressGauge() {
       <div className="absolute inset-0 opacity-[0.08] [background-image:radial-gradient(circle_at_center,rgba(137,227,173,.52)_1px,transparent_1px)] [background-size:24px_24px]" />
       <SectionLabel icon={Activity} label="bubble-risk lens" meta="diagnostic map" />
       <div className="relative mt-8 flex min-h-[230px] items-center justify-center">
-        <div className="absolute h-48 w-48 rounded-full border border-[#203528]" />
+        <div className="absolute h-48 w-48 rounded-full border border-signal-line" />
         <div className="absolute h-32 w-32 rounded-full border border-[#152219]" />
         <div className="absolute h-3 w-3 rounded-full bg-signal-green/80 shadow-[0_0_24px_rgba(137,227,173,0.35)]" />
         {ticks.map((tick, index) => {
@@ -300,7 +300,7 @@ function MarketStressGauge() {
           return (
             <div
               key={tick}
-              className="absolute border border-[#101b15] bg-[#050806]/80 px-2 py-1 font-mono text-[0.56rem] uppercase text-signal-dim"
+              className="absolute border border-signal-line bg-signal-panel/80 px-2 py-1 font-mono text-[0.56rem] uppercase text-signal-dim"
               style={{ transform: `translate(${x}px, ${y}px)` }}
             >
               {tick}
@@ -308,7 +308,7 @@ function MarketStressGauge() {
           );
         })}
       </div>
-      <p className="relative mt-3 border-t border-[#101b15] pt-4 text-sm leading-relaxed text-signal-muted">
+      <p className="relative mt-3 border-t border-signal-line pt-4 text-sm leading-relaxed text-signal-muted">
         This page does not score the industry. It defines what evidence would be needed before SIGNALWATCH could responsibly classify market stress.
       </p>
     </div>
@@ -331,15 +331,15 @@ function SignalCard({
   evidence: string[];
 }) {
   return (
-    <article className="border border-[#101b15] bg-[#050806]/72 p-5 transition hover:border-[#24392c]">
+    <article className="border border-signal-line bg-signal-panel/72 p-5 transition hover:border-signal-green/40">
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2 font-mono text-[0.66rem] uppercase text-signal-green/80">
           <Icon className="h-3.5 w-3.5" />
           {title}
         </div>
-        <span className="border border-[#1a2b21] px-2 py-1 font-mono text-[0.54rem] uppercase text-signal-olive">{state}</span>
+        <span className="border border-signal-line px-2 py-1 font-mono text-[0.54rem] uppercase text-signal-olive">{state}</span>
       </div>
-      <p className="mt-3 border-l border-[#24392c] bg-[#050806]/62 px-3 py-2 text-sm leading-relaxed text-signal-muted">{plain}</p>
+      <p className="mt-3 border-l border-signal-green/40 bg-signal-panel/62 px-3 py-2 text-sm leading-relaxed text-signal-muted">{plain}</p>
       <p className="mt-4 text-sm leading-relaxed text-signal-muted">{body}</p>
       <div className="mt-4 space-y-1 font-mono text-[0.56rem] uppercase text-signal-dim">
         {evidence.map((item) => (
@@ -352,7 +352,7 @@ function SignalCard({
 
 function Requirement({ title, text }: { title: string; text: string }) {
   return (
-    <div className="border border-[#101b15] bg-[#050806]/66 p-4">
+    <div className="border border-signal-line bg-signal-panel/66 p-4">
       <div className="font-mono text-[0.6rem] uppercase text-signal-green/70">{title}</div>
       <p className="mt-2 text-sm leading-relaxed text-signal-muted">{text}</p>
     </div>
@@ -361,7 +361,7 @@ function Requirement({ title, text }: { title: string; text: string }) {
 
 function SectionLabel({ icon: Icon, label, meta }: { icon: LucideIcon; label: string; meta: string }) {
   return (
-    <div className="flex flex-col justify-between gap-3 border-b border-[#101b15] pb-3 sm:flex-row sm:items-center">
+    <div className="flex flex-col justify-between gap-3 border-b border-signal-line pb-3 sm:flex-row sm:items-center">
       <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80">
         <Icon className="h-3.5 w-3.5" />
         {label}

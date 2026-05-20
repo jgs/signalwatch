@@ -25,8 +25,8 @@ export function ReplayTimeline({ frames }: { frames: DetectionFrame[] }) {
   }, [frames.length]);
 
   return (
-    <div className="border border-[#101b15] bg-[#050806]/70 p-3">
-      <div className="flex items-center justify-between gap-3 border-b border-[#101b15] pb-3">
+    <div className="border border-signal-line bg-signal-panel/70 p-3">
+      <div className="flex items-center justify-between gap-3 border-b border-signal-line pb-3">
         <div>
           <div className="font-mono text-[0.62rem] uppercase text-signal-green/75">temporal replay</div>
           <p className="mt-1 text-xs leading-relaxed text-signal-dim">replays detection history only; no video frames or confidence values are synthesized</p>
@@ -35,7 +35,7 @@ export function ReplayTimeline({ frames }: { frames: DetectionFrame[] }) {
           type="button"
           onClick={() => setPlaying((value) => !value)}
           disabled={frames.length < 2}
-          className="border border-[#203528] bg-[#07100b] px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-[#3e654c] disabled:cursor-not-allowed disabled:text-signal-dim"
+          className="border border-signal-line bg-signal-panel2 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-signal-green/60 disabled:cursor-not-allowed disabled:text-signal-dim"
         >
           {playing ? <Pause className="mr-1 inline h-3 w-3" /> : <Play className="mr-1 inline h-3 w-3" />}
           {playing ? "pause" : "replay"}

@@ -19,7 +19,7 @@ export function TrendClusters({ clusters }: { clusters: TrendCluster[] }) {
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.035 }}
-              className="border border-signal-line bg-[#050806] p-3"
+              className="border border-signal-line bg-signal-panel p-3"
             >
               <div className="flex items-start justify-between gap-3">
                 <div>
@@ -49,7 +49,7 @@ export function TrendClusters({ clusters }: { clusters: TrendCluster[] }) {
                   <Badge key={keyword}>{keyword}</Badge>
                 ))}
               </div>
-              <div className="mt-3 h-1.5 border border-[#122219] bg-[#07100b]">
+              <div className="mt-3 h-1.5 border border-signal-line bg-signal-panel2">
                 <div className="h-full bg-signal-olive" style={{ width: `${Math.min(100, cluster.pressure * 7)}%` }} />
               </div>
             </motion.div>
@@ -67,7 +67,7 @@ function MemoryTrace({ label, value }: { label: string; value: number }) {
         <span>{label}</span>
         <span>{Math.round(value * 100)}</span>
       </div>
-      <div className="mt-1 h-1 border border-[#122219] bg-[#07100b]">
+      <div className="mt-1 h-1 border border-signal-line bg-signal-panel2">
         <div className="h-full bg-signal-green/70" style={{ width: `${Math.max(4, Math.min(100, value * 100))}%` }} />
       </div>
     </div>

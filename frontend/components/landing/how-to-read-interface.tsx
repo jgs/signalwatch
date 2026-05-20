@@ -32,7 +32,7 @@ export function HowToReadInterface() {
       </div>
       <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         {readingRules.map(({ icon: Icon, title, text }) => (
-          <div key={title} className="border border-[#101b15] bg-[#050806]/66 p-4">
+          <div key={title} className="border border-signal-line bg-signal-panel/66 p-4">
             <div className="flex items-center gap-2 font-mono text-[0.62rem] uppercase text-signal-green/75">
               <Icon className="h-3.5 w-3.5" />
               {title}

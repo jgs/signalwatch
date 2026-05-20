@@ -262,7 +262,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
   return (
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-[1fr_.9fr]">
-        <div className="relative min-h-72 overflow-hidden border border-[#101b15] bg-[#07100b] md:min-h-[26rem]">
+        <div className="relative min-h-72 overflow-hidden border border-signal-line bg-signal-panel2 md:min-h-[26rem]">
           <img ref={imageRef} src={imageUrl ?? ""} alt="" className="hidden" onLoad={() => void runInference()} />
           <video ref={videoRef} className="hidden" muted playsInline />
           <canvas ref={canvasRef} className="h-full min-h-72 w-full object-contain md:min-h-[26rem]" />
@@ -278,7 +278,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
             </div>
           ) : null}
           <DetectionOverlay detections={detections} canvasRef={canvasRef} />
-          <div className="absolute bottom-3 left-3 border border-[#1a2b21] bg-[#030403]/80 px-2 py-1 font-mono text-[0.6rem] uppercase text-signal-dim">
+          <div className="absolute bottom-3 left-3 border border-signal-line bg-signal-black/80 px-2 py-1 font-mono text-[0.6rem] uppercase text-signal-dim">
             {state === "ready" ? (running ? "inference running" : mode === "webcam" ? "realtime route active" : "model ready") : state}
           </div>
         </div>
@@ -287,7 +287,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
             <button
               type="button"
               onClick={switchToUpload}
-              className={`border px-3 py-2 font-mono text-[0.62rem] uppercase transition ${mode === "upload" ? "border-[#3e654c] bg-signal-green/10 text-signal-green" : "border-[#101b15] bg-[#050806]/70 text-signal-dim hover:border-[#2f4a39]"}`}
+              className={`border px-3 py-2 font-mono text-[0.62rem] uppercase transition ${mode === "upload" ? "border-signal-green/60 bg-signal-green/10 text-signal-green" : "border-signal-line bg-signal-panel/70 text-signal-dim hover:border-signal-green/45"}`}
             >
               <ImageIcon className="mr-1 inline h-3 w-3" />
               upload
@@ -295,20 +295,20 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
             <button
               type="button"
               onClick={() => void startWebcam()}
-              className={`border px-3 py-2 font-mono text-[0.62rem] uppercase transition ${mode === "webcam" ? "border-[#3e654c] bg-signal-green/10 text-signal-green" : "border-[#101b15] bg-[#050806]/70 text-signal-dim hover:border-[#2f4a39]"}`}
+              className={`border px-3 py-2 font-mono text-[0.62rem] uppercase transition ${mode === "webcam" ? "border-signal-green/60 bg-signal-green/10 text-signal-green" : "border-signal-line bg-signal-panel/70 text-signal-dim hover:border-signal-green/45"}`}
             >
               <Camera className="mr-1 inline h-3 w-3" />
               webcam
             </button>
           </div>
-          <label className="block border border-[#101b15] bg-[#050806]/70 p-4 font-mono text-[0.68rem] uppercase text-signal-dim transition hover:border-[#2f4a39]">
+          <label className="block border border-signal-line bg-signal-panel/70 p-4 font-mono text-[0.68rem] uppercase text-signal-dim transition hover:border-signal-green/45">
             <input className="sr-only" type="file" accept="image/*" onChange={(event) => onImageUpload(event.target.files?.[0])} />
             upload image / real COCO-SSD inference
           </label>
-          <div className="border border-[#101b15] bg-[#050806]/70 p-3 font-mono text-[0.62rem] uppercase text-signal-dim">
+          <div className="border border-signal-line bg-signal-panel/70 p-3 font-mono text-[0.62rem] uppercase text-signal-dim">
             sample route / {sampleId ?? "none"} / detections remain model-reported only
           </div>
-          <div className="grid gap-2 border border-[#101b15] bg-[#050806]/70 p-3 font-mono text-[0.58rem] uppercase text-signal-dim">
+          <div className="grid gap-2 border border-signal-line bg-signal-panel/70 p-3 font-mono text-[0.58rem] uppercase text-signal-dim">
             <Readout label="sequence" value={activeSequence?.id ?? "none selected"} />
             <Readout label="asset state" value={activeSequence?.assetStatus.replace("-", " ") ?? "ad hoc input"} />
             <Readout label="min frames" value={activeSequence ? String(activeSequence.temporalProperties.minimumFrames) : "unbounded"} />
@@ -317,10 +317,10 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
           <ConfidenceRail label="input condition control" value={inputIntegrity / 100} />
           <ConfidenceRail label="mean detection confidence" value={confidence} unavailable={!detections.length} />
           <ConfidenceRail label={mode === "webcam" ? "frame continuity" : "tracking persistence"} value={mode === "webcam" ? temporalMetrics.find((metric) => metric.label === "TRACKING.PERSISTENCE")?.value ?? 0 : stability} unavailable={mode === "webcam" ? temporalMetrics.find((metric) => metric.label === "TRACKING.PERSISTENCE")?.value === null : !baselineDetections.length} />
-          <div className="border border-[#101b15] bg-[#050806]/70 p-3 font-mono text-[0.62rem] uppercase text-signal-dim">
+          <div className="border border-signal-line bg-signal-panel/70 p-3 font-mono text-[0.62rem] uppercase text-signal-dim">
             detections {detections.length} / frames {frames.length}
           </div>
-          <div className="grid gap-2 border border-[#101b15] bg-[#050806]/70 p-3 font-mono text-[0.58rem] uppercase text-signal-dim">
+          <div className="grid gap-2 border border-signal-line bg-signal-panel/70 p-3 font-mono text-[0.58rem] uppercase text-signal-dim">
             <Readout label="observation window" value={windowSummary ? `${windowSummary.durationSeconds.toFixed(1)}s` : "pending"} />
             <Readout label="inference cadence" value={windowSummary ? `${windowSummary.cadenceSeconds.toFixed(1)}s` : `${(REALTIME_INFERENCE_INTERVAL / 1000).toFixed(1)}s target`} />
             <Readout label="continuity transitions" value={String(continuityTransitions.length)} />
@@ -330,7 +330,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
             type="button"
             onClick={() => void runInference()}
             disabled={state !== "ready" || (mode === "upload" && !imageUrl) || running}
-            className="w-full border border-[#203528] bg-[#07100b] px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-[#3e654c] disabled:cursor-not-allowed disabled:text-signal-dim"
+            className="w-full border border-signal-line bg-signal-panel2 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-signal-green/60 disabled:cursor-not-allowed disabled:text-signal-dim"
           >
             run inference frame
           </button>
@@ -345,7 +345,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
       <ReplayTimeline frames={frames} />
       <ExplainabilityPanel frames={frames} detections={detections} />
       <DetectionReadout mode={mode} detections={detections} baselineDetections={baselineDetections} />
-      <div className="border-l border-[#24392c] bg-[#050806]/62 px-3 py-2 text-sm leading-relaxed text-signal-muted">
+      <div className="border-l border-signal-green/40 bg-signal-panel/62 px-3 py-2 text-sm leading-relaxed text-signal-muted">
         {error
           ? `Model load failed: ${error}`
           : state === "ready"
@@ -359,7 +359,7 @@ export function RealDetectionLab({ cvMessage }: { cvMessage?: string }) {
 
 function Readout({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-3 border-b border-[#101b15] pb-1">
+    <div className="flex items-center justify-between gap-3 border-b border-signal-line pb-1">
       <span>{label}</span>
       <span className="text-signal-muted">{value}</span>
     </div>
@@ -387,7 +387,7 @@ function DetectionOverlay({ detections, canvasRef }: { detections: Detection[]; 
               height: `${(h / height) * 100}%`,
             }}
           >
-            <span className="absolute -top-5 left-0 bg-[#030403]/90 px-1 font-mono text-[0.58rem] uppercase text-signal-green">
+            <span className="absolute -top-5 left-0 bg-signal-black/90 px-1 font-mono text-[0.58rem] uppercase text-signal-green">
               {detection.class} {Math.round(detection.score * 100)}
             </span>
           </motion.div>
@@ -402,7 +402,7 @@ function DetectionReadout({ mode, detections, baselineDetections }: { mode: "upl
   const baselineClasses = baselineDetections.slice(0, 5).map((detection) => detection.class).join(" / ");
   return (
     <div className="grid gap-3 md:grid-cols-2">
-      <div className="border border-[#101b15] bg-[#050806]/70 p-3">
+      <div className="border border-signal-line bg-signal-panel/70 p-3">
         <div className="font-mono text-[0.62rem] uppercase text-signal-green/75">real model readout</div>
         <div className="mt-3 space-y-2 font-mono text-[0.62rem] uppercase text-signal-dim">
           {topDetections.length ? (
@@ -417,7 +417,7 @@ function DetectionReadout({ mode, detections, baselineDetections }: { mode: "upl
           )}
         </div>
       </div>
-      <div className="border border-[#101b15] bg-[#050806]/70 p-3">
+      <div className="border border-signal-line bg-signal-panel/70 p-3">
         <div className="font-mono text-[0.62rem] uppercase text-signal-green/75">robustness trace</div>
         <p className="mt-3 text-sm leading-relaxed text-signal-muted">
           {mode === "upload"
@@ -448,7 +448,7 @@ function ExplainabilityPanel({ frames, detections }: { frames: DetectionFrame[];
           : "Recent detections remain visible in the model output stream. Continue changing environmental stress to inspect confidence and persistence movement.";
 
   return (
-    <div className="border border-[#101b15] bg-[#050806]/70 p-3">
+    <div className="border border-signal-line bg-signal-panel/70 p-3">
       <div className="font-mono text-[0.62rem] uppercase text-signal-green/75">operational explainability</div>
       <p className="mt-3 text-sm leading-relaxed text-signal-muted">{explanation}</p>
       <div className="mt-3 font-mono text-[0.58rem] uppercase text-signal-dim">

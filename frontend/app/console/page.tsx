@@ -81,13 +81,13 @@ export default function ConsolePage() {
         </div>
         <OperationalSection title="console evidence boundary" meta="runtime telemetry / source-derived signals" icon={ShieldCheck}>
           <div className="grid gap-3 md:grid-cols-3">
-            <div className="border-l border-signal-line bg-[#050806]/66 px-3 py-2 text-sm leading-relaxed text-signal-muted">
+            <div className="border-l border-signal-line bg-signal-panel/66 px-3 py-2 text-sm leading-relaxed text-signal-muted">
               Collector health, websocket state, latency, reconnects, and pulse behavior describe SIGNALWATCH runtime state.
             </div>
-            <div className="border-l border-signal-line bg-[#050806]/66 px-3 py-2 text-sm leading-relaxed text-signal-muted">
+            <div className="border-l border-signal-line bg-signal-panel/66 px-3 py-2 text-sm leading-relaxed text-signal-muted">
               Signal feed entries require source URLs, source titles, timestamps, or ingestion payloads before they appear.
             </div>
-            <div className="border-l border-signal-line bg-[#050806]/66 px-3 py-2 text-sm leading-relaxed text-signal-muted">
+            <div className="border-l border-signal-line bg-signal-panel/66 px-3 py-2 text-sm leading-relaxed text-signal-muted">
               Empty feeds, offline collectors, and missing telemetry are treated as valid visible states, not gaps to fill.
             </div>
           </div>

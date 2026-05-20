@@ -8,7 +8,7 @@ export function ConfidenceRail({ label, value, unavailable }: { label: string; v
         <span>{label}</span>
         <span>{unavailable ? "unavailable" : Math.round(value * 100)}</span>
       </div>
-      <div className="mt-2 h-1.5 border border-[#122219] bg-[#07100b]">
+      <div className="mt-2 h-1.5 border border-signal-line bg-signal-panel2">
         <div className="h-full bg-signal-olive transition-[width] duration-500" style={{ width: `${width}%` }} />
       </div>
     </div>

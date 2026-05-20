@@ -17,7 +17,7 @@ export function SignalFeed({ signals }: { signals: Signal[] }) {
       </p>
       <div className="space-y-3">
         {!signals.length ? (
-          <div className="border border-[#101b15] bg-[#050806]/70 p-5">
+          <div className="border border-signal-line bg-signal-panel/70 p-5">
             <div className="font-mono text-[0.68rem] uppercase text-signal-green/75">waiting for real source items</div>
             <p className="mt-3 text-sm leading-relaxed text-signal-muted">
               The console only shows source-backed content here. System heartbeats and connection updates stay separate so they are not confused with evidence.
@@ -40,7 +40,7 @@ function SignalCard({ signal, index }: { signal: Signal; index: number }) {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.28, delay: Math.min(index * 0.015, 0.18) }}
-      className="group border border-[#101b15] bg-gradient-to-b from-[#080c09] to-[#050706] px-4 py-3.5 transition hover:border-[#24392c]"
+      className="group border border-signal-line bg-gradient-to-b from-white to-signal-panel2 px-4 py-3.5 transition hover:border-signal-green/40"
     >
       <div className="flex flex-col justify-between gap-2 md:flex-row md:items-start">
         <div className="flex flex-wrap items-center gap-2">
@@ -57,7 +57,7 @@ function SignalCard({ signal, index }: { signal: Signal; index: number }) {
       <p className="mt-2 line-clamp-3 max-w-3xl text-[0.86rem] leading-relaxed text-signal-muted">{signal.summary || "No summary emitted by source."}</p>
       <div className="mt-2 flex max-w-3xl flex-wrap gap-1.5 font-mono text-[0.56rem] uppercase text-signal-dim">
         {observation.slice(0, 3).map((item) => (
-          <span key={item} className="border border-[#101b15] bg-[#030403]/60 px-1.5 py-1">{item}</span>
+          <span key={item} className="border border-signal-line bg-signal-black/60 px-1.5 py-1">{item}</span>
         ))}
       </div>
       <WhyItMatters topics={signal.topics ?? []} sourceType={signal.source_type} />
@@ -65,12 +65,12 @@ function SignalCard({ signal, index }: { signal: Signal; index: number }) {
         {tags.length ? tags.map((topic) => <Badge key={topic}>{topic}</Badge>) : <Badge>untagged</Badge>}
       </div>
 
-      <details className="mt-3 border-t border-[#101b15] pt-2.5 font-mono text-[0.6rem] text-signal-dim">
+      <details className="mt-3 border-t border-signal-line pt-2.5 font-mono text-[0.6rem] text-signal-dim">
         <summary className="flex cursor-pointer list-none items-center gap-1 text-signal-dim transition hover:text-signal-muted">
           <ChevronDown className="h-3 w-3" />
           show evidence
         </summary>
-        <div className="mt-2 grid gap-1.5 break-words border-l border-[#18271d] pl-3">
+        <div className="mt-2 grid gap-1.5 break-words border-l border-signal-line pl-3">
           <span>source={signal.source} / type={signal.source_type ?? "source-item"}</span>
           <span>observation_window={observation.join(" / ")}</span>
           <span>published={formatUtc(signal.published_at)}{signal.fetched_at ? ` / fetched=${formatUtc(signal.fetched_at)}` : ""}</span>
@@ -133,7 +133,7 @@ function WhyItMatters({ topics, sourceType }: { topics: string[]; sourceType?: s
   const text = whyText(topics, sourceType);
   if (!text) return null;
   return (
-    <div className="mt-2 flex max-w-3xl items-start gap-2 border-l border-[#1d2f24] bg-[#050806]/44 px-2.5 py-1.5 text-[0.72rem] leading-relaxed text-signal-dim">
+    <div className="mt-2 flex max-w-3xl items-start gap-2 border-l border-signal-line bg-signal-panel/44 px-2.5 py-1.5 text-[0.72rem] leading-relaxed text-signal-dim">
       <Info className="mt-0.5 h-3 w-3 shrink-0 text-signal-olive/70" />
       <span>{text}</span>
     </div>

@@ -69,7 +69,7 @@ export default function SafetyCriticalPerceptionPage() {
               </div>
               <Link
                 href="/case-studies"
-                className="mt-5 inline-flex border border-[#203528] bg-[#07100b] px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-[#3e654c]"
+                className="mt-5 inline-flex border border-signal-line bg-signal-panel2 px-3 py-2 font-mono text-[0.62rem] uppercase text-signal-green/80 transition hover:border-signal-green/60"
               >
                 case studies
               </Link>
@@ -81,7 +81,7 @@ export default function SafetyCriticalPerceptionPage() {
         </section>
 
         <section className="mt-5 console-panel p-5">
-          <div className="flex items-center gap-2 border-b border-[#101b15] pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">
+          <div className="flex items-center gap-2 border-b border-signal-line pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">
             <CircuitBoard className="h-3.5 w-3.5" />
             safety-critical context
           </div>
@@ -114,7 +114,7 @@ export default function SafetyCriticalPerceptionPage() {
 function Panel({ title, icon: Icon, meta, children }: { title: string; icon: LucideIcon; meta: string; children: ReactNode }) {
   return (
     <section className="console-panel p-5">
-      <div className="flex items-center justify-between border-b border-[#101b15] pb-3">
+      <div className="flex items-center justify-between border-b border-signal-line pb-3">
         <div className="flex items-center gap-2 font-mono text-[0.68rem] uppercase text-signal-green/80"><Icon className="h-3.5 w-3.5" />{title}</div>
         <span className="font-mono text-[0.62rem] uppercase text-signal-dim">{meta}</span>
       </div>
