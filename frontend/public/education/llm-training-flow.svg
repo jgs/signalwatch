@@ -11,7 +11,10 @@
       <rect width="214" height="118" rx="8" fill="#111813" stroke="#2c3d32"/>
       <text x="22" y="36" fill="#9bd8b3" font-size="13" font-family="Consolas, monospace">01 DATA</text>
       <text x="22" y="66" fill="#edf3ee" font-size="21" font-weight="700">Collect and filter</text>
-      <text x="22" y="94" fill="#a7b2aa" font-size="14">Documents, code, books, web text, and licensed data are cleaned.</text>
+      <text x="22" y="92" fill="#a7b2aa" font-size="13">
+        <tspan x="22" dy="0">Documents, code, books, web text,</tspan>
+        <tspan x="22" dy="17">and licensed data are cleaned.</tspan>
+      </text>
     </g>
     <path d="M304 247H370" stroke="#6f8c78" stroke-width="2"/>
     <path d="M362 239l10 8-10 8" fill="none" stroke="#6f8c78" stroke-width="2"/>
@@ -20,7 +23,10 @@
       <rect width="214" height="118" rx="8" fill="#111813" stroke="#2c3d32"/>
       <text x="22" y="36" fill="#9bd8b3" font-size="13" font-family="Consolas, monospace">02 TOKENS</text>
       <text x="22" y="66" fill="#edf3ee" font-size="21" font-weight="700">Break text apart</text>
-      <text x="22" y="94" fill="#a7b2aa" font-size="14">Text becomes tokens: small units the model can process.</text>
+      <text x="22" y="92" fill="#a7b2aa" font-size="13">
+        <tspan x="22" dy="0">Text becomes tokens: small units</tspan>
+        <tspan x="22" dy="17">the model can process.</tspan>
+      </text>
     </g>
     <path d="M608 247H674" stroke="#6f8c78" stroke-width="2"/>
     <path d="M666 239l10 8-10 8" fill="none" stroke="#6f8c78" stroke-width="2"/>
@@ -29,7 +35,10 @@
       <rect width="214" height="118" rx="8" fill="#111813" stroke="#2c3d32"/>
       <text x="22" y="36" fill="#9bd8b3" font-size="13" font-family="Consolas, monospace">03 PRETRAIN</text>
       <text x="22" y="66" fill="#edf3ee" font-size="21" font-weight="700">Predict next token</text>
-      <text x="22" y="94" fill="#a7b2aa" font-size="14">The model learns patterns by predicting what comes next.</text>
+      <text x="22" y="92" fill="#a7b2aa" font-size="13">
+        <tspan x="22" dy="0">The model learns patterns by</tspan>
+        <tspan x="22" dy="17">predicting what comes next.</tspan>
+      </text>
     </g>
     <path d="M912 247H978" stroke="#6f8c78" stroke-width="2"/>
     <path d="M970 239l10 8-10 8" fill="none" stroke="#6f8c78" stroke-width="2"/>
@@ -48,7 +57,10 @@
       <rect width="214" height="118" rx="8" fill="#111813" stroke="#2c3d32"/>
       <text x="22" y="36" fill="#9bd8b3" font-size="13" font-family="Consolas, monospace">04 INSTRUCT</text>
       <text x="22" y="66" fill="#edf3ee" font-size="21" font-weight="700">Teach helpful use</text>
-      <text x="22" y="94" fill="#a7b2aa" font-size="14">Examples show how to follow questions, tasks, and style.</text>
+      <text x="22" y="92" fill="#a7b2aa" font-size="13">
+        <tspan x="22" dy="0">Examples show how to follow</tspan>
+        <tspan x="22" dy="17">questions, tasks, and style.</tspan>
+      </text>
     </g>
     <path d="M304 483H370" stroke="#6f8c78" stroke-width="2"/>
     <path d="M362 475l10 8-10 8" fill="none" stroke="#6f8c78" stroke-width="2"/>
@@ -57,7 +69,10 @@
       <rect width="214" height="118" rx="8" fill="#111813" stroke="#2c3d32"/>
       <text x="22" y="36" fill="#9bd8b3" font-size="13" font-family="Consolas, monospace">05 PREFERENCES</text>
       <text x="22" y="66" fill="#edf3ee" font-size="21" font-weight="700">Rank responses</text>
-      <text x="22" y="94" fill="#a7b2aa" font-size="14">Human or model preference data can steer behavior.</text>
+      <text x="22" y="92" fill="#a7b2aa" font-size="13">
+        <tspan x="22" dy="0">Human or model preference data</tspan>
+        <tspan x="22" dy="17">can steer behavior.</tspan>
+      </text>
     </g>
     <path d="M608 483H674" stroke="#6f8c78" stroke-width="2"/>
     <path d="M666 475l10 8-10 8" fill="none" stroke="#6f8c78" stroke-width="2"/>
@@ -66,7 +81,10 @@
       <rect width="214" height="118" rx="8" fill="#111813" stroke="#2c3d32"/>
       <text x="22" y="36" fill="#9bd8b3" font-size="13" font-family="Consolas, monospace">06 SAFETY</text>
       <text x="22" y="66" fill="#edf3ee" font-size="21" font-weight="700">Stress test</text>
-      <text x="22" y="94" fill="#a7b2aa" font-size="14">Teams test misuse, hallucination, bias, and refusal behavior.</text>
+      <text x="22" y="92" fill="#a7b2aa" font-size="13">
+        <tspan x="22" dy="0">Teams test misuse, hallucination,</tspan>
+        <tspan x="22" dy="17">bias, and refusal behavior.</tspan>
+      </text>
     </g>
     <path d="M912 483H978" stroke="#6f8c78" stroke-width="2"/>
     <path d="M970 475l10 8-10 8" fill="none" stroke="#6f8c78" stroke-width="2"/>
