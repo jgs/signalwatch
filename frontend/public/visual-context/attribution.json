@@ -40,5 +40,12 @@
     "source": "Wikimedia Commons / CCTV security cameras",
     "url": "https://commons.wikimedia.org/wiki/File:CCTV_Security_cameras.jpg",
     "role": "illustrative visual context; not model evidence"
+  },
+  {
+    "id": "ai-infrastructure-context",
+    "file": "/visual-context/ai-infrastructure-context.png",
+    "source": "OpenAI image generation / SIGNALWATCH project asset",
+    "url": "generated locally for this project",
+    "role": "generated visual context for AI infrastructure; not telemetry, market data, model evidence, or operational measurement"
   }
 ]

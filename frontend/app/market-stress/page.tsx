@@ -176,6 +176,27 @@ export default function MarketStressPage() {
           </div>
         </section>
 
+        <section className="mb-5 console-panel overflow-hidden p-5">
+          <SectionLabel icon={ServerCog} label="visual infrastructure context" meta="generated visual / not telemetry" />
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-signal-muted">
+            The AI bubble debate is not only software. It touches buildings, chips, electricity, cooling, financing, and ordinary workflows. This image is visual context only: it does not report SIGNALWATCH telemetry, market data, utilization, or model performance.
+          </p>
+          <div className="mt-5 overflow-hidden border border-[#101b15] bg-[#050806]/70">
+            <img
+              src="/visual-context/ai-infrastructure-context.png"
+              alt="Operational AI infrastructure context showing a data center, server racks, power equipment, and workplace monitors."
+              className="aspect-[16/7] w-full object-cover opacity-90 grayscale-[12%]"
+              loading="lazy"
+            />
+          </div>
+          <div className="mt-3 grid gap-2 font-mono text-[0.56rem] uppercase text-signal-dim sm:grid-cols-4">
+            <span className="border-b border-[#101b15] pb-1">context / data center</span>
+            <span className="border-b border-[#101b15] pb-1">context / compute rack</span>
+            <span className="border-b border-[#101b15] pb-1">context / power grid</span>
+            <span className="border-b border-[#101b15] pb-1">context / workflow</span>
+          </div>
+        </section>
+
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {stressSignals.map((signal) => (
             <SignalCard key={signal.title} {...signal} />

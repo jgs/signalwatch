@@ -92,10 +92,8 @@ export default function MethodologyPage() {
 
         <div className="mt-5">
           <RealWorldImageBand
-            compact
-            ids={["cctv-camera", "motion-blur", "low-light-hallway"]}
-            title="method boundary images"
-            description="The methodology separates context from evidence. These images illustrate operational conditions that can affect perception systems, while model detections and confidence still have to come from actual inference outputs."
+            title="method boundary image gallery"
+            description="The methodology separates visual context from evidence. These images make the boundary concrete: a scene can explain why an evaluation matters, but detections, confidence, continuity, and operational claims still have to come from actual source data or model outputs."
           />
         </div>
 

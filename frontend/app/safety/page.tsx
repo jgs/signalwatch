@@ -54,10 +54,9 @@ export default function SafetyPage() {
 
         <div className="mb-5">
           <RealWorldImageBand
-            compact
             ids={["control-room", "thermal-camera", "camera-cluster"]}
             title="safety monitoring context"
-            description="These photos ground the safety page in real operational settings: human review rooms, specialized sensors, and camera coverage. They are visual references only, not claims about a deployed SIGNALWATCH run."
+            description="These photos ground the safety page in real operational settings: human review rooms, specialized sensors, and camera coverage. They help non-specialist readers see where AI safety work becomes operational, but they are visual references only, not claims about a deployed SIGNALWATCH run."
           />
         </div>
 

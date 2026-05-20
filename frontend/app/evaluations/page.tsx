@@ -140,7 +140,10 @@ export default function EvaluationsPage() {
         </div>
 
         <div className="mt-5">
-          <RealWorldImageBand compact />
+          <RealWorldImageBand
+            title="evaluation visual context"
+            description="These photos show ordinary conditions that can make evaluation harder: low light, camera placement, motion blur, monitoring rooms, sensor boundaries, and coverage limits. They are source-attributed context images, not precomputed detections or benchmark results."
+          />
         </div>
 
         <section className="mt-5 console-panel p-5">
