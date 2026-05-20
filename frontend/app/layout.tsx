@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const sans = Inter({
@@ -61,7 +62,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${sans.variable} ${mono.variable} font-sans antialiased`}>{children}</body>
+      <body className={`${sans.variable} ${mono.variable} font-sans antialiased`}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
