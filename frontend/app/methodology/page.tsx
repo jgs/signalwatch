@@ -120,11 +120,11 @@ export default function MethodologyPage() {
         </div>
 
         <section className="mt-5 grid gap-5 lg:grid-cols-[.95fr_1.05fr]">
-          <div className="console-panel overflow-hidden p-3">
+          <div className="console-panel overflow-x-auto p-3">
             <img
               src="/education/evidence-loop.svg"
               alt="Evidence loop diagram showing real-world input, model behavior, observed facts, and monitoring action."
-              className="w-full"
+              className="min-w-[620px] w-full"
             />
           </div>
           <div className="console-panel p-5">

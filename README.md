@@ -5,13 +5,17 @@
 <h1 align="center">SIGNALWATCH</h1>
 
 <p align="center">
-  Realtime AI safety and observability infrastructure for monitoring intelligent systems.
+  Evidence-aware AI observability for source-backed signals, runtime telemetry, and perception robustness.
 </p>
 
 <p align="center">
   <a href="https://jgsops.dev">jgsops.dev</a>
   <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+  <a href="https://jgsops.dev/about">about</a>
+  <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
   <a href="https://jgsops.dev/console">console</a>
+  <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+  <a href="https://jgsops.dev/evidence">evidence ledger</a>
   <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
   <a href="https://jgsops.dev/labs/perception">safety-critical perception</a>
   <span>&nbsp;&nbsp;/&nbsp;&nbsp;</span>
@@ -31,18 +35,27 @@
 
 ## Overview
 
-SIGNALWATCH is a public AI safety and observability platform built around operational intelligence rather than feeds, hype, or generic dashboards.
+SIGNALWATCH is a public AI safety and observability platform built around evidence boundaries rather than feeds, hype, or generic dashboards.
 
-It monitors AI ecosystem movement, alignment and governance signals, source-backed safety frameworks, realtime telemetry, and browser-side computer vision robustness. The interface is dark, calm, and infrastructure-oriented: a quiet mission-control surface for understanding how intelligent systems, safety discourse, and perception models behave under uncertainty.
+It monitors AI ecosystem movement, alignment and governance signals, source-backed safety frameworks, realtime telemetry, and browser-side computer vision robustness. The interface is dark, calm, and infrastructure-oriented: a quiet operational surface for inspecting what was observed, where it came from, and what remains unknown.
 
 Core surfaces:
 
 - realtime ecosystem observability console
+- evidence ledger for source claims, telemetry frames, and collector state
 - source-backed AI safety intelligence layer
 - safety-critical perception lab with browser-side COCO-SSD inference
 - operational timeline and daily briefing layer
 - systems/operator identity surface
 - methodology boundary for real, derived, simulated, and conceptual data
+
+Recommended public path:
+
+```text
+/start -> /console -> /evidence -> /labs/perception
+```
+
+The `/about` page explains what SIGNALWATCH is, what it is not, and which surfaces contain source data, runtime telemetry, browser-side model outputs, or conceptual education.
 
 ## Operational Principle
 
@@ -57,6 +70,15 @@ educational mechanisms      -> clearly labeled conceptual simulations
 ```
 
 Missing data remains visible. Unavailable models remain unavailable. Conceptual demos are labeled. Confidence values are shown only when a real model emits them.
+
+SIGNALWATCH does not fabricate:
+
+- telemetry
+- detections
+- confidence values
+- incidents
+- source claims
+- evaluation metrics
 
 ## Realtime Infrastructure
 
@@ -101,6 +123,8 @@ Production endpoints:
 ```text
 Frontend    https://jgsops.dev
 Console     https://jgsops.dev/console
+About       https://jgsops.dev/about
+Evidence    https://jgsops.dev/evidence
 Safety      https://jgsops.dev/safety
 Perception  https://jgsops.dev/labs/perception
 Methodology https://jgsops.dev/methodology

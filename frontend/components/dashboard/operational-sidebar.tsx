@@ -55,6 +55,7 @@ export function OperationalSidebar({
         <div className="mt-1 text-sm leading-relaxed text-signal-muted">A live view of AI safety, releases, policy, and robustness signals with sources attached.</div>
         <div className="mt-4 grid grid-cols-3 gap-2 font-mono text-[0.62rem] uppercase">
           <Link href="/start" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">start</Link>
+          <Link href="/about" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">about</Link>
           <Link href="/console" className="border border-signal-line px-2 py-1 text-signal-green/80 transition hover:border-signal-green/45">console</Link>
           <Link href="/evidence" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">ledger</Link>
           <Link href="/timeline" className="border border-signal-line px-2 py-1 text-signal-muted transition hover:border-signal-green/45 hover:text-signal-text">timeline</Link>

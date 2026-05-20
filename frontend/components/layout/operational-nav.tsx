@@ -25,6 +25,7 @@ const navGroups = [
     label: "Understand",
     key: "understand",
     items: [
+      { href: "/about", label: "About", key: "about" },
       { href: "/learn/glossary", label: "AI basics", key: "glossary" },
       { href: "/learn/llm-training", label: "LLM guide", key: "llm-training" },
       { href: "/safety", label: "AI safety", key: "safety" },

@@ -79,11 +79,11 @@ export default function LlmTrainingPage() {
           </Link>
         </header>
 
-        <section className="console-panel overflow-hidden p-3">
+        <section className="console-panel overflow-x-auto p-3">
           <img
             src="/education/llm-training-flow.svg"
             alt="Diagram showing the simplified LLM training path from data collection to deployment monitoring."
-            className="w-full"
+            className="min-w-[760px] w-full"
           />
         </section>
 
@@ -94,11 +94,11 @@ export default function LlmTrainingPage() {
         </section>
 
         <section className="mt-5 grid gap-5 lg:grid-cols-[1.05fr_.95fr]">
-          <div className="console-panel overflow-hidden p-3">
+          <div className="console-panel overflow-x-auto p-3">
             <img
               src="/education/evidence-loop.svg"
               alt="Diagram showing the evidence loop from real-world input to model behavior, observed facts, action, and monitoring."
-              className="w-full"
+              className="min-w-[620px] w-full"
             />
           </div>
 

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s / SIGNALWATCH"
   },
   description:
-    "A clear, evidence-first interface for understanding AI safety signals, model behavior, and perception robustness without fabricated telemetry.",
+    "An evidence-aware AI observability surface for inspecting source-backed signals, runtime telemetry, and perception robustness without fabricated metrics.",
   alternates: {
     canonical: "/"
   },
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "SIGNALWATCH - Evidence-first AI observability",
     description:
-      "A clear, evidence-first interface for understanding AI safety signals, model behavior, and perception robustness without fabricated telemetry.",
+      "Inspect source-backed AI signals, runtime telemetry, evidence boundaries, and perception robustness without fabricated metrics.",
     url: "https://jgsops.dev",
     siteName: "SIGNALWATCH",
     type: "website",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "SIGNALWATCH - Evidence-first AI observability",
     description:
-      "A clear, evidence-first interface for understanding AI safety signals, model behavior, and perception robustness without fabricated telemetry.",
+      "Inspect source-backed AI signals, runtime telemetry, evidence boundaries, and perception robustness without fabricated metrics.",
     images: ["/og-image.svg"]
   }
 };
