@@ -7,6 +7,7 @@ const navGroups = [
     items: [
       { href: "/console", label: "Live console", key: "console" },
       { href: "/timeline", label: "Timeline", key: "timeline" },
+      { href: "/evidence", label: "Evidence ledger", key: "evidence" },
     ],
   },
   {
