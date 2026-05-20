@@ -4,7 +4,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { OperationalCallouts } from "@/components/education/operational-callouts";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
+import { VisualEvidenceLegend } from "@/components/education/visual-evidence-legend";
 import { ConsoleEntry } from "@/components/landing/console-entry";
+import { HowToReadInterface } from "@/components/landing/how-to-read-interface";
 import { LandingVisualField } from "@/components/landing/landing-visual-field";
 import { OperationalSurfaceMap } from "@/components/landing/operational-surface-map";
 import { OrientationStrip } from "@/components/landing/orientation-strip";
@@ -65,8 +67,16 @@ export default function LandingPage() {
           <OrientationStrip />
         </motion.div>
 
+        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.56, duration: 0.7 }} className="mt-8">
+          <HowToReadInterface />
+        </motion.div>
+
         <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.58, duration: 0.7 }} className="mt-8">
           <OperationalSurfaceMap />
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.7 }} className="mt-8">
+          <VisualEvidenceLegend compact />
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.62, duration: 0.7 }} className="mt-8">

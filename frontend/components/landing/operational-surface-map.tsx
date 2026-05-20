@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Activity, Database, Eye, FileSearch, ShieldCheck, type LucideIcon } from "lucide-react";
+import { Activity, Database, Eye, FileSearch, Scale, ShieldCheck, type LucideIcon } from "lucide-react";
 
 const surfaces: Array<{
   icon: LucideIcon;
@@ -13,35 +13,42 @@ const surfaces: Array<{
 }> = [
   {
     icon: Activity,
-    label: "live console",
+    label: "1 / live console",
     detail: "collector state, source movement, system rhythm",
     href: "/console",
     state: "runtime",
   },
   {
     icon: Eye,
-    label: "perception lab",
+    label: "2 / perception lab",
     detail: "COCO-SSD outputs, empty frames, confidence history",
     href: "/labs/perception",
     state: "browser model",
   },
   {
     icon: FileSearch,
-    label: "case studies",
+    label: "3 / case studies",
     detail: "repeatable degradation protocols and proof boundaries",
     href: "/case-studies",
     state: "protocol",
   },
   {
     icon: ShieldCheck,
-    label: "safety registry",
+    label: "4 / safety registry",
     detail: "framework-backed safety and governance references",
     href: "/safety",
     state: "source-backed",
   },
   {
+    icon: Scale,
+    label: "5 / market stress",
+    detail: "AI bubble debate explained through source-bound signals",
+    href: "/market-stress",
+    state: "external context",
+  },
+  {
     icon: Database,
-    label: "methodology",
+    label: "6 / methodology",
     detail: "what is real, derived, conceptual, or unavailable",
     href: "/methodology",
     state: "boundary",
@@ -52,10 +59,10 @@ export function OperationalSurfaceMap() {
   return (
     <section className="console-panel p-5">
       <div className="flex flex-col justify-between gap-3 border-b border-signal-line/60 pb-3 md:flex-row md:items-center">
-        <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">operational surface map</div>
-        <div className="font-mono text-[0.58rem] uppercase text-signal-dim">where to inspect evidence</div>
+        <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">choose where to go</div>
+        <div className="font-mono text-[0.58rem] uppercase text-signal-dim">recommended reading path</div>
       </div>
-      <div className="mt-5 grid gap-3 lg:grid-cols-5">
+      <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-6">
         {surfaces.map(({ icon: Icon, label, detail, href, state }, index) => (
           <motion.div
             key={label}

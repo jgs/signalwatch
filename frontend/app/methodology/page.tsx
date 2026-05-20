@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { CircuitBoard, Database, FlaskConical, Radio, ShieldCheck, Waves, type LucideIcon } from "lucide-react";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
+import { VisualEvidenceLegend } from "@/components/education/visual-evidence-legend";
 import { UnavailableStatesGallery } from "@/components/education/unavailable-states-gallery";
 import { OperationalNav } from "@/components/layout/operational-nav";
 import { SystemStatusBar } from "@/components/layout/system-status-bar";
@@ -89,6 +90,10 @@ export default function MethodologyPage() {
             <MethodCard key={layer.title} {...layer} />
           ))}
         </section>
+
+        <div className="mt-5">
+          <VisualEvidenceLegend title="methodology visual legend" />
+        </div>
 
         <div className="mt-5">
           <RealWorldImageBand

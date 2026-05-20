@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { OperationalNav } from "@/components/layout/operational-nav";
 import { SystemStatusBar } from "@/components/layout/system-status-bar";
+import { VisualEvidenceLegend } from "@/components/education/visual-evidence-legend";
 
 const stressSignals = [
   {
@@ -196,6 +197,10 @@ export default function MarketStressPage() {
             <span className="border-b border-[#101b15] pb-1">context / workflow</span>
           </div>
         </section>
+
+        <div className="mb-5">
+          <VisualEvidenceLegend compact title="visual type legend" />
+        </div>
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {stressSignals.map((signal) => (
