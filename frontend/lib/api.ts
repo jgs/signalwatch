@@ -14,7 +14,7 @@ export const API_BASE =
   normalizeHttpUrl(
     process.env.NEXT_PUBLIC_API_URL ??
       process.env.NEXT_PUBLIC_SIGNALWATCH_API ??
-      "https://signalwatch-production-4416.up.railway.app"
+      "http://localhost:8000"
   );
 
 export const WS_EVENTS_URL = normalizeWebsocketUrl(process.env.NEXT_PUBLIC_WS_URL);

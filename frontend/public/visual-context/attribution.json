@@ -2,44 +2,44 @@
   {
     "id": "low-light-hallway",
     "file": "/visual-context/low-light-hallway.jpg",
-    "source": "Wikimedia Commons / Hallway in low-light",
+    "source": "Wikimedia Commons derivative / SIGNALWATCH cinematic grade",
     "url": "https://commons.wikimedia.org/wiki/File:Hallway_in_low-light.jpg",
-    "role": "illustrative visual context; not model evidence"
+    "role": "source-derived visual context with local color grade and overlays; not model evidence, telemetry, detection output, or operational measurement"
   },
   {
     "id": "cctv-camera",
     "file": "/visual-context/outdoor-cctv.jpg",
-    "source": "Wikimedia Commons / Outdoor CCTV",
+    "source": "Wikimedia Commons derivative / SIGNALWATCH cinematic grade",
     "url": "https://commons.wikimedia.org/wiki/File:Outdoor_cctv_(Unsplash).jpg",
-    "role": "illustrative visual context; not model evidence"
+    "role": "source-derived visual context with local color grade and overlays; not model evidence, telemetry, detection output, or operational measurement"
   },
   {
     "id": "motion-blur",
     "file": "/visual-context/motion-blur.jpg",
-    "source": "Wikimedia Commons / Motion blur",
+    "source": "Wikimedia Commons derivative / SIGNALWATCH cinematic grade",
     "url": "https://commons.wikimedia.org/wiki/File:Motion_blur_(1325070316).jpg",
-    "role": "illustrative visual context; not model evidence"
+    "role": "source-derived visual context with local color grade and overlays; not model evidence, telemetry, detection output, or operational measurement"
   },
   {
     "id": "control-room",
     "file": "/visual-context/cctv-control-room.jpg",
-    "source": "Wikimedia Commons / CCTV control room",
+    "source": "Wikimedia Commons derivative / SIGNALWATCH cinematic grade",
     "url": "https://commons.wikimedia.org/wiki/File:Ian_Berry_install_CCTV_Control_Room.jpg",
-    "role": "illustrative visual context; not model evidence"
+    "role": "source-derived visual context with local color grade; not model evidence, telemetry, detection output, or operational measurement"
   },
   {
     "id": "thermal-camera",
     "file": "/visual-context/thermal-camera.jpg",
-    "source": "Wikimedia Commons / Thermal camera",
+    "source": "Wikimedia Commons derivative / SIGNALWATCH cinematic grade",
     "url": "https://commons.wikimedia.org/wiki/File:Thermal_camera.jpg",
-    "role": "illustrative visual context; not model evidence"
+    "role": "source-derived visual context with local color grade and overlays; not model evidence, telemetry, detection output, or operational measurement"
   },
   {
     "id": "camera-cluster",
     "file": "/visual-context/cctv-security-cameras.jpg",
-    "source": "Wikimedia Commons / CCTV security cameras",
+    "source": "Wikimedia Commons derivative / SIGNALWATCH cinematic grade",
     "url": "https://commons.wikimedia.org/wiki/File:CCTV_Security_cameras.jpg",
-    "role": "illustrative visual context; not model evidence"
+    "role": "source-derived visual context with local color grade and overlays; not model evidence, telemetry, detection output, or operational measurement"
   },
   {
     "id": "ai-infrastructure-context",

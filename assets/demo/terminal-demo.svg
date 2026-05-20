@@ -1,17 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1100" height="560" viewBox="0 0 1100 560" role="img" aria-label="signalwatch terminal demo">
   <rect width="1100" height="560" fill="#050706"/>
   <rect x="26" y="26" width="1048" height="508" rx="8" fill="#080b09" stroke="#1d2b22"/>
-  <text x="52" y="72" fill="#8ff0b4" font-family="Consolas, monospace" font-size="18">signalwatch :: ai ecosystem monitor</text>
+  <text x="52" y="72" fill="#8ff0b4" font-family="Consolas, monospace" font-size="18">signalwatch :: operational runtime</text>
   <text x="52" y="116" fill="#d8ded9" font-family="Consolas, monospace" font-size="15">$ python -m app.runner</text>
-  <text x="52" y="158" fill="#8b978f" font-family="Consolas, monospace" font-size="15">[collector] arxiv ................. 50 signals</text>
-  <text x="52" y="190" fill="#8b978f" font-family="Consolas, monospace" font-size="15">[collector] alignment_forum ....... 18 signals</text>
-  <text x="52" y="222" fill="#8b978f" font-family="Consolas, monospace" font-size="15">[collector] github_trending_ai ..... 9 signals</text>
-  <text x="52" y="254" fill="#d8ded9" font-family="Consolas, monospace" font-size="15">[rank] frontier model release importance=0.91 topics=models,benchmarks</text>
-  <text x="52" y="286" fill="#d8ded9" font-family="Consolas, monospace" font-size="15">[trend] sparse mixture score=4.12 sources=arxiv,huggingface,github</text>
-  <text x="52" y="318" fill="#d8ded9" font-family="Consolas, monospace" font-size="15">[trend] agent safety eval score=3.87 sources=alignment_forum,arxiv</text>
-  <text x="52" y="350" fill="#8ff0b4" font-family="Consolas, monospace" font-size="15">[alert] discord webhook queued: emerging trend / agent safety eval</text>
+  <text x="52" y="158" fill="#8b978f" font-family="Consolas, monospace" font-size="15">[collector] source activity is reported only when fetched</text>
+  <text x="52" y="190" fill="#8b978f" font-family="Consolas, monospace" font-size="15">[collector] empty or unavailable sources remain visible</text>
+  <text x="52" y="222" fill="#8b978f" font-family="Consolas, monospace" font-size="15">[runtime] heartbeat, latency, and reconnects describe app state</text>
+  <text x="52" y="254" fill="#d8ded9" font-family="Consolas, monospace" font-size="15">[evidence] source claims require url, timestamp, and provenance</text>
+  <text x="52" y="286" fill="#d8ded9" font-family="Consolas, monospace" font-size="15">[perception] confidence values come only from model outputs</text>
+  <text x="52" y="318" fill="#d8ded9" font-family="Consolas, monospace" font-size="15">[ledger] runtime telemetry is not converted into ecosystem claims</text>
+  <text x="52" y="350" fill="#8ff0b4" font-family="Consolas, monospace" font-size="15">[boundary] no fabricated incidents, detections, or metrics</text>
   <rect x="52" y="392" width="996" height="86" fill="#07100b" stroke="#1a2f24"/>
-  <text x="78" y="428" fill="#d8ded9" font-family="Consolas, monospace" font-size="15">API: /signals  /collect  /feeds  /health</text>
-  <text x="78" y="458" fill="#8b978f" font-family="Consolas, monospace" font-size="15">dashboard: streamlit run app/dashboard/streamlit_app.py</text>
+  <text x="78" y="428" fill="#d8ded9" font-family="Consolas, monospace" font-size="15">surfaces: /console  /evidence  /labs/perception  /about</text>
+  <text x="78" y="458" fill="#8b978f" font-family="Consolas, monospace" font-size="15">public preview: educational demo text, not live telemetry</text>
 </svg>
-

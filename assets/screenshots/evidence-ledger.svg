@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="860" viewBox="0 0 1440 860" role="img" aria-label="SIGNALWATCH evidence ledger preview">
+  <rect width="1440" height="860" fill="#040605"/>
+  <rect x="64" y="54" width="1312" height="752" rx="10" fill="#0d120f" stroke="#243329"/>
+  <text x="104" y="118" fill="#89e3ad" font-family="Consolas, monospace" font-size="13" letter-spacing="4">EVIDENCE LEDGER</text>
+  <text x="104" y="178" fill="#edf3ee" font-family="Inter, Arial" font-size="42" font-weight="700">One place to inspect what SIGNALWATCH actually knows.</text>
+  <text x="104" y="216" fill="#a7b2aa" font-family="Inter, Arial" font-size="18">Source claims, runtime frames, collector state, and unavailable data remain separated.</text>
+  <g font-family="Consolas, monospace" font-size="13">
+    <rect x="104" y="272" width="220" height="54" fill="#111813" stroke="#2c3d32"/>
+    <rect x="340" y="272" width="220" height="54" fill="#111813" stroke="#2c3d32"/>
+    <rect x="576" y="272" width="220" height="54" fill="#111813" stroke="#2c3d32"/>
+    <rect x="812" y="272" width="220" height="54" fill="#111813" stroke="#2c3d32"/>
+    <text x="124" y="305" fill="#89e3ad">ALL EVIDENCE</text>
+    <text x="360" y="305" fill="#a7b2aa">SOURCE CLAIMS</text>
+    <text x="596" y="305" fill="#a7b2aa">COLLECTORS</text>
+    <text x="832" y="305" fill="#a7b2aa">TELEMETRY</text>
+  </g>
+  <g fill="#111813" stroke="#2c3d32">
+    <rect x="104" y="370" width="1232" height="108" rx="4"/>
+    <rect x="104" y="500" width="1232" height="108" rx="4"/>
+    <rect x="104" y="630" width="1232" height="108" rx="4"/>
+  </g>
+  <g font-family="Inter, Arial">
+    <text x="132" y="408" fill="#89e3ad" font-family="Consolas, monospace" font-size="13">SOURCE / CLAIM</text>
+    <text x="132" y="444" fill="#edf3ee" font-size="22" font-weight="700">Source-backed item with URL and timestamp</text>
+    <text x="132" y="468" fill="#a7b2aa" font-size="14">Provenance expands below each row; claims without source evidence do not appear here.</text>
+    <text x="132" y="538" fill="#89e3ad" font-family="Consolas, monospace" font-size="13">COLLECTOR / RUNTIME</text>
+    <text x="132" y="574" fill="#edf3ee" font-size="22" font-weight="700">Operational state remains separate from ecosystem claims</text>
+    <text x="132" y="598" fill="#a7b2aa" font-size="14">Latency, retries, heartbeat, and unavailable states are runtime evidence only.</text>
+    <text x="132" y="668" fill="#89e3ad" font-family="Consolas, monospace" font-size="13">TELEMETRY / SNAPSHOT</text>
+    <text x="132" y="704" fill="#edf3ee" font-size="22" font-weight="700">No fabricated metrics, detections, or incident narratives</text>
+  </g>
+</svg>

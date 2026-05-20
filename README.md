@@ -118,7 +118,7 @@ Runtime behavior:
 - frontend reconnect handling
 - persistent timeline and briefing layer
 
-Production endpoints:
+Public routes:
 
 ```text
 Frontend    https://jgsops.dev
@@ -128,9 +128,6 @@ Evidence    https://jgsops.dev/evidence
 Safety      https://jgsops.dev/safety
 Perception  https://jgsops.dev/labs/perception
 Methodology https://jgsops.dev/methodology
-
-REST        https://signalwatch-production-4416.up.railway.app/api/telemetry
-WebSocket   wss://signalwatch-production-4416.up.railway.app/ws/events
 ```
 
 ## Safety Intelligence
@@ -269,17 +266,11 @@ custom domain at jgsops.dev
 
 ## Visual Showcase
 
-Recommended repository visuals:
+Repository visuals:
 
 ```text
-assets/screenshots/landing.png
-assets/screenshots/console.png
-assets/screenshots/safety.png
-assets/screenshots/perception.png
-assets/screenshots/timeline.png
-assets/demo/websocket-stream.gif
-assets/demo/perception-degradation.gif
-assets/demo/timeline-briefing.gif
+assets/screenshots/dashboard.svg
+assets/screenshots/evidence-ledger.svg
 ```
 
 ### Operational Console
@@ -290,31 +281,31 @@ Realtime telemetry, collector health, semantic topology, live event stream, and 
   <img src="assets/screenshots/dashboard.svg" alt="SIGNALWATCH console preview" width="100%">
 </p>
 
+### Evidence Ledger
+
+Claims, telemetry, collector health, and unavailable states are kept separate.
+
+<p align="center">
+  <img src="assets/screenshots/evidence-ledger.svg" alt="SIGNALWATCH evidence ledger preview" width="100%">
+</p>
+
 ### Safety-Critical Perception
 
 Browser-side CV inference under controlled degradation. Confidence, persistence, and temporal telemetry come only from model outputs.
 
-```text
-assets/screenshots/perception.png
-assets/demo/perception-degradation.gif
-```
+Use `/labs/perception` for the live browser-side lab.
 
 ### Safety Intelligence
 
 Source-backed public AI safety explanations with evidence chains and reliability metadata.
 
-```text
-assets/screenshots/safety.png
-```
+Use `/safety` for the live source-backed safety layer.
 
 ### Timeline Memory
 
 Operational history, signal evolution, and daily intelligence briefing.
 
-```text
-assets/screenshots/timeline.png
-assets/demo/timeline-briefing.gif
-```
+Use `/timeline` for the live operational timeline.
 
 ## Design Philosophy
 
@@ -345,9 +336,9 @@ backend     Railway
 Environment:
 
 ```env
-NEXT_PUBLIC_API_URL=https://signalwatch-production-4416.up.railway.app
-NEXT_PUBLIC_WS_URL=wss://signalwatch-production-4416.up.railway.app/ws/events
-SIGNALWATCH_CORS_ORIGINS=https://jgsops.dev,https://www.jgsops.dev,http://localhost:3000,http://127.0.0.1:3000
+NEXT_PUBLIC_API_URL=<your-public-backend-url>
+NEXT_PUBLIC_WS_URL=<your-public-websocket-url>/ws/events
+SIGNALWATCH_CORS_ORIGINS=<your-public-frontend-origin>,http://localhost:3000,http://127.0.0.1:3000
 ```
 
 ## Repository Structure
