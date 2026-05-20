@@ -8,6 +8,7 @@ const navItems = [
   { href: "/labs", label: "labs", key: "labs" },
   { href: "/labs/perception", label: "perception", key: "perception" },
   { href: "/case-studies", label: "case studies", key: "case-studies" },
+  { href: "/market-stress", label: "market stress", key: "market-stress" },
   { href: "/methodology", label: "methodology", key: "methodology" },
   { href: "/learn/glossary", label: "glossary", key: "glossary" },
   { href: "/learn/llm-training", label: "LLM guide", key: "llm-training" },
