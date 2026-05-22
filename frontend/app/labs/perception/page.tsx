@@ -6,6 +6,8 @@ import { Camera, CircuitBoard, ScanEye, ShieldCheck, type LucideIcon } from "luc
 import { fetchCvStatus } from "@/lib/api";
 import { EvidencePacketPreview } from "@/components/education/evidence-packet-preview";
 import { OperationalCallouts } from "@/components/education/operational-callouts";
+import { EvidenceBoundaryGuide } from "@/components/education/evidence-boundary-guide";
+import { NextStepRail } from "@/components/education/next-step-rail";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { UnavailableStatesGallery } from "@/components/education/unavailable-states-gallery";
 import { OperationalNav } from "@/components/layout/operational-nav";
@@ -46,6 +48,10 @@ export default function SafetyCriticalPerceptionPage() {
             <OperationalCallouts compact />
           </div>
         </header>
+
+        <div className="mb-5">
+          <PlainPerceptionGuide />
+        </div>
 
         <section className="grid gap-5 xl:grid-cols-[1.45fr_.55fr]">
           <Panel title="live perception test" icon={Camera} meta={cvStatus?.status ?? "browser inference"}>
@@ -95,6 +101,10 @@ export default function SafetyCriticalPerceptionPage() {
         </div>
 
         <div className="mt-5">
+          <EvidenceBoundaryGuide compact title="what counts as evidence in this lab" />
+        </div>
+
+        <div className="mt-5">
           <UnavailableStatesGallery title="perception unavailable states" />
         </div>
 
@@ -105,9 +115,57 @@ export default function SafetyCriticalPerceptionPage() {
             description="These source-attributed photos show visual conditions the lab is built to reason about. They do not contain detection boxes, confidence values, or precomputed outcomes; those are produced only when the browser model runs."
           />
         </div>
+        <div className="mt-5">
+          <NextStepRail
+            title="after a perception run"
+            steps={[
+              {
+                href: "/evaluations",
+                label: "Understand the failure mode",
+                text: "Connect missed detections and confidence movement to evaluation practice.",
+                icon: ShieldCheck,
+              },
+              {
+                href: "/case-studies",
+                label: "Run a protocol",
+                text: "Use a repeatable case-study shape for degradation and observation.",
+                icon: ScanEye,
+              },
+              {
+                href: "/evidence",
+                label: "Inspect source evidence",
+                text: "Compare model-output evidence with source-backed operational claims.",
+                icon: CircuitBoard,
+              },
+            ]}
+          />
+        </div>
         <SystemStatusBar />
       </section>
     </main>
+  );
+}
+
+function PlainPerceptionGuide() {
+  const points = [
+    ["Input", "The image or webcam frame the model sees."],
+    ["Stress", "Blur, low light, crop, motion, occlusion, or noise added before inference."],
+    ["Output", "Only the boxes and confidence values the browser model actually reports."],
+    ["Failure", "A missing object, unstable class, low confidence, or empty frame."],
+  ];
+
+  return (
+    <section className="console-panel p-5">
+      <div className="border-b border-signal-line pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">how to read this lab</div>
+      <div className="mt-5 grid gap-3 md:grid-cols-4">
+        {points.map(([label, text]) => (
+          <div key={label} className="border-l border-signal-line bg-signal-panel/70 px-3 py-3">
+            <div className="font-mono text-[0.6rem] uppercase text-signal-green/70">{label}</div>
+            <p className="mt-2 text-sm leading-relaxed text-signal-muted">{text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 

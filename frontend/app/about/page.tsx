@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Activity, Database, Eye, FileSearch, RadioTower, ShieldCheck, type LucideIcon } from "lucide-react";
 import { OperationalNav } from "@/components/layout/operational-nav";
 import { SystemStatusBar } from "@/components/layout/system-status-bar";
+import { EvidenceBoundaryGuide } from "@/components/education/evidence-boundary-guide";
+import { NextStepRail } from "@/components/education/next-step-rail";
 
 export const metadata: Metadata = {
   title: "About",
@@ -50,6 +52,27 @@ const notThis = [
   "A source of fabricated incidents, confidence values, or telemetry.",
 ];
 
+const nextSteps = [
+  {
+    href: "/start",
+    label: "Choose your route",
+    text: "Start from the surface that matches your intent.",
+    icon: RadioTower,
+  },
+  {
+    href: "/evidence",
+    label: "Inspect provenance",
+    text: "See claims, runtime state, and unavailable data separated.",
+    icon: FileSearch,
+  },
+  {
+    href: "/evaluations",
+    label: "Understand evaluation",
+    text: "Learn why robustness means looking for failure states.",
+    icon: Eye,
+  },
+];
+
 export default function AboutPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-signal-black text-signal-text">
@@ -88,6 +111,10 @@ export default function AboutPage() {
           ))}
         </section>
 
+        <div className="mt-5">
+          <EvidenceBoundaryGuide compact title="the four labels that make the site readable" />
+        </div>
+
         <section className="mt-5 grid gap-5 lg:grid-cols-[1fr_.9fr]">
           <div className="console-panel p-5">
             <div className="border-b border-signal-line pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">what this is</div>
@@ -125,6 +152,10 @@ export default function AboutPage() {
             ))}
           </div>
         </section>
+
+        <div className="mt-5">
+          <NextStepRail steps={nextSteps} />
+        </div>
 
         <SystemStatusBar />
       </section>

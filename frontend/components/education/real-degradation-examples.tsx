@@ -5,6 +5,7 @@ const examples = [
     imageId: "low-light-hallway",
     title: "Low light can hide ordinary detail",
     plain: "A person can still understand the scene. A vision model may lose confidence or miss objects.",
+    implication: "Useful for hallway cameras, night routes, warehouses, and indoor robots.",
     condition: "darker input",
     degradedClass: "brightness-[42%] contrast-[118%] saturate-[82%]",
   },
@@ -12,6 +13,7 @@ const examples = [
     imageId: "motion-blur",
     title: "Motion can smear object boundaries",
     plain: "Movement makes edges less clear, which can make detections jump or disappear between frames.",
+    implication: "Useful for traffic scenes, handheld cameras, moving robots, and fast workspaces.",
     condition: "blurred input",
     degradedClass: "blur-[2.5px] brightness-[92%] contrast-[112%]",
   },
@@ -19,8 +21,25 @@ const examples = [
     imageId: "cctv-camera",
     title: "Placement changes what the system can know",
     plain: "A camera angle can make important context visible, hidden, cropped, or too far away.",
+    implication: "Useful for placement reviews, coverage audits, and blind-spot analysis.",
     condition: "cropped view",
     degradedClass: "scale-125 brightness-[92%] contrast-[106%]",
+  },
+  {
+    imageId: "thermal-camera",
+    title: "Sensors have their own boundaries",
+    plain: "Specialized sensors can reveal one kind of signal while hiding other context the model may need.",
+    implication: "Useful for thermal systems, calibration checks, and mixed-sensor deployments.",
+    condition: "reduced context",
+    degradedClass: "saturate-[65%] contrast-[132%] brightness-[86%]",
+  },
+  {
+    imageId: "camera-cluster",
+    title: "Coverage is never the whole scene",
+    plain: "Multiple cameras can still leave gaps. The system can only reason from what the sensors actually see.",
+    implication: "Useful for multi-camera monitoring, maintenance planning, and handoff between views.",
+    condition: "partial coverage",
+    degradedClass: "scale-110 brightness-[82%] contrast-[125%]",
   },
 ];
 
@@ -55,6 +74,9 @@ export function RealDegradationExamples({
                 <div className="font-mono text-[0.6rem] uppercase text-signal-green/75">{image.condition}</div>
                 <h3 className="mt-2 text-base font-semibold leading-tight text-signal-text">{example.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-signal-muted">{example.plain}</p>
+                <p className="mt-3 border-l border-signal-line bg-signal-panel2/52 px-3 py-2 text-xs leading-relaxed text-signal-dim">
+                  Real-world implication: {example.implication}
+                </p>
                 <div className="mt-3 font-mono text-[0.54rem] uppercase text-signal-dim">source / {image.sourceLabel}</div>
               </div>
             </article>

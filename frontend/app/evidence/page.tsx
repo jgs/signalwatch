@@ -93,6 +93,13 @@ export default function EvidenceLedgerPage() {
           <LedgerStat icon={Clock3} label="last evidence" value={lastEntry ? formatUtc(lastEntry) : "unavailable"} compact />
         </section>
 
+        <section className="mt-5 grid gap-3 md:grid-cols-4">
+          <KindHelp label="source" text="A claim or update with a source URL attached." />
+          <KindHelp label="collector" text="A watcher reporting whether a source route is healthy." />
+          <KindHelp label="runtime" text="The app's own connection or event stream state." />
+          <KindHelp label="telemetry" text="Operational measurements about SIGNALWATCH itself." />
+        </section>
+
         <section className="mt-5 grid gap-5 xl:grid-cols-[18rem_1fr]">
           <Panel className="h-fit p-4">
             <PanelHeader title="ledger filters" meta="real entries" />
@@ -136,6 +143,15 @@ export default function EvidenceLedgerPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+function KindHelp({ label, text }: { label: string; text: string }) {
+  return (
+    <div className="border border-signal-line bg-signal-panel/70 p-3">
+      <div className="font-mono text-[0.58rem] uppercase text-signal-green/75">{label}</div>
+      <p className="mt-2 text-xs leading-relaxed text-signal-muted">{text}</p>
+    </div>
   );
 }
 

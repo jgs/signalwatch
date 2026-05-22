@@ -4,6 +4,8 @@ import { Activity, ArrowRight, BookOpen, Eye, FileSearch, Gauge, RadioTower, Shi
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
 import { OperationalCallouts } from "@/components/education/operational-callouts";
+import { EvidenceBoundaryGuide } from "@/components/education/evidence-boundary-guide";
+import { NextStepRail } from "@/components/education/next-step-rail";
 import { OperationalNav } from "@/components/layout/operational-nav";
 import { SystemStatusBar } from "@/components/layout/system-status-bar";
 
@@ -97,6 +99,27 @@ const rules = [
   "Educational pages explain concepts; they do not claim to reveal a private lab recipe.",
 ];
 
+const nextSteps = [
+  {
+    href: "/about",
+    label: "What SIGNALWATCH is",
+    text: "Read the short trust boundary before entering technical surfaces.",
+    icon: ShieldCheck,
+  },
+  {
+    href: "/learn/glossary",
+    label: "Learn the words",
+    text: "Plain definitions for confidence, telemetry, provenance, and robustness.",
+    icon: BookOpen,
+  },
+  {
+    href: "/labs/perception",
+    label: "See a real model fail",
+    text: "Use image degradation to inspect browser-side model outputs.",
+    icon: Eye,
+  },
+];
+
 export default function StartPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-signal-black text-signal-text">
@@ -112,7 +135,7 @@ export default function StartPage() {
             <span className="text-signal-muted">Choose the surface that matches the job.</span>
           </h1>
           <p className="mt-7 max-w-3xl text-sm leading-relaxed text-signal-muted">
-            SIGNALWATCH is easier to use when you enter with intent: monitor live signals, inspect evidence, test perception, or learn the underlying concepts.
+            SIGNALWATCH is easier to use when you enter with intent: monitor live signals, inspect evidence, test perception, or learn the ideas first. Nothing here asks you to trust a black box without a trace.
           </p>
           <div className="mt-6">
             <OperationalCallouts compact />
@@ -124,6 +147,10 @@ export default function StartPage() {
             <IntentCard key={intent.href} {...intent} />
           ))}
         </section>
+
+        <div className="mt-5">
+          <EvidenceBoundaryGuide compact />
+        </div>
 
         <section className="mt-5 grid gap-4 lg:grid-cols-[1fr_.75fr]">
           <div className="console-panel p-5">
@@ -159,6 +186,10 @@ export default function StartPage() {
 
         <div className="mt-5">
           <OperationalBoundaryPanel title="start-page evidence boundary" />
+        </div>
+
+        <div className="mt-5">
+          <NextStepRail title="if you are new to AI safety" steps={nextSteps} />
         </div>
 
         <div className="mt-5">

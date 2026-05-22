@@ -20,6 +20,7 @@ import {
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
 import { RealDegradationExamples } from "@/components/education/real-degradation-examples";
 import { VisualEvidenceLegend } from "@/components/education/visual-evidence-legend";
+import { HowToReadInterface } from "@/components/landing/how-to-read-interface";
 import { OperationalSurfaceMap } from "@/components/landing/operational-surface-map";
 import { SystemStatusBar } from "@/components/layout/system-status-bar";
 
@@ -101,6 +102,12 @@ export default function LandingPage() {
           {aiPrimer.map((item) => (
             <InfoCard key={item.title} {...item} />
           ))}
+        </div>
+      </section>
+
+      <section className="bg-[#101711] py-12 text-signal-text md:py-16">
+        <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <HowToReadInterface />
         </div>
       </section>
 

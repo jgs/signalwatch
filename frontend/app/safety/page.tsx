@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Database, Shield, Wrench } from "lucide-react";
+import { Database, Eye, FileSearch, Shield, Wrench } from "lucide-react";
 import { fetchAlignmentConcepts, fetchJobDisplacement, fetchRiskFrameworks, fetchSafetySources } from "@/lib/api";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
+import { EvidenceBoundaryGuide } from "@/components/education/evidence-boundary-guide";
+import { NextStepRail } from "@/components/education/next-step-rail";
 import { OperationalNav } from "@/components/layout/operational-nav";
 import { SafetyBridge } from "@/components/safety/safety-bridge";
 import type { AlignmentConcept, JobExposureInsight, RiskCategory, SafetySource } from "@/lib/types";
@@ -51,6 +53,10 @@ export default function SafetyPage() {
         </header>
 
         <SafetyBridge />
+
+        <div className="mb-5">
+          <EvidenceBoundaryGuide compact title="before reading safety claims" />
+        </div>
 
         <div className="mb-5">
           <RealWorldImageBand
@@ -142,6 +148,32 @@ export default function SafetyPage() {
             ))}
           </div>
         </section>
+
+        <div className="mt-5">
+          <NextStepRail
+            title="keep the safety trail inspectable"
+            steps={[
+              {
+                href: "/evidence",
+                label: "Open evidence ledger",
+                text: "Check which rows are source claims, telemetry, or unavailable state.",
+                icon: FileSearch,
+              },
+              {
+                href: "/evaluations",
+                label: "Read evaluation basics",
+                text: "See why safety work depends on failure visibility, not just scores.",
+                icon: Shield,
+              },
+              {
+                href: "/labs/perception",
+                label: "Try a real model run",
+                text: "Inspect how degradation changes browser-side model outputs.",
+                icon: Eye,
+              },
+            ]}
+          />
+        </div>
       </section>
     </main>
   );

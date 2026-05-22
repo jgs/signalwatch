@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookOpen, CheckCircle2, Database, Eye, ShieldCheck, Wrench, type LucideIcon } from "lucide-react";
+import { BookOpen, CheckCircle2, Database, Eye, FileSearch, ShieldCheck, Wrench, type LucideIcon } from "lucide-react";
 import { OperationalNav } from "@/components/layout/operational-nav";
+import { NextStepRail } from "@/components/education/next-step-rail";
 
 export const metadata: Metadata = {
   title: "How LLM Training Works",
@@ -54,6 +55,13 @@ const limits = [
   "SIGNALWATCH focuses on what can be inspected: sources, timestamps, model outputs, evidence packets, and unavailable states.",
 ];
 
+const monitoringBridge = [
+  ["Training", "The model learns patterns from examples."],
+  ["Evaluation", "Teams test behavior before deployment."],
+  ["Deployment", "Real users and real environments create new conditions."],
+  ["Monitoring", "Evidence is collected when behavior changes or fails."],
+];
+
 export default function LlmTrainingPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-signal-black text-signal-text">
@@ -85,6 +93,21 @@ export default function LlmTrainingPage() {
             alt="Diagram showing the simplified LLM training path from data collection to deployment monitoring."
             className="min-w-[760px] w-full"
           />
+        </section>
+
+        <section className="mt-5 console-panel p-5">
+          <div className="border-b border-signal-line/60 pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">why this matters after training</div>
+          <div className="mt-5 grid gap-3 md:grid-cols-4">
+            {monitoringBridge.map(([label, text]) => (
+              <div key={label} className="border-l border-signal-line bg-signal-panel/70 px-3 py-3">
+                <div className="font-mono text-[0.6rem] uppercase text-signal-green/70">{label}</div>
+                <p className="mt-2 text-sm leading-relaxed text-signal-muted">{text}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-5 max-w-3xl text-sm leading-relaxed text-signal-muted">
+            SIGNALWATCH focuses on the last part of that path: what can be observed once systems meet real sources, real inputs, and real operational constraints.
+          </p>
         </section>
 
         <section className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -134,6 +157,31 @@ export default function LlmTrainingPage() {
             ))}
           </div>
         </section>
+        <div className="mt-5">
+          <NextStepRail
+            title="continue from training to evidence"
+            steps={[
+              {
+                href: "/evaluations",
+                label: "Why testing matters",
+                text: "See how evaluation looks for visible failure states.",
+                icon: CheckCircle2,
+              },
+              {
+                href: "/evidence",
+                label: "Inspect the ledger",
+                text: "See source claims, telemetry, and unavailable states separated.",
+                icon: FileSearch,
+              },
+              {
+                href: "/labs/perception",
+                label: "Run a model test",
+                text: "Watch real browser-side detections change under degradation.",
+                icon: Eye,
+              },
+            ]}
+          />
+        </div>
       </section>
     </main>
   );

@@ -5,6 +5,8 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Activity, AlertTriangle, Eye, Gauge, Network, ScanSearch, ShieldCheck, type LucideIcon } from "lucide-react";
 import { fetchSafetySources } from "@/lib/api";
 import { EvidencePacketPreview } from "@/components/education/evidence-packet-preview";
+import { EvidenceBoundaryGuide } from "@/components/education/evidence-boundary-guide";
+import { NextStepRail } from "@/components/education/next-step-rail";
 import { OperationalBoundaryPanel } from "@/components/education/operational-boundary-panel";
 import { RealDegradationExamples } from "@/components/education/real-degradation-examples";
 import { RealWorldImageBand } from "@/components/education/real-world-image-band";
@@ -100,6 +102,10 @@ export default function EvaluationsPage() {
             <LayerCard key={layer.title} {...layer} />
           ))}
         </section>
+
+        <div className="mt-5">
+          <EvidenceBoundaryGuide compact title="evaluation labels in plain language" />
+        </div>
 
         <div className="mt-5">
           <RealDegradationExamples
@@ -209,6 +215,32 @@ export default function EvaluationsPage() {
             })}
           </div>
         </section>
+
+        <div className="mt-5">
+          <NextStepRail
+            title="move from explanation to inspection"
+            steps={[
+              {
+                href: "/labs/perception",
+                label: "Run perception test",
+                text: "Upload an image and collect real model-output evidence.",
+                icon: Eye,
+              },
+              {
+                href: "/case-studies",
+                label: "Use a protocol",
+                text: "Follow a reproducible degradation record without prefilled conclusions.",
+                icon: ScanSearch,
+              },
+              {
+                href: "/evidence",
+                label: "Inspect the ledger",
+                text: "See how source claims and runtime state stay separated.",
+                icon: Activity,
+              },
+            ]}
+          />
+        </div>
         <SystemStatusBar />
       </section>
     </main>
