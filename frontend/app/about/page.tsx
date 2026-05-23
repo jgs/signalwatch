@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Activity, Database, Eye, FileSearch, Github, Mail, RadioTower, ShieldCheck, type LucideIcon } from "lucide-react";
+import { Activity, Database, Eye, FileSearch, Github, Linkedin, Mail, RadioTower, ShieldCheck, Twitter, type LucideIcon } from "lucide-react";
 import { OperationalNav } from "@/components/layout/operational-nav";
 import { SystemStatusBar } from "@/components/layout/system-status-bar";
 import { EvidenceBoundaryGuide } from "@/components/education/evidence-boundary-guide";
@@ -8,7 +8,7 @@ import { NextStepRail } from "@/components/education/next-step-rail";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "What SIGNALWATCH is, what it is not, and how its evidence boundaries work.",
+  description: "About SIGNALWATCH, its evidence boundaries, and the person building it.",
 };
 
 const surfaces = [
@@ -155,28 +155,28 @@ export default function AboutPage() {
 
         <section className="mt-5 console-panel p-5">
           <div className="flex flex-col justify-between gap-3 border-b border-signal-line pb-3 md:flex-row md:items-center">
-            <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">contact</div>
-            <div className="font-mono text-[0.6rem] uppercase text-signal-dim">project owner / public channels</div>
+            <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">about me / contact</div>
+            <div className="font-mono text-[0.6rem] uppercase text-signal-dim">Anxo Fandino / project owner</div>
           </div>
-          <p className="mt-5 max-w-3xl text-sm leading-relaxed text-signal-muted">
-            For feedback, collaboration, or questions about SIGNALWATCH, use the public project channels below.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3 font-mono text-[0.62rem] uppercase">
-            <a
-              href="https://github.com/jgs"
-              target="_blank"
-              className="inline-flex items-center gap-2 border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-green/80 transition hover:border-signal-green/50 hover:text-signal-text"
-            >
-              <Github className="h-3.5 w-3.5" />
-              github / jgs
-            </a>
-            <a
-              href="mailto:jgsops@proton.me"
-              className="inline-flex items-center gap-2 border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-muted transition hover:border-signal-green/50 hover:text-signal-text"
-            >
-              <Mail className="h-3.5 w-3.5" />
-              jgsops@proton.me
-            </a>
+          <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_.85fr]">
+            <div>
+              <h2 className="text-2xl font-semibold leading-tight text-signal-text">I build evidence-first AI systems and operational interfaces.</h2>
+              <p className="mt-4 text-sm leading-relaxed text-signal-muted">
+                SIGNALWATCH is my attempt to make AI safety, perception robustness, and operational monitoring easier to inspect without hype or fabricated metrics.
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-signal-muted">
+                I am interested in systems that show their sources, expose uncertainty, and make failures visible enough for people to reason about them.
+              </p>
+            </div>
+            <div className="grid gap-2 font-mono text-[0.62rem] uppercase">
+              <ContactLink href="https://github.com/jgs" icon={Github} label="github / jgs" primary />
+              <ContactLink href="https://www.linkedin.com/in/anxo-fandi%C3%B1o-65094a217" icon={Linkedin} label="linkedin / Anxo Fandino" />
+              <ContactLink href="https://x.com/jgsops" icon={Twitter} label="x / jgsops" />
+              <div className="inline-flex items-center gap-2 border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-muted">
+                <Mail className="h-3.5 w-3.5" />
+                email / jgsops@proton.me
+              </div>
+            </div>
           </div>
         </section>
 
@@ -187,6 +187,31 @@ export default function AboutPage() {
         <SystemStatusBar />
       </section>
     </main>
+  );
+}
+
+function ContactLink({
+  href,
+  icon: Icon,
+  label,
+  primary,
+}: {
+  href: string;
+  icon: LucideIcon;
+  label: string;
+  primary?: boolean;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      className={`inline-flex items-center gap-2 border border-signal-line bg-signal-panel2/60 px-3 py-2 transition hover:border-signal-green/50 hover:text-signal-text ${
+        primary ? "text-signal-green/80" : "text-signal-muted"
+      }`}
+    >
+      <Icon className="h-3.5 w-3.5" />
+      {label}
+    </a>
   );
 }
 

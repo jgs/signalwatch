@@ -212,7 +212,7 @@ export default function LandingPage() {
             <Link href="/evaluations" className="transition hover:text-[#111b16]">evaluations</Link>
             <Link href="/safety" className="transition hover:text-[#111b16]">safety</Link>
             <Link href="/console" className="transition hover:text-[#111b16]">console</Link>
-            <a href="mailto:jgsops@proton.me" className="transition hover:text-[#111b16]">contact</a>
+            <Link href="/about" className="transition hover:text-[#111b16]">about me</Link>
           </div>
         </div>
       </footer>
