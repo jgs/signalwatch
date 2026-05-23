@@ -81,7 +81,7 @@ export default function AboutPage() {
       <section className="relative mx-auto max-w-6xl px-5 py-8 md:px-8 md:py-12">
         <OperationalNav active="about" />
 
-        <header className="grid gap-8 py-12 md:py-16 lg:grid-cols-[1fr_22rem] lg:items-end">
+        <header className="grid gap-8 py-10 md:py-14 lg:grid-cols-[1fr_26rem] lg:items-start">
           <div>
             <div className="font-mono text-[0.72rem] uppercase tracking-[0.22em] text-signal-green/80">about / trust boundary</div>
             <h1 className="mt-8 max-w-4xl text-4xl font-semibold leading-tight md:text-6xl">
@@ -91,19 +91,21 @@ export default function AboutPage() {
               It helps readers inspect AI safety signals, source movement, perception robustness, and runtime state without filling gaps with invented telemetry.
             </p>
           </div>
-          <div className="console-panel p-5">
-            <div className="flex items-center gap-2 border-b border-signal-line pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">
-              <RadioTower className="h-3.5 w-3.5" />
-              public route
-            </div>
-            <div className="mt-4 grid gap-2 font-mono text-[0.62rem] uppercase">
-              <Link href="/start" className="border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-green/80 transition hover:border-signal-green/50">1 / start</Link>
-              <Link href="/console" className="border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-muted transition hover:border-signal-green/50 hover:text-signal-text">2 / console</Link>
-              <Link href="/evidence" className="border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-muted transition hover:border-signal-green/50 hover:text-signal-text">3 / evidence</Link>
-              <Link href="/labs/perception" className="border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-muted transition hover:border-signal-green/50 hover:text-signal-text">4 / perception lab</Link>
-            </div>
-          </div>
+          <AboutMePanel compact />
         </header>
+
+        <section className="mb-5 console-panel p-5">
+          <div className="flex items-center gap-2 border-b border-signal-line pb-3 font-mono text-[0.68rem] uppercase text-signal-green/80">
+            <RadioTower className="h-3.5 w-3.5" />
+            public route
+          </div>
+          <div className="mt-4 grid gap-2 font-mono text-[0.62rem] uppercase md:grid-cols-4">
+            <Link href="/start" className="border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-green/80 transition hover:border-signal-green/50">1 / start</Link>
+            <Link href="/console" className="border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-muted transition hover:border-signal-green/50 hover:text-signal-text">2 / console</Link>
+            <Link href="/evidence" className="border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-muted transition hover:border-signal-green/50 hover:text-signal-text">3 / evidence</Link>
+            <Link href="/labs/perception" className="border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-muted transition hover:border-signal-green/50 hover:text-signal-text">4 / perception lab</Link>
+          </div>
+        </section>
 
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {surfaces.map((surface) => (
@@ -153,33 +155,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="mt-5 console-panel p-5">
-          <div className="flex flex-col justify-between gap-3 border-b border-signal-line pb-3 md:flex-row md:items-center">
-            <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">about me / contact</div>
-            <div className="font-mono text-[0.6rem] uppercase text-signal-dim">Anxo Fandino / project owner</div>
-          </div>
-          <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_.85fr]">
-            <div>
-              <h2 className="text-2xl font-semibold leading-tight text-signal-text">I build evidence-first AI systems and operational interfaces.</h2>
-              <p className="mt-4 text-sm leading-relaxed text-signal-muted">
-                SIGNALWATCH is my attempt to make AI safety, perception robustness, and operational monitoring easier to inspect without hype or fabricated metrics.
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-signal-muted">
-                I am interested in systems that show their sources, expose uncertainty, and make failures visible enough for people to reason about them.
-              </p>
-            </div>
-            <div className="grid gap-2 font-mono text-[0.62rem] uppercase">
-              <ContactLink href="https://github.com/jgs" icon={Github} label="github / jgs" primary />
-              <ContactLink href="https://www.linkedin.com/in/anxo-fandi%C3%B1o-65094a217" icon={Linkedin} label="linkedin / Anxo Fandino" />
-              <ContactLink href="https://x.com/jgsops" icon={Twitter} label="x / jgsops" />
-              <div className="inline-flex items-center gap-2 border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-muted">
-                <Mail className="h-3.5 w-3.5" />
-                email / jgsops@proton.me
-              </div>
-            </div>
-          </div>
-        </section>
-
         <div className="mt-5">
           <NextStepRail steps={nextSteps} />
         </div>
@@ -187,6 +162,32 @@ export default function AboutPage() {
         <SystemStatusBar />
       </section>
     </main>
+  );
+}
+
+function AboutMePanel({ compact = false }: { compact?: boolean }) {
+  return (
+    <aside className="console-panel p-5">
+      <div className="flex flex-col justify-between gap-2 border-b border-signal-line pb-3 md:flex-row md:items-center">
+        <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">about me / contact</div>
+        <div className="font-mono text-[0.6rem] uppercase text-signal-dim">Anxo Fandino</div>
+      </div>
+      <h2 className={`${compact ? "mt-5 text-xl" : "mt-5 text-2xl"} font-semibold leading-tight text-signal-text`}>
+        I build evidence-first AI systems and operational interfaces.
+      </h2>
+      <p className="mt-4 text-sm leading-relaxed text-signal-muted">
+        SIGNALWATCH is my attempt to make AI safety, perception robustness, and operational monitoring easier to inspect without hype or fabricated metrics.
+      </p>
+      <div className="mt-5 grid gap-2 font-mono text-[0.62rem] uppercase">
+        <ContactLink href="https://github.com/jgs" icon={Github} label="github / jgs" primary />
+        <ContactLink href="https://www.linkedin.com/in/anxo-fandi%C3%B1o-65094a217" icon={Linkedin} label="linkedin / Anxo Fandino" />
+        <ContactLink href="https://x.com/jgsops" icon={Twitter} label="x / jgsops" />
+        <div className="inline-flex items-center gap-2 border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-muted">
+          <Mail className="h-3.5 w-3.5" />
+          email / jgsops@proton.me
+        </div>
+      </div>
+    </aside>
   );
 }
 
