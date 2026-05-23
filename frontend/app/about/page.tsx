@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Activity, Database, Eye, FileSearch, RadioTower, ShieldCheck, type LucideIcon } from "lucide-react";
+import { Activity, Database, Eye, FileSearch, Github, Mail, RadioTower, ShieldCheck, type LucideIcon } from "lucide-react";
 import { OperationalNav } from "@/components/layout/operational-nav";
 import { SystemStatusBar } from "@/components/layout/system-status-bar";
 import { EvidenceBoundaryGuide } from "@/components/education/evidence-boundary-guide";
@@ -150,6 +150,33 @@ export default function AboutPage() {
                 <p className="mt-2 text-sm leading-relaxed text-signal-muted">{text}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="mt-5 console-panel p-5">
+          <div className="flex flex-col justify-between gap-3 border-b border-signal-line pb-3 md:flex-row md:items-center">
+            <div className="font-mono text-[0.68rem] uppercase text-signal-green/80">contact</div>
+            <div className="font-mono text-[0.6rem] uppercase text-signal-dim">project owner / public channels</div>
+          </div>
+          <p className="mt-5 max-w-3xl text-sm leading-relaxed text-signal-muted">
+            For feedback, collaboration, or questions about SIGNALWATCH, use the public project channels below.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3 font-mono text-[0.62rem] uppercase">
+            <a
+              href="https://github.com/jgs"
+              target="_blank"
+              className="inline-flex items-center gap-2 border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-green/80 transition hover:border-signal-green/50 hover:text-signal-text"
+            >
+              <Github className="h-3.5 w-3.5" />
+              github / jgs
+            </a>
+            <a
+              href="mailto:jgsops@proton.me"
+              className="inline-flex items-center gap-2 border border-signal-line bg-signal-panel2/60 px-3 py-2 text-signal-muted transition hover:border-signal-green/50 hover:text-signal-text"
+            >
+              <Mail className="h-3.5 w-3.5" />
+              jgsops@proton.me
+            </a>
           </div>
         </section>
 
