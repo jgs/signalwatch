@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Anxo Fandiño portfolio">
+  <rect width="1200" height="630" fill="#171d19"/>
+  <g font-family="Arial,sans-serif" fill="#f4f5ee">
+    <text x="70" y="92" font-size="30">af<tspan fill="#c0d2a3">*</tspan></text>
+    <text x="940" y="92" font-size="22" fill="#c0d2a3">Selected work</text>
+    <text x="70" y="300" font-size="118">Anxo</text>
+    <text x="190" y="430" font-size="118">Fandi&#241;o<tspan fill="#c0d2a3">*</tspan></text>
+    <text x="70" y="550" font-size="22" fill="#c0d2a3">Computer vision / Movement / Systems</text>
+    <text x="970" y="550" font-size="22" fill="#c0d2a3">jgsops.dev</text>
+  </g>
+</svg>

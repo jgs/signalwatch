@@ -25,7 +25,7 @@ const navGroups = [
     label: "Understand",
     key: "understand",
     items: [
-      { href: "/about", label: "About", key: "about" },
+      { href: "/signalwatch/about", label: "About SIGNALWATCH", key: "about" },
       { href: "/learn/glossary", label: "AI basics", key: "glossary" },
       { href: "/learn/llm-training", label: "LLM guide", key: "llm-training" },
       { href: "/safety", label: "AI safety", key: "safety" },
@@ -37,7 +37,7 @@ const navGroups = [
 export function OperationalNav({ active }: { active?: string }) {
   return (
     <nav className="flex flex-col gap-4 border-b border-signal-line/60 pb-4 font-mono uppercase text-signal-dim lg:flex-row lg:items-center lg:justify-between">
-      <Link href="/" className="text-[0.86rem] tracking-[0.18em] text-signal-green/80 transition hover:text-signal-green">SIGNALWATCH</Link>
+      <div className="flex flex-wrap items-center gap-4"><Link href="/signalwatch" className="text-[0.86rem] tracking-[0.18em] text-signal-green/80 transition hover:text-signal-green">SIGNALWATCH</Link><Link href="/" className="text-[0.62rem] hover:text-signal-text">Anxo / portfolio</Link></div>
       <div className="flex flex-wrap items-center gap-2 lg:justify-end">
         <Link
           href="/start"

@@ -1,3 +1,47 @@
+# Anxo Fandiño — Portfolio
+
+Personal portfolio for Anxo Fandiño, built with Next.js and TypeScript. Project domain: [jgsops.dev](https://jgsops.dev). All portfolio copy is in English.
+
+Selected projects:
+
+- [Squat Judge](https://github.com/jgs/Squat-Judge): final project exploring pose estimation, joint angles, and squat sequence analysis.
+- [BarPath AI](https://github.com/jgs/barpath-ai): barbell trajectory analysis and annotated training footage.
+- [SIGNALWATCH](https://github.com/jgs/signalwatch): source monitoring, evidence inspection, and perception robustness.
+
+Portfolio routes: `/`, `/about`, and `/work/[slug]`. The original SIGNALWATCH entry is preserved at `/signalwatch`, with its project background at `/signalwatch/about`. Existing operational routes remain available.
+
+Project descriptions follow the repositories' documentation. BarPath shows a still from its recorded repository demo and plays the recording on request. The Squat Judge feature includes an educational anatomy study for squat, deadlift, and bench press, with linked NASM sources. These qualitative muscle highlights are not model outputs or measured activation. Infrastructure artwork is labeled as generated context. No results or performance figures are invented.
+
+The portfolio uses an editorial project gallery with larger previews, project context before the media, and direct links to each case study and source repository. Sticky navigation keeps Work, Study, About me and Contact accessible. The "A closer look" section distinguishes the educational movement study from the model-dependent perception lab. The original anatomy illustration and its interactions are unchanged.
+
+The green opening fills the initial view, with a small preview of the next chapter. Section links use native smooth scrolling, without replacing wheel or touch behavior. Reduced-motion preferences disable the background animation and smooth scrolling. The background also has a pause control and stops animating outside the viewport or when the tab is hidden. The project directory links directly to each case, and the contact area copies the public email address without opening an email application.
+
+Case pages show one documented workflow for each movement project and a separate component overview for SIGNALWATCH; its independent surfaces are not presented as a sequential data pipeline. These diagrams describe project structure, not live inference or measured results.
+
+Anatomy rendering uses `js-rich-body-highlighter` (MIT). Its asset license and source notes are retained in `frontend/public/portfolio/anatomy/LICENSE` and `frontend/public/portfolio/media.json`. The study is contained in `MovementStudy` and can be removed without changing the project data or inference modules.
+
+## Local Development
+
+From `frontend`, run `npm ci` and `npm run dev`. Portfolio pages do not require the backend; SIGNALWATCH live surfaces require the backend configuration described below.
+
+Frontend checks: `npm run typecheck` and `npm run build`. Type checking generates Next.js route definitions first, including on a clean checkout. Backend checks, from `backend`: `python -m pytest` and `python -m compileall app`.
+
+Dependency maintenance: Next.js and its ESLint configuration are pinned to `15.5.29`. The scoped PostCSS override keeps Next.js on the same patched `8.5.32` release as the build toolchain. TypeScript ESLint tools are pinned together to preserve ESLint 9 compatibility. The production audit is clear as of November 12, 2026. The full audit still reports six moderate entries from one [Minimatch advisory](https://github.com/advisories/GHSA-g3hv-75wg-m249) in the development-only TypeScript ESLint dependency chain; its fix requires a major dependency change. Do not run lint against untrusted glob patterns, and recheck both audits before deployment. An audit is not a guarantee that the application is vulnerability-free.
+
+## Portfolio Preview
+
+Actual browser captures of the portfolio, including its mobile layout:
+
+<img src="assets/screenshots/portfolio-hero-1440.jpg" alt="Full-screen green opening with Anxo Fandiño's name and a subtle interactive field" width="100%">
+
+<img src="assets/screenshots/portfolio-hero-390.jpg" alt="Mobile opening with the same green visual identity and accessible navigation" width="280">
+
+[Full desktop page](assets/screenshots/portfolio-refined-1440.jpg) / [Full mobile page](assets/screenshots/portfolio-refined-390.jpg) / [Project gallery](assets/screenshots/portfolio-refined-gallery.jpg)
+
+## SIGNALWATCH Project Documentation
+
+The sections below describe the embedded SIGNALWATCH project rather than the portfolio as a whole.
+
 <p align="center">
   <img src="assets/screenshots/dashboard.svg" alt="SIGNALWATCH realtime operational console" width="100%">
 </p>
@@ -55,7 +99,7 @@ Recommended public path:
 /start -> /console -> /evidence -> /labs/perception
 ```
 
-The `/about` page explains what SIGNALWATCH is, what it is not, and which surfaces contain source data, runtime telemetry, browser-side model outputs, or conceptual education.
+The `/signalwatch/about` page explains what SIGNALWATCH is, what it is not, and which surfaces contain source data, runtime telemetry, browser-side model outputs, or conceptual education.
 
 ## Operational Principle
 

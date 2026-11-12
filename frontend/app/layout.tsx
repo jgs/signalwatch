@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import "./portfolio.css";
 
 const sans = Inter({
   subsets: ["latin"],
@@ -19,49 +20,45 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://jgsops.dev"),
   title: {
-    default: "SIGNALWATCH - Evidence-first AI observability",
-    template: "%s / SIGNALWATCH"
+    default: "Anxo Fandiño — Selected Work",
+    template: "%s / Anxo Fandiño"
   },
   description:
-    "An evidence-aware AI observability surface for inspecting source-backed signals, runtime telemetry, and perception robustness without fabricated metrics.",
-  alternates: {
-    canonical: "/"
-  },
+    "The portfolio of Anxo Fandiño. Projects in computer vision, human movement, and intelligent systems engineering.",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon.png", type: "image/png" }
+      { url: "/portfolio-mark.svg", type: "image/svg+xml" }
     ],
     apple: "/apple-icon.png"
   },
   openGraph: {
-    title: "SIGNALWATCH - Evidence-first AI observability",
+    title: "Anxo Fandiño — Selected Work",
     description:
-      "Inspect source-backed AI signals, runtime telemetry, evidence boundaries, and perception robustness without fabricated metrics.",
+      "Computer vision, human movement, and intelligent systems. Explore selected projects by Anxo Fandiño.",
     url: "https://jgsops.dev",
-    siteName: "SIGNALWATCH",
+    siteName: "Anxo Fandiño",
     type: "website",
     images: [
       {
-        url: "/og-image.svg",
+        url: "/portfolio-share.png",
         width: 1200,
         height: 630,
-        alt: "SIGNALWATCH evidence-first AI observability"
+        alt: "Anxo Fandiño — computer vision, movement, systems"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "SIGNALWATCH - Evidence-first AI observability",
+    title: "Anxo Fandiño — Selected Work",
     description:
-      "Inspect source-backed AI signals, runtime telemetry, evidence boundaries, and perception robustness without fabricated metrics.",
-    images: ["/og-image.svg"]
+      "Computer vision, human movement, and intelligent systems. Explore selected projects by Anxo Fandiño.",
+    images: ["/portfolio-share.png"]
   }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" data-scroll-behavior="smooth">
       <body className={`${sans.variable} ${mono.variable} font-sans antialiased`}>
         {children}
         <Analytics />

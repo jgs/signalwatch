@@ -1,0 +1,12 @@
+{
+  "barpath-poster.png": {
+    "source": "https://raw.githubusercontent.com/jgs/barpath-ai/main/assets/demo/squat-demo.gif",
+    "role": "Still frame rendered from the published project demonstration. No inference was rerun and no overlays were added."
+  },
+  "anatomy": {
+    "source": "https://github.com/crmapache/js-rich-body-highlighter",
+    "package_version": "0.1.1",
+    "license": "MIT; full notice retained in anatomy/LICENSE",
+    "role": "Educational anatomy illustration. Exercise highlights are qualitative guides, not measured activation or a model output."
+  }
+}
