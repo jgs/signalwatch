@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Eye, ScanLine } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Eye, Hand, ScanLine } from "lucide-react";
 import { PortfolioNav, PortfolioFooter } from "@/components/portfolio/shell";
 import { KineticField } from "@/components/portfolio/kinetic-field";
 import { WorkIndex } from "@/components/portfolio/work-index";
@@ -37,6 +37,11 @@ export default function PortfolioPage() {
           <Link href="/labs/perception" className="pf-exploration-link">
             <Eye size={24} aria-hidden="true" />
             <div><h3>Perception lab</h3><p>What changes when an image becomes harder to see?</p><span>Browser inference / model availability required</span></div>
+            <ArrowUpRight size={24} aria-hidden="true" />
+          </Link>
+          <Link href="/input" className="pf-exploration-link">
+            <Hand size={24} aria-hidden="true" />
+            <div><h3>You&apos;re the input</h3><p>A portfolio experiment in hand-controlled navigation.</p><span>Camera optional / browser-side tracking</span></div>
             <ArrowUpRight size={24} aria-hidden="true" />
           </Link>
         </div>

@@ -7,12 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "next typegen && tsc --noEmit"
+    "typecheck": "next typegen && tsc --noEmit",
+    "test:input": "node --experimental-strip-types --test tests/input-controls.test.mjs tests/hand-gestures.test.mjs"
   },
   "dependencies": {
     "@radix-ui/react-collapsible": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.2",
     "@tensorflow-models/coco-ssd": "^2.2.3",
+    "@tensorflow-models/hand-pose-detection": "2.0.1",
     "@tensorflow/tfjs": "^4.22.0",
     "@vercel/analytics": "^2.0.1",
     "class-variance-authority": "^0.7.1",
